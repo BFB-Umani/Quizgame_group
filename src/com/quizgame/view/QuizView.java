@@ -18,6 +18,8 @@ public class QuizView {
     private Button answerButton4 = new Button();
 
     public void setUp(){
+        designLayout.setId("Testcase");
+        questionLabel.setId("Test");
         designLayout.getChildren().add(questionLabel);
         designLayout.getChildren().add(answerLayout);
         answerLayout.getChildren().add(answerButton1);

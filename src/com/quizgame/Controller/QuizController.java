@@ -56,7 +56,7 @@ public class QuizController {
                         questionCounter++;
                     }
                 }
-                if (questionCounter > 4) {
+                if (questionCounter >= 4) {
                     for (int i = 0; i < storedQuestion.length; i++) {
                         storedQuestion[i] = 5;
                         questionCounter = 0;

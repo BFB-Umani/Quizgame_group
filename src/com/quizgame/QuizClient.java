@@ -1,12 +1,17 @@
 package com.quizgame;
 
+import com.quizgame.Controller.QuizController;
+import com.quizgame.view.QuizView;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class QuizClient {
+public class QuizClient extends Application {
     public QuizClient(){
-        String hostname = "192.168.1.72";
+        String hostname = "127.0.0.1";
         int portNr = 12345;
         try(
                 Socket quizSocket = new Socket(hostname,portNr);
@@ -24,7 +29,22 @@ public class QuizClient {
         }
     }
 
-    public static void main(String[] args) {
+    @Override
+    public void start(Stage stage) throws Exception {
+        stage.setTitle("Quizgame");
+        QuizView quizView = new QuizView();
+        QuizController quizController = new QuizController(quizView);
+        Scene scene = new Scene(quizView.getDesignLayout(),425,375);
+        stage.setScene(scene);
+        scene.getStylesheets().add(QuizClient.class.getResource("Style.css").toExternalForm());
+        quizView.setUp();
+        quizController.start();
+        stage.show();
         QuizClient quizClient = new QuizClient();
+
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }

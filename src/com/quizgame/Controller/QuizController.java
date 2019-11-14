@@ -5,6 +5,7 @@ import com.quizgame.Question;
 import com.quizgame.view.QuizView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 
 import java.util.Random;
@@ -59,6 +60,8 @@ public class QuizController {
     }
 
     private void showQuestion(Question question){
+        quizView.getQuestionLabel().setMaxWidth(Double.MAX_VALUE);
+        quizView.getQuestionLabel().setAlignment(Pos.CENTER);
         quizView.getQuestionLabel().setText(question.getQuestion());
 
         quizView.getAnswerButton1().setText(question.getRightAnswer());

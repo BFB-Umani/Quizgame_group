@@ -34,7 +34,7 @@ public class QuizClient extends Application {
         stage.setTitle("Quizgame");
         QuizView quizView = new QuizView();
         QuizController quizController = new QuizController(quizView);
-        Scene scene = new Scene(quizView.getDesignLayout(),620,480);
+        Scene scene = new Scene(quizView.getDesignLayout(),480,620);
         stage.setScene(scene);
         scene.getStylesheets().add(QuizClient.class.getResource("Style.css").toExternalForm());
         quizView.setUp();

@@ -47,4 +47,5 @@ public class QuizClient extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+    //Mario funkar(kanske)
 }

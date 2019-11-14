@@ -11,6 +11,8 @@
 }
 #Test {
     -fx-background-image: url("view/question_label.png");
+    /*-fx-background-repeat: streth;
+    -fx-background-size: 480, 310;*/
 
 }
 #Testcase {

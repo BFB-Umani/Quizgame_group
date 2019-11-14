@@ -1,0 +1,23 @@
+.button{
+    -fx-background-color: #ffcbd4;
+}
+
+#right{
+    -fx-background-color: #71ce75;
+}
+
+#wrong{
+    -fx-background-color: rgba(188, 35, 37, 0.96);
+}
+#Test {
+    -fx-background-image: url("view/question_label.png");
+    /*-fx-background-repeat: streth;
+    -fx-background-size: 480, 310;*/
+
+}
+#Testcase {
+    -fx-background-image: url("view/game_background.png");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 620, 480;
+
+}

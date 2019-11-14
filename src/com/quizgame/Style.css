@@ -1,5 +1,5 @@
 .button{
-    -fx-background-color: #ffcbd4;
+    -fx-background-color: #f0f0f0;
 }
 
 #right{
@@ -9,13 +9,11 @@
 #wrong{
     -fx-background-color: rgba(188, 35, 37, 0.96);
 }
-#Test {
+#questionLabel {
     -fx-background-image: url("view/question_label.png");
-    /*-fx-background-repeat: streth;
-    -fx-background-size: 480, 310;*/
 
 }
-#Testcase {
+#background {
     -fx-background-image: url("view/game_background.png");
     -fx-background-repeat: stretch;
     -fx-background-size: 620, 480;

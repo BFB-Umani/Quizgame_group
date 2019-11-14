@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import java.util.Random;
 
 public class QuizController {
+    int answeredState = 0;
     private DataBase dataBase = new DataBase();
     private QuizView quizView;
     private Question question;
@@ -24,33 +25,18 @@ public class QuizController {
         question = getRandomQuestion();
         showQuestion(question);
 
-        quizView.getAnswerButton1().setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                clickAnswerButton((Button)actionEvent.getSource());//????????????
-            }
-        });
+        quizView.getAnswerButton1().setOnAction(this::handle);
+        quizView.getAnswerButton2().setOnAction(this::handle);
+        quizView.getAnswerButton3().setOnAction(this::handle);
+        quizView.getAnswerButton4().setOnAction(this::handle);
+    }
 
-        quizView.getAnswerButton2().setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                clickAnswerButton((Button)actionEvent.getSource());
-            }
-        });
-
-        quizView.getAnswerButton3().setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                clickAnswerButton((Button)actionEvent.getSource());
-            }
-        });
-
-        quizView.getAnswerButton4().setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                clickAnswerButton((Button)actionEvent.getSource());
-            }
-        });
+    private void handle(ActionEvent actionEvent) {
+        if(answeredState == 0) {
+            clickAnswerButton((Button) actionEvent.getSource());
+        }else {
+            nextQuestion();
+        }
     }
 
     private Question getRandomQuestion(){
@@ -82,6 +68,7 @@ public class QuizController {
 
     private void clickedRightAnswerButton(Button button){
         button.setId("right");
+        answeredState = 1;
     }
 
     private void clickeWrongAnswerButton(Button button){
@@ -90,6 +77,16 @@ public class QuizController {
         if(rightButton != null){
         rightButton.setId("right");
         }
+        answeredState = 1;
+    }
+    void nextQuestion(){
+        quizView.getAnswerButton1().setId(".button");
+        quizView.getAnswerButton2().setId(".button");
+        quizView.getAnswerButton3().setId(".button");
+        quizView.getAnswerButton4().setId(".button");
+        question = getRandomQuestion();
+        showQuestion(question);
+        answeredState = 0;
     }
 
     private Button getRightAnswerButton(){

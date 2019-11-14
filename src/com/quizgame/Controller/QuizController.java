@@ -11,7 +11,9 @@ import javafx.scene.control.Button;
 import java.util.Random;
 
 public class QuizController {
-    int answeredState = 0;
+    int questionCounter = 0;
+    int[] storedQuestion = {5,5,5,5};
+    private int answeredState = 0;
     private DataBase dataBase = new DataBase();
     private QuizView quizView;
     private Question question;
@@ -40,8 +42,24 @@ public class QuizController {
     }
 
     private Question getRandomQuestion(){
+        Question randomQuestion;
+
+        if(questionCounter == 4) {
+            for (int i = 0; i < storedQuestion.length ; i++) {
+                storedQuestion[i] = 5;
+            }
+        }
         Random random = new Random();
-        Question randomQuestion = dataBase.questionList.get(random.nextInt(dataBase.questionList.size()));
+        while (true) {
+            int quizNumber = random.nextInt(dataBase.questionList.size());
+            if(storedQuestion[quizNumber] == quizNumber) {
+                questionCounter++;
+            }
+            else {
+                randomQuestion = dataBase.questionList.get(quizNumber);
+                break;
+            }
+        }
         return randomQuestion;
     }
 

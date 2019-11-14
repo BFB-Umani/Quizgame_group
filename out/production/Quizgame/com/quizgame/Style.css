@@ -1,0 +1,11 @@
+.button{
+    -fx-background-color: #ffcbd4;
+}
+
+#right{
+    -fx-background-color: #71ce75;
+}
+
+#wrong{
+    -fx-background-color: rgba(188, 35, 37, 0.96);
+}

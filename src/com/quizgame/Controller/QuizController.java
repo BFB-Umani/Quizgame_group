@@ -1,27 +1,30 @@
 package com.quizgame.Controller;
 
-import com.quizgame.DataBase;
-import com.quizgame.Question;
+import com.quizgame.Database;
+import com.quizgame.QuizItem;
 import com.quizgame.view.QuizView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
-import java.util.Random;
+import java.util.*;
 
 public class QuizController {
-    private DataBase dataBase = new DataBase();
+    private Database database = new Database();
     private QuizView quizView;
-    private Question question;
+    private QuizItem item;
+    List<QuizItem> questionList;
 
     public QuizController(QuizView quizView){
+        //questionList = database.loadQuestions();
+        item = database.getItem(); // bara för att skicka något
         this.quizView = quizView;
     }
 
     public void start() {
-        dataBase.loadQuestions();
-        question = getRandomQuestion();
-        showQuestion(question);
+        //database.loadQuestions();
+        // question = getRandomQuestion();
+        showQuestion(item);
 
         quizView.getAnswerButton1().setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -52,25 +55,33 @@ public class QuizController {
         });
     }
 
-    private Question getRandomQuestion(){
-        Random random = new Random();
+   /* private Question getRandomQuestion(){
+       *//* Random random = new Random();
         Question randomQuestion = dataBase.questionList.get(random.nextInt(dataBase.questionList.size()));
-        return randomQuestion;
-    }
+        return randomQuestion;*//*
+    }*/
 
-    private void showQuestion(Question question){
-        quizView.getQuestionLabel().setText(question.getQuestion());
+    private void showQuestion(QuizItem item){
 
-        quizView.getAnswerButton1().setText(question.getRightAnswer());
-        quizView.getAnswerButton2().setText(question.getWrongAnswerList().get(0));
-        quizView.getAnswerButton3().setText(question.getWrongAnswerList().get(1));
-        quizView.getAnswerButton4().setText(question.getWrongAnswerList().get(2));
+        List<String> answerList = new ArrayList<>();
 
+        answerList.add(item.getRightAnswer());
+        answerList.add(item.getWrongAnswer().get(0));
+        answerList.add(item.getWrongAnswer().get(1));
+        answerList.add(item.getWrongAnswer().get(2));
+
+        Collections.shuffle(answerList);
+
+        quizView.getQuestionLabel().setText(item.getQuestion());
+        quizView.getAnswerButton1().setText(answerList.get(0));
+        quizView.getAnswerButton2().setText(answerList.get(1));
+        quizView.getAnswerButton3().setText(answerList.get(2));
+        quizView.getAnswerButton4().setText(answerList.get(3));
     }
 
     private void clickAnswerButton(Button button){
 
-        if(button.getText().equalsIgnoreCase(question.getRightAnswer())){
+        if(button.getText().equalsIgnoreCase(item.getRightAnswer())){
             clickedRightAnswerButton(button);
         }else {
             clickeWrongAnswerButton(button);
@@ -91,13 +102,13 @@ public class QuizController {
 
     private Button getRightAnswerButton(){
 
-        if(question.getRightAnswer().equalsIgnoreCase(quizView.getAnswerButton1().getText())){
+        if(item.getRightAnswer().equalsIgnoreCase(quizView.getAnswerButton1().getText())){
             return quizView.getAnswerButton1();
-        }else if (question.getRightAnswer().equalsIgnoreCase(quizView.getAnswerButton2().getText())){
+        }else if (item.getRightAnswer().equalsIgnoreCase(quizView.getAnswerButton2().getText())){
             return quizView.getAnswerButton2();
-        }else if(question.getRightAnswer().equalsIgnoreCase(quizView.getAnswerButton3().getText())){
+        }else if(item.getRightAnswer().equalsIgnoreCase(quizView.getAnswerButton3().getText())){
             return quizView.getAnswerButton3();
-        }else if (question.getRightAnswer().equalsIgnoreCase(quizView.getAnswerButton4().getText())){
+        }else if (item.getRightAnswer().equalsIgnoreCase(quizView.getAnswerButton4().getText())){
             return quizView.getAnswerButton4();
         }else {
             return null;

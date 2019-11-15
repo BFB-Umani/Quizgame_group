@@ -108,14 +108,14 @@ public class Database {
         }
         sport = allItems.subList(0,9);                      // numbers... :( det blir 10 items utan att kunna förändra antalet!!!
         italienskKöket = allItems.subList(10,19);           // men det är bra förtillfället :)
-                              //bara för att skicka något
+        //bara för att skicka något
     }
 
 
     public List<QuizItem> loadQuestions(){  // det ska vara fråga paketet
         Collections.shuffle(italienskKöket);//italienskKoket ska bli en varabel som beror på users val
         for (int i=0; i<4; i++)             // till i<4  4 ska bli en varabel som beror på users val
-        questionList.add(italienskKöket.get(i));  //questionlist blir itemPack?
+            questionList.add(italienskKöket.get(i));  //questionlist blir itemPack?
         //eller utan loop
         /*questionList = italienskKöket.subList(0,4);*/
         return questionList;

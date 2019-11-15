@@ -52,16 +52,6 @@ public class QuizView {
         row1.setPercentHeight(50);
         answerLayout.getRowConstraints().addAll(row0,row1);
 
-//        answerButton1.setMaxWidth(1000);
-//        answerButton2.setMaxWidth(1000);
-//        answerButton3.setMaxWidth(1000);
-//        answerButton4.setMaxWidth(1000);
-//
-//        answerButton1.setMaxHeight(1000);
-//        answerButton2.setMaxHeight(1000);
-//        answerButton3.setMaxHeight(1000);
-//        answerButton4.setMaxHeight(1000);
-
         answerButton1.setMinSize(200,100);
         answerButton2.setMinSize(200,100);
         answerButton3.setMinSize(200,100);

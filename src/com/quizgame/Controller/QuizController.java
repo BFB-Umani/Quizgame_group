@@ -46,36 +46,6 @@ public class QuizController {
         }
     }
 
-//    private Question getRandomQuestion() {
-//        Question randomQuestion;
-//
-//
-//        Random random = new Random();
-//        while(true) {
-//            int quizNumber = random.nextInt(database.questionList.size());
-//
-//            if (storedQuestion[quizNumber] == quizNumber || quizNumber == lastQuestion) {
-//                for (int i = 0; i < 4; i++) {
-//                    if(storedQuestion[i] == i) {
-//                        questionCounter++;
-//                    }
-//                }
-//                if (questionCounter >= 4) {
-//                    for (int i = 0; i < storedQuestion.length; i++) {
-//                        storedQuestion[i] = 5;
-//                        questionCounter = 0;
-//                    }
-//                }
-//            } else {
-//                storedQuestion[quizNumber] = quizNumber;
-//                randomQuestion = database.questionList.get(quizNumber);
-//                lastQuestion = quizNumber;
-//                break;
-//            }
-//        }
-//        return randomQuestion;
-//    }
-
     private void showQuestion(QuizItem item) {
 
         List<String> answerList = new ArrayList<>();

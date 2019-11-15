@@ -4,6 +4,7 @@ import com.quizgame.Controller.QuizController;
 import com.quizgame.view.QuizView;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.*;
 import java.net.Socket;
@@ -11,7 +12,7 @@ import java.net.UnknownHostException;
 
 public class QuizClient extends Application {
     public QuizClient(){
-        String hostname = "127.0.0.1";
+        String hostname = "192.168.1.72";
         int portNr = 12345;
         try(
                 Socket quizSocket = new Socket(hostname,portNr);
@@ -37,6 +38,7 @@ public class QuizClient extends Application {
         Scene scene = new Scene(quizView.getDesignLayout(),480,620);
         stage.setResizable(false);
         stage.setScene(scene);
+        stage.getIcons().add(new Image("/images/quizIcon.png"));
         scene.getStylesheets().add(QuizClient.class.getResource("Style.css").toExternalForm());
         quizView.setUp();
         quizController.start();

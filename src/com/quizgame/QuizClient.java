@@ -1,6 +1,7 @@
 package com.quizgame;
 
 import com.quizgame.Controller.QuizController;
+import com.quizgame.properties.ClientPropertiesReader;
 import com.quizgame.view.QuizView;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -11,11 +12,10 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class QuizClient extends Application {
+        private ClientPropertiesReader clientPropertiesReader = new ClientPropertiesReader();
     public QuizClient(){
-        String hostname = "192.168.39.13";
-        int portNr = 12345;
         try(
-                Socket quizSocket = new Socket(hostname,portNr);
+                Socket quizSocket = new Socket(clientPropertiesReader.getHostName(),clientPropertiesReader.getPortNr());
                 PrintWriter out = new PrintWriter(quizSocket.getOutputStream(),true);
                 BufferedReader in = new BufferedReader(new InputStreamReader(quizSocket.getInputStream()));
 

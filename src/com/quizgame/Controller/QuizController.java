@@ -1,5 +1,6 @@
 package com.quizgame.Controller;
 
+import com.quizgame.DataBaseUpdated;
 import com.quizgame.Database;
 import com.quizgame.Question;
 import com.quizgame.QuizItem;
@@ -17,7 +18,7 @@ public class QuizController {
     private int questionCounter = 0;
     private int[] storedQuestion = {5, 5, 5, 5};
     private int answeredState = 0;
-    private Database database = new Database();
+    private DataBaseUpdated database = new DataBaseUpdated();
     private QuizView quizView;
 //    private Question question;
     private QuizItem item;
@@ -28,7 +29,6 @@ public class QuizController {
     }
 
     public void start() {
-        database.loadQuestions();
 //        question = getRandomQuestion();
         showQuestion(item);
 
@@ -49,11 +49,11 @@ public class QuizController {
     private void showQuestion(QuizItem item) {
 
         List<String> answerList = new ArrayList<>();
-//
-//        answerList.add(item.getRightAnswer());
-//        answerList.add(item.getWrongAnswer().get(0));
-//        answerList.add(item.getWrongAnswer().get(1));
-//        answerList.add(item.getWrongAnswer().get(2));
+
+        answerList.add(item.getRightAnswer());
+        answerList.add(item.getAllAnswer().get(0));
+        answerList.add(item.getAllAnswer().get(1));
+        answerList.add(item.getAllAnswer().get(2));
 
         Collections.shuffle(answerList);
 

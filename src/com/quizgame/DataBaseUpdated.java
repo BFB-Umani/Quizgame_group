@@ -72,4 +72,7 @@ public class DataBaseUpdated {
         return rightAnswersList;
     }
 
+    public QuizItem getItem() {
+        return quizItems.get(0);
+    }
 }

@@ -1,0 +1,8 @@
+Sport | Where will Olympic Game 2020 be held? | Tokyo*Beijing*New York*Stockholm | Tokyo
+Sport | How many players has a hockey team got on the ice? | 8*9*6*7 | 6
+Animal | Which animal does not belong in this group? | Fish*Dog*Cat*Pig | Fish
+Animal | A snail can sleep for how many years? | 1*2*3*4 | 3
+Color | Which color does not belong in this group? | Black*Yellow*Red*Orange | Black
+Color | What color is the M in McDonald's? | Red*Orange*Green*Yellow | Yellow
+Food | Which vitamin is the only one that you will not find in an egg? | Vitamin A*Vitamin B*Vitamin C*Vitamin D | Vitamin C
+Food | Which food contains the least sugar? | Apple*Chocolate*Condensed milk*Juice | Apple

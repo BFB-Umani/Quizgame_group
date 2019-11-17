@@ -1,18 +1,18 @@
 package com.quizgame;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class QuizItem {
-    String subject;
-    String question;
-    String rightAnswer;
-    ArrayList<String> wrongAnswer = new ArrayList<>(4);
+    private String subject;
+    private String question;
+    private String rightAnswer;
+    private List<String> allAnswers;
 
-    public QuizItem(/*String subject,*/ String question, String rightAnswer, ArrayList<String> wrongAnswer) {
+    public QuizItem(String subject, String question,List<String> allAnswers, String rightAnswer) {
         this.subject = subject;
         this.question = question;
+        this.allAnswers = allAnswers;
         this.rightAnswer = rightAnswer;
-        this.wrongAnswer = wrongAnswer;
     }
 
     public String getQuestion() {
@@ -23,7 +23,11 @@ public class QuizItem {
         return rightAnswer;
     }
 
-    public ArrayList<String> getWrongAnswer() {
-        return wrongAnswer;
+    public List<String> getAllAnswer() {
+        return allAnswers;
+    }
+
+    public String getSubject() {
+        return subject;
     }
 }

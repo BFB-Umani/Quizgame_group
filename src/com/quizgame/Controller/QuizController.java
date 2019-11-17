@@ -49,11 +49,11 @@ public class QuizController {
     private void showQuestion(QuizItem item) {
 
         List<String> answerList = new ArrayList<>();
-
-        answerList.add(item.getRightAnswer());
-        answerList.add(item.getWrongAnswer().get(0));
-        answerList.add(item.getWrongAnswer().get(1));
-        answerList.add(item.getWrongAnswer().get(2));
+//
+//        answerList.add(item.getRightAnswer());
+//        answerList.add(item.getWrongAnswer().get(0));
+//        answerList.add(item.getWrongAnswer().get(1));
+//        answerList.add(item.getWrongAnswer().get(2));
 
         Collections.shuffle(answerList);
 

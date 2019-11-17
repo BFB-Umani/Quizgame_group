@@ -12,7 +12,7 @@ import java.net.UnknownHostException;
 
 public class QuizClient extends Application {
     public QuizClient(){
-        String hostname = "192.168.1.72";
+        String hostname = "192.168.39.13";
         int portNr = 12345;
         try(
                 Socket quizSocket = new Socket(hostname,portNr);

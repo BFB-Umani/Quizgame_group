@@ -1,5 +1,9 @@
 package com.quizgame;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,6 +17,8 @@ public class Database {
     List<QuizItem> sport;
     List<QuizItem> italienskKöket;
     List<QuizItem> questionList = new ArrayList<QuizItem>();
+
+
 
 
     private static final String[] QUESTION = {
@@ -97,18 +103,7 @@ public class Database {
 
 
     public Database() {
-        for (int indexQuestion = 0; indexQuestion < QUESTION.length; indexQuestion++) {
 
-            //skapar en tillfälligt wrongAnswer list som blir parameter i new QuizItem
-            ArrayList<String> wrongAnswer = new ArrayList<>();
-            for (int indexWrongAnswer = 0; indexWrongAnswer < 3; indexWrongAnswer++)
-                wrongAnswer.add(WRONG_ANSWER[(3 * indexQuestion) + indexWrongAnswer]);  //koordinerar 10 String(Q) med 40 String(A)
-            QuizItem item = new QuizItem(QUESTION[indexQuestion], RIGHT_ANSWER[indexQuestion], wrongAnswer);
-            allItems.add(item);
-        }
-        sport = allItems.subList(0,9);                      // numbers... :( det blir 10 items utan att kunna förändra antalet!!!
-        italienskKöket = allItems.subList(10,19);           // men det är bra förtillfället :)
-        //bara för att skicka något
     }
 
 
@@ -125,6 +120,21 @@ public class Database {
         //Collections.shuffle(italienskKöket);
         item = italienskKöket.get(0);
         return item;
+    }
+
+    private void getOldVersion(){
+        for (int indexQuestion = 0; indexQuestion < QUESTION.length; indexQuestion++) {
+
+            //skapar en tillfälligt wrongAnswer list som blir parameter i new QuizItem
+            ArrayList<String> wrongAnswer = new ArrayList<>();
+            for (int indexWrongAnswer = 0; indexWrongAnswer < 3; indexWrongAnswer++)
+                wrongAnswer.add(WRONG_ANSWER[(3 * indexQuestion) + indexWrongAnswer]);  //koordinerar 10 String(Q) med 40 String(A)
+          //  QuizItem item = new QuizItem(QUESTION[indexQuestion], RIGHT_ANSWER[indexQuestion], wrongAnswer);
+            allItems.add(item);
+        }
+        sport = allItems.subList(0,9);                      // numbers... :( det blir 10 items utan att kunna förändra antalet!!!
+        italienskKöket = allItems.subList(10,19);           // men det är bra förtillfället :)
+        //bara för att skicka något
     }
 
 

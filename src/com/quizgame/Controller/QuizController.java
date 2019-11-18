@@ -1,7 +1,6 @@
 package com.quizgame.Controller;
 
 import com.quizgame.Database;
-import com.quizgame.Question;
 import com.quizgame.QuizItem;
 import com.quizgame.view.QuizView;
 import javafx.event.ActionEvent;
@@ -17,19 +16,17 @@ public class QuizController {
     private int questionCounter = 0;
     private int[] storedQuestion = {5, 5, 5, 5};
     private int answeredState = 0;
-    private Database database = new Database();
+    //private Database database = new Database();
     private QuizView quizView;
-//    private Question question;
     private QuizItem item;
 
-    public QuizController(QuizView quizView) {
-        item = database.getItem();
+    public QuizController(QuizView quizView, Object item) {
+        this.item = (QuizItem)item;
         this.quizView = quizView;
     }
 
     public void start() {
-        database.loadQuestions();
-//        question = getRandomQuestion();
+        //database.loadQuestions();
         showQuestion(item);
 
         quizView.getAnswerButton1().setOnAction(this::handle);

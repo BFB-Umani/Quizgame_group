@@ -1,32 +1,49 @@
 package com.quizgame;
 
-import javafx.animation.ScaleTransition;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.ServerSocket;
+import java.io.*;
 import java.net.Socket;
+import java.util.Collections;
 
-public class QuizServer {
-
-    int portNr = 12345;
-
-    public QuizServer() {
-        try (
-                ServerSocket serverSocket = new ServerSocket(portNr);
-                Socket socketToClient = serverSocket.accept();
-                PrintWriter out = new PrintWriter(socketToClient.getOutputStream(),true);
-                BufferedReader in = new BufferedReader(new InputStreamReader(socketToClient.getInputStream()));
-        ) {
+public class QuizServer extends Thread{
+    private Socket socketToClient;
+    QuizServer opponent;
+    BufferedReader in;
+    ObjectOutputStream out;
+    String username;
+    Database database = new Database();
 
 
+    QuizServer(Socket socketToClient, String username) {
 
-        }catch (IOException e){
-            e.printStackTrace();
+        this.socketToClient = socketToClient;
+        this.username = username;
+        try {
+            out = new ObjectOutputStream(socketToClient.getOutputStream());
+            in = new BufferedReader(new InputStreamReader(socketToClient.getInputStream()));
+
+            // out.println("WELCOME " + username);
+            //out.println("MESSAGE Waiting for opponent to connect");*/
+            //out.println(database.allItems.get(8).getFourAnswer().get(2));
+            QuizItem item= database.getItem();
+            out.writeObject(item);
+
+        } catch (IOException e) {
+            System.out.println("Player died: " + e);
         }
+
+
     }
 
+    @Override
+    public void run() {
+
+
+
+    }
+
+    public void setOpponent(QuizServer opponent) {
+        this.opponent = opponent;
+    }
 
 }
+

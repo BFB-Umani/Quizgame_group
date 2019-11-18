@@ -1,8 +1,9 @@
 package com.quizgame;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class QuizItem {
+public class QuizItem implements Serializable{
     String subject;
     String question;
     String rightAnswer;

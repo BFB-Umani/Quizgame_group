@@ -74,6 +74,7 @@ import com.quizgame.Controller.QuizController;
 import com.quizgame.view.QuizView;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.*;
 import java.net.Socket;
@@ -102,8 +103,9 @@ public class QuizClient extends Application {
         Scene scene = new Scene(quizView.getDesignLayout(),480,620);
         stage.setResizable(false);
         stage.setScene(scene);
-        scene.getStylesheets().add(QuizClient.class.getResource("Style.css").toExternalForm());
+        stage.getIcons().add(new Image("/images/quizIcon.png"));
         quizView.setUp();
+        scene.getStylesheets().add(QuizClient.class.getResource("Style.css").toExternalForm());
 
         QuizClient quizClient = new QuizClient("127.0.0.1");
 

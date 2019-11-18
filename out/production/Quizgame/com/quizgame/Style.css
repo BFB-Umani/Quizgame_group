@@ -1,5 +1,5 @@
 .button{
-    -fx-background-color: #f0f0f0;
+    -fx-background-color: #f07acf;
 }
 
 #right{
@@ -18,4 +18,20 @@
     -fx-background-repeat: stretch;
     -fx-background-size: 620, 480;
 
+}
+
+#quizKampenText{
+    -fx-font-size: 40;
+}
+
+#nameText{
+    -fx-font-weight: bold;
+}
+
+#buttonLayout{
+    -fx-padding: 40px;
+}
+
+#chooseSubject{
+    -fx-font-size: 30;
 }

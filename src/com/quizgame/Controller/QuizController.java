@@ -27,6 +27,7 @@ public class QuizController {
 
     public void start() {
         //database.loadQuestions();
+        quizView.setUp();
         showQuestion(item);
 
         quizView.getAnswerButton1().setOnAction(this::handle);

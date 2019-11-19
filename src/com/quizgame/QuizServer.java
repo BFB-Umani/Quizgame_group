@@ -3,6 +3,7 @@ package com.quizgame;
 import java.io.*;
 import java.net.Socket;
 import java.util.Collections;
+import java.util.List;
 
 public class QuizServer extends Thread{
     private Socket socketToClient;
@@ -24,8 +25,8 @@ public class QuizServer extends Thread{
             // out.println("WELCOME " + username);
             //out.println("MESSAGE Waiting for opponent to connect");*/
             //out.println(database.allItems.get(8).getFourAnswer().get(2));
-            QuizItem item= database.getItem();
-            out.writeObject(item);
+            List<QuizItem> toClient= database.getItemPack();
+            out.writeObject(toClient);
 
         } catch (IOException e) {
             System.out.println("Player died: " + e);

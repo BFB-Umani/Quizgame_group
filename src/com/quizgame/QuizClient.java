@@ -142,6 +142,7 @@ public class QuizClient extends Application {
 
     public void goToQuizScene() {
         scene.setRoot(quizView.getDesignLayout());
+        quizView.setUp();
     }
 
     public static void main(String[] args) {

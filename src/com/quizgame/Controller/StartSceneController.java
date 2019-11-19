@@ -26,7 +26,7 @@ public class StartSceneController {
     }
 
     public void changeToChoosingSubjectScene(){
-      //  quizClient.goToChoseSubjectScene();
+        quizClient.goToChoseSubjectScene();
     }
 
 

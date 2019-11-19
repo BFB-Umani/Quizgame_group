@@ -35,3 +35,24 @@
 #chooseSubject{
     -fx-font-size: 30;
 }
+
+#waitingImage{
+    -fx-graphic: url("../../images/waitingImage.gif");
+}
+
+#waitingText{
+    -fx-font-size: 30;
+    -fx-text-fill: #433dff;
+}
+
+#resultText{
+    -fx-font-size: 30;
+}
+
+#playerOne{
+    -fx-font-size: 15;
+}
+
+#playerTwo{
+    -fx-font-size: 15;
+}

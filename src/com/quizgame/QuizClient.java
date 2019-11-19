@@ -70,12 +70,8 @@ public class QuizClient {
 
 package com.quizgame;
 
-import com.quizgame.Controller.ChoosingSubjectSceneController;
-import com.quizgame.Controller.QuizController;
-import com.quizgame.Controller.StartSceneController;
-import com.quizgame.view.ChoosingSubjectScene;
-import com.quizgame.view.QuizView;
-import com.quizgame.view.StartScene;
+import com.quizgame.Controller.*;
+import com.quizgame.view.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -92,6 +88,8 @@ public class QuizClient extends Application {
     private PrintWriter out;
     private Scene scene;
     private ChoosingSubjectScene choosingSubjectScene;
+    private WaitingScene waitingScene;
+    private ResultScene resultScene;
     private QuizView quizView;
 
     public QuizClient() {    //NO TOUCH THIS!!!!
@@ -111,8 +109,12 @@ public class QuizClient extends Application {
         quizView = new QuizView();
         StartScene startScene = new StartScene();
         choosingSubjectScene = new ChoosingSubjectScene();
+        waitingScene = new WaitingScene();
+        resultScene = new ResultScene();
 
-        scene = new Scene(startScene.getDesignLayout(),480,620);
+        //scene = new Scene(startScene.getDesignLayout(),480,620);
+        //scene = new Scene(waitingScene.getDesignLayout(),480,620);
+        scene = new Scene(resultScene.getDesignLayout(),480,620);
         scene.getStylesheets().add(QuizClient.class.getResource("Style.css").toExternalForm());
         stage.setScene(scene);
 
@@ -121,6 +123,12 @@ public class QuizClient extends Application {
 
         ChoosingSubjectSceneController choosingSubjectSceneController = new ChoosingSubjectSceneController(choosingSubjectScene,this);
         choosingSubjectSceneController.start();
+
+        WaitingSceneController waitingSceneController = new WaitingSceneController(waitingScene);
+        waitingSceneController.start();
+
+        ResultSceneController resultSceneController = new ResultSceneController(resultScene);
+        resultSceneController.start();
 
         QuizClient quizClient = new QuizClient("127.0.0.1");
 

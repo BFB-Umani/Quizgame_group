@@ -9,9 +9,9 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 
 public class QuizView {
+    private VBox designLayout = new VBox();
     private Label questionLabel = new Label();
     private GridPane answerLayout = new GridPane();
-    private VBox designLayout = new VBox();
     private Button answerButton1 = new Button();
     private Button answerButton2 = new Button();
     private Button answerButton3 = new Button();
@@ -19,8 +19,8 @@ public class QuizView {
 
     public void setUp(){
         designLayout.setId("background");
-        questionLabel.setId("questionLabel");
         designLayout.getChildren().add(questionLabel);
+        questionLabel.setId("questionLabel");
         designLayout.getChildren().add(answerLayout);
         answerLayout.getChildren().add(answerButton1);
         answerLayout.getChildren().add(answerButton2);

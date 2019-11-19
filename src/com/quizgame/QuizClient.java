@@ -70,15 +70,19 @@ public class QuizClient {
 
 package com.quizgame;
 
+import com.quizgame.Controller.ChoosingSubjectSceneController;
 import com.quizgame.Controller.QuizController;
+import com.quizgame.Controller.StartSceneController;
+import com.quizgame.view.ChoosingSubjectScene;
 import com.quizgame.view.QuizView;
+import com.quizgame.view.StartScene;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.List;
 
 public class QuizClient extends Application {
 
@@ -86,6 +90,9 @@ public class QuizClient extends Application {
     private Socket socket;
     private ObjectInputStream in;
     private PrintWriter out;
+    private Scene scene;
+    private ChoosingSubjectScene choosingSubjectScene;
+    private QuizView quizView;
 
     public QuizClient() {    //NO TOUCH THIS!!!!
     }
@@ -97,14 +104,23 @@ public class QuizClient extends Application {
     }
     @Override
     public void start(Stage stage) throws Exception {
-        stage.setTitle("Quizgame");             //add "+ username"
-        QuizView quizView = new QuizView();
-
-        Scene scene = new Scene(quizView.getDesignLayout(),480,620);
+        stage.setTitle("Quizgame");
         stage.setResizable(false);
-        stage.setScene(scene);
+        stage.getIcons().add(new Image("/images/quizIcon.png"));
+
+        quizView = new QuizView();
+        StartScene startScene = new StartScene();
+        choosingSubjectScene = new ChoosingSubjectScene();
+
+        scene = new Scene(startScene.getDesignLayout(),480,620);
         scene.getStylesheets().add(QuizClient.class.getResource("Style.css").toExternalForm());
-        quizView.setUp();
+        stage.setScene(scene);
+
+        StartSceneController startSceneController = new StartSceneController(startScene,this);
+        startSceneController.start();
+
+        ChoosingSubjectSceneController choosingSubjectSceneController = new ChoosingSubjectSceneController(choosingSubjectScene,this);
+        choosingSubjectSceneController.start();
 
         QuizClient quizClient = new QuizClient("127.0.0.1");
 
@@ -120,8 +136,17 @@ public class QuizClient extends Application {
 
     }
 
+    public void goToChoseSubjectScene(){
+        scene.setRoot(choosingSubjectScene.getDesignLayout());
+    }
+
+    public void goToQuizScene() {
+        scene.setRoot(quizView.getDesignLayout());
+    }
+
     public static void main(String[] args) {
         launch(args);
     }
+
 
 }

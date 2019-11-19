@@ -158,7 +158,6 @@ public class Database {
             "De misstänkta", "Gudfadern", "Titanic",
             "Pontiacs TRANS AM", "Lotus Espirit S1", "Ford Mustang GT",
             "Jonas Johansson", "Johan Jonasson", "Johan Johansson"
-
     };
 
 
@@ -178,16 +177,16 @@ public class Database {
         }
         geografi = allItems.subList(0,9);                      // numbers... :( det blir 10 items utan att kunna förändra antalet!!!
         fotboll = allItems.subList(10,19);           // men det är bra förtillfället :)
-        historia = allItems.subList(11, 20);
-        film = allItems.subList(21, 30);
+        historia = allItems.subList(20, 29);
+        film = allItems.subList(30, 39);
         //bara för att skicka något
     }
 
     //inte längre getitem: nu skickar vi ett helt paket med 4(n) frågor (listan är shuffled) om italienska köket.
     public List<QuizItem> getItemPack(){    // n-frågorspaket om en särskild subject
-        Collections.shuffle(geografi);//italienskKoket ska bli en variabel som beror på users val
+        Collections.shuffle(fotboll);//italienskKoket ska bli en variabel som beror på users val
         for (int i=0; i<4; i++)             // till i<4  4 ska bli en variabel som beror på properties
-            itemPack.add(geografi.get(i));
+            itemPack.add(fotboll.get(i));
         //eller utan loop
         /*questionList = italienskKöket.subList(0,4);*/
         return itemPack;

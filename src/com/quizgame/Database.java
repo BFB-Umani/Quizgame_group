@@ -107,6 +107,16 @@ public class Database {
             "1981",
 
             //FILM
+            "Jack Dawson",
+            "Pierce Brosnan",
+            "The Fellowship of The Ring",
+            "Susan Sarandon",
+            "Broarna i Madison County",
+            "2008",
+            "Emma Stone",
+            "The dark knight",
+            "Volvo P1800",
+            "Jonas Jonasson"
 
 
     };
@@ -184,9 +194,9 @@ public class Database {
 
     //inte längre getitem: nu skickar vi ett helt paket med 4(n) frågor (listan är shuffled) om italienska köket.
     public List<QuizItem> getItemPack(){    // n-frågorspaket om en särskild subject
-        Collections.shuffle(fotboll);//italienskKoket ska bli en variabel som beror på users val
+        Collections.shuffle(historia);//italienskKoket ska bli en variabel som beror på users val
         for (int i=0; i<4; i++)             // till i<4  4 ska bli en variabel som beror på properties
-            itemPack.add(fotboll.get(i));
+            itemPack.add(historia.get(i));
         //eller utan loop
         /*questionList = italienskKöket.subList(0,4);*/
         return itemPack;

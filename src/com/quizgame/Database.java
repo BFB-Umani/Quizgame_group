@@ -1,5 +1,8 @@
 package com.quizgame;
 
+import com.quizgame.properties.ServerPropertiesReader;
+
+import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -194,8 +197,9 @@ public class Database {
 
     //inte längre getitem: nu skickar vi ett helt paket med 4(n) frågor (listan är shuffled) om italienska köket.
     public List<QuizItem> getItemPack(){    // n-frågorspaket om en särskild subject
+        ServerPropertiesReader properties = new ServerPropertiesReader();
         Collections.shuffle(historia);//italienskKoket ska bli en variabel som beror på users val
-        for (int i=0; i<4; i++)             // till i<4  4 ska bli en variabel som beror på properties
+        for (int i = 0; i < properties.getQuestionsPerRound() ; i++)             // till i<4  4 ska bli en variabel som beror på properties
             itemPack.add(historia.get(i));
         //eller utan loop
         /*questionList = italienskKöket.subList(0,4);*/

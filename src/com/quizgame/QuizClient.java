@@ -78,6 +78,7 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.List;
 
 public class QuizClient extends Application {
 
@@ -96,7 +97,7 @@ public class QuizClient extends Application {
     }
     @Override
     public void start(Stage stage) throws Exception {
-        stage.setTitle("Quizgame");
+        stage.setTitle("Quizgame");             //add "+ username"
         QuizView quizView = new QuizView();
 
         Scene scene = new Scene(quizView.getDesignLayout(),480,620);
@@ -107,12 +108,12 @@ public class QuizClient extends Application {
 
         QuizClient quizClient = new QuizClient("127.0.0.1");
 
-        // item ska vara en List<QuizItem>
-        // vi ska ha den i ROUND_STATE
-        // HÄR  ska det bli bara en response (Objekt fromServer t.e.)
-        // som vi kollar och urskjilier sen (med en cast)
-        QuizItem item = (QuizItem) quizClient.in.readObject();
-        QuizController quizController = new QuizController(quizView, item);
+        //nu är Objektet fromServer som kommer till klienten
+        //vi skickar objektet som argument när vi instansierar QuizController
+        // i quizControll finns en metod loadItemPack som cast objekt till list<QuizItem> och
+        // tar den första item. Sen jobbar vi med en item som förut.
+        Object fromServer = quizClient.in.readObject();
+        QuizController quizController = new QuizController(quizView, fromServer);
         quizController.start();
         stage.show();
 

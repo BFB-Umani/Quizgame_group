@@ -12,7 +12,7 @@ public class Database {
     List<QuizItem> allItems = new ArrayList<>();
     List<QuizItem> sport;
     List<QuizItem> italienskKöket;
-    List<QuizItem> questionList = new ArrayList<QuizItem>();
+    List<QuizItem> itemPack = new ArrayList<>();
 
 
     private static final String[] QUESTION = {
@@ -81,15 +81,15 @@ public class Database {
 
             //ITALIENSKA KÖKET
             "Ruccola", "Pinjenötter", "Vitlök",
-            "Subject1 - Answer1-0", "Subject1 - Answer1-1", "Subject1 - Answer1-2",
-            "Subject1 - Answer2-0", "Subject1 - Answer2-1", "Subject1 - Answer2-2",
-            "Subject1 - Answer3-0", "Subject1 - Answer3-1", "Subject1 - Answer3-2",
-            "Subject1 - Answer4-0", "Subject1 - Answer4-1", "Subject1 - Answer4-2",
-            "Subject1 - Answer5-0", "Subject1 - Answer5-1", "Subject1 - Answer5-2",
-            "Subject1 - Answer6-0", "Subject1 - Answer6-1", "Subject1 - Answer6-2",
-            "Subject1 - Answer7-0", "Subject1 - Answer7-1", "Subject1 - Answer7-2",
-            "Subject1 - Answer8-0", "Subject1 - Answer8-1", "Subject1 - Answer8-2",
-            "Subject1 - Answer9-0", "Subject1 - Answer9-1", "Subject1 - Answer9-2"
+            "Subject1 - WrongAnswer1-0", "Subject1 - WrongAnswer1-1", "Subject1 - WrongAnswer1-2",
+            "Subject1 - WrongAnswer2-0", "Subject1 - WrongAnswer2-1", "Subject1 - WrongAnswer2-2",
+            "Subject1 - WrongAnswer3-0", "Subject1 - WrongAnswer3-1", "Subject1 - WrongAnswer3-2",
+            "Subject1 - WrongAnswer4-0", "Subject1 - WrongAnswer4-1", "Subject1 - WrongAnswer4-2",
+            "Subject1 - WrongAnswer5-0", "Subject1 - WrongAnswer5-1", "Subject1 - WrongAnswer5-2",
+            "Subject1 - WrongAnswer6-0", "Subject1 - WrongAnswer6-1", "Subject1 - WrongAnswer6-2",
+            "Subject1 - WrongAnswer7-0", "Subject1 - WrongAnswer7-1", "Subject1 - WrongAnswer7-2",
+            "Subject1 - WrongAnswer8-0", "Subject1 - WrongAnswer8-1", "Subject1 - WrongAnswer8-2",
+            "Subject1 - WrongAnswer9-0", "Subject1 - WrongAnswer9-1", "Subject1 - WrongAnswer9-2"
     };
 
 
@@ -102,7 +102,7 @@ public class Database {
             //skapar en tillfälligt wrongAnswer list som blir parameter i new QuizItem
             ArrayList<String> wrongAnswer = new ArrayList<>();
             for (int indexWrongAnswer = 0; indexWrongAnswer < 3; indexWrongAnswer++)
-                wrongAnswer.add(WRONG_ANSWER[(3 * indexQuestion) + indexWrongAnswer]);  //koordinerar 10 String(Q) med 40 String(A)
+                wrongAnswer.add(WRONG_ANSWER[(3 * indexQuestion) + indexWrongAnswer]);  //koordinerar 10 String(Q) med 30 String(A)
             QuizItem item = new QuizItem(QUESTION[indexQuestion], RIGHT_ANSWER[indexQuestion], wrongAnswer);
             allItems.add(item);
         }
@@ -111,20 +111,14 @@ public class Database {
         //bara för att skicka något
     }
 
-
-    public List<QuizItem> loadQuestions(){  // det ska vara fråga paketet
-        Collections.shuffle(italienskKöket);//italienskKoket ska bli en varabel som beror på users val
-        for (int i=0; i<4; i++)             // till i<4  4 ska bli en varabel som beror på users val
-            questionList.add(italienskKöket.get(i));  //questionlist blir itemPack?
+    //inte längre getitem: nu skickar vi ett helt paket med 4(n) frågor (listan är shuffled) om italienska köket.
+    public List<QuizItem> getItemPack(){    // n-frågorspaket om en särskild subject
+        Collections.shuffle(italienskKöket);//italienskKoket ska bli en variabel som beror på users val
+        for (int i=0; i<4; i++)             // till i<4  4 ska bli en variabel som beror på properties
+            itemPack.add(italienskKöket.get(i));
         //eller utan loop
         /*questionList = italienskKöket.subList(0,4);*/
-        return questionList;
-    }
-
-    public QuizItem getItem() {    //bara för att skicka något Vi kommer att skicka bara paketet
-        //Collections.shuffle(italienskKöket);
-        item = italienskKöket.get(0);
-        return item;
+        return itemPack;
     }
 
 

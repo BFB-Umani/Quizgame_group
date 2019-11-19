@@ -16,17 +16,20 @@ public class QuizController {
     private int questionCounter = 0;
     private int[] storedQuestion = {5, 5, 5, 5};
     private int answeredState = 0;
-    //private Database database = new Database();
     private QuizView quizView;
-    private QuizItem item;
+    private Object fromServer;
+    private List<QuizItem> itemPack;
+    private QuizItem item;  //eller currentItem?
 
-    public QuizController(QuizView quizView, Object item) {
-        this.item = (QuizItem)item;
+    public QuizController(QuizView quizView, Object fromServer) {
+        this.fromServer = fromServer;
         this.quizView = quizView;
     }
 
     public void start() {
-        //database.loadQuestions();
+
+
+        loadItemPack(fromServer); //vi anropar först den nya metoden
         showQuestion(item);
 
         quizView.getAnswerButton1().setOnAction(this::handle);
@@ -34,6 +37,16 @@ public class QuizController {
         quizView.getAnswerButton3().setOnAction(this::handle);
         quizView.getAnswerButton4().setOnAction(this::handle);
     }
+
+
+    //NEW METOD!!
+    private void loadItemPack(Object fromServer) {
+        List<QuizItem> itemPack = (List<QuizItem>)fromServer;
+        item = itemPack.get(0);
+        //förmodligen ska 0 bli en variabel inom en loop som loopar till vardet n
+        // n ska komma (direkt eller odirekt vet ej...)  från properties
+    }
+
 
     private void handle(ActionEvent actionEvent) {
         if (answeredState == 0) {

@@ -1,6 +1,6 @@
 package com.quizgame.Controller;
 
-import com.quizgame.Database;
+//import com.quizgame.Database;
 import com.quizgame.QuizItem;
 import com.quizgame.view.QuizView;
 import javafx.event.ActionEvent;
@@ -28,7 +28,7 @@ public class QuizController {
 
     public void start() {
 
-
+        quizView.setUp();
         loadItemPack(fromServer); //vi anropar först den nya metoden
         item = itemPack.get(questionCounter);
         showQuestion(item); //bara startar

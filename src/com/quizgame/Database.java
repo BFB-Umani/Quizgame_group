@@ -1,5 +1,6 @@
 package com.quizgame;
 
+import com.quizgame.Controller.ChoosingSubjectSceneController;
 import com.quizgame.properties.ServerPropertiesReader;
 
 import java.net.ServerSocket;
@@ -12,12 +13,15 @@ public class Database {
 
 
     QuizItem item;
+    QuizClient quizClient = new QuizClient();
     List<QuizItem> allItems = new ArrayList<>();
     List<QuizItem> geografi;
     List<QuizItem> fotboll;
     List<QuizItem> historia;
     List<QuizItem> film;
+    List<QuizItem> chosenCategory;
     List<QuizItem> itemPack = new ArrayList<>();
+    public String chosenSubject = "FOTBOLL";
 
 
     private static final String[] QUESTION = {
@@ -198,9 +202,21 @@ public class Database {
     //inte längre getitem: nu skickar vi ett helt paket med 4(n) frågor (listan är shuffled) om italienska köket.
     public List<QuizItem> getItemPack(){    // n-frågorspaket om en särskild subject
         ServerPropertiesReader properties = new ServerPropertiesReader();
-        Collections.shuffle(historia);//italienskKoket ska bli en variabel som beror på users val
+        if(chosenSubject.equalsIgnoreCase("HISTORIA")) {
+            chosenCategory = historia;
+        }
+        else if(chosenSubject.equalsIgnoreCase("FOTBOLL")) {
+            chosenCategory = fotboll;
+        }
+        else if(chosenSubject.equalsIgnoreCase("GEOGRAFI")) {
+            chosenCategory = geografi;
+        }
+        else if(chosenSubject.equalsIgnoreCase("FILM")) {
+            chosenCategory = film;
+        }
+        Collections.shuffle(chosenCategory);//italienskKoket ska bli en variabel som beror på users val
         for (int i = 0; i < properties.getQuestionsPerRound() ; i++)             // till i<4  4 ska bli en variabel som beror på properties
-            itemPack.add(historia.get(i));
+            itemPack.add(chosenCategory.get(i));
         //eller utan loop
         /*questionList = italienskKöket.subList(0,4);*/
         return itemPack;

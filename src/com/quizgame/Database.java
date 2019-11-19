@@ -10,87 +10,157 @@ public class Database {
 
     QuizItem item;
     List<QuizItem> allItems = new ArrayList<>();
-    List<QuizItem> sport;
-    List<QuizItem> italienskKöket;
+    List<QuizItem> geografi;
+    List<QuizItem> fotboll;
+    List<QuizItem> historia;
+    List<QuizItem> film;
     List<QuizItem> itemPack = new ArrayList<>();
 
 
     private static final String[] QUESTION = {
-            //SPORT
-            "Subject0 - Question0",
-            "Subject0 - Question1",
-            "Exakt hur långt är, sedan 1924, ett maratonlopp?",
-            "Subject0 - Question3",
-            "Subject0 - Question4",
-            "Subject0 - Question5",
-            "Subject0 - Question6",
-            "Subject0 - Question7",
-            "Subject0 - Question8",
-            "Subject0 - Question9",
+            //GEOGRAFI
+            "Var ligger Taj Mahal?",
+            "Hur lång är ekvatorn?",
+            "I vilket land ligger Kilimanjaro?",
+            "Till vilken stad var Titanic på väg när hon gick på ett isberg och sjönk?",
+            "Vad heter Perus huvudstad?",
+            "I vilket land är Ulan Bator huvudstad?",
+            "På vilken ö ligger vulkanen Teide?",
+            "Vilken stad går under smeknamnet \"Mellanöstern Paris\"?",
+            "Vad heter världen högsta byggnad (2018)?",
+            "I vilken italiensk stad sägs pizzan var född?",
 
-            //ITALIENSKA KÖKET
-            "Vilken är huvudingrediensen i \"pesto genovese\"?",
-            "Subject1 - Question1",
-            "Subject1 - Question2",
-            "Subject1 - Question3",
-            "Subject1 - Question4",
-            "Subject1 - Question5",
-            "Subject1 - Question6",
-            "Subject1 - Question7",
-            "Subject1 - Question8",
-            "Subject1 - Question9"
+            //FOTBOLL
+            "Vilket nummer hade David Beckham i Manchester United?",
+            "Vem var det som efterträdde Sven Göran Eriksson (Svennis) som Englands förbundskapten?",
+            "Vem vann skytteligan i VM 2002?",
+            "Vilken italiensk fotbollsklubb har forne storspelaren Teddy Lucic spelat för?",
+            "Från vilken engelsk stad kommer Tottenham?",
+            "Från vilken stad kommer Elfsborg",
+            "Vad heter Chelseas hemmaarena?",
+            "Vilken klubb spelade Zinedine Zidane för innan han gick till Juventus?",
+            "Vilken nation tog hem VM-guldet 2002?",
+            "Vem spottade på Rudi Völler i matchen Holland mot Tyskland i VM 1990?",
+
+            //HISTORISKA ÅRTAL
+            "Gustav Vasa väljs till kung?",
+            "Statsminister Olof Palme mördas?",
+            "Stockholms blodbad där Kristian Tyrann avrättar hundra människor på Stortorget?",
+            "Kung Gustav III mördas på en operamaskerad i Stockholm?",
+            "I Ådalen skjuts, under våldsamma kravaller, 5 personer ihjäl av militär?",
+            "Karl XII dör under en misslyckad belägring av Fredrikshald i Norge?",
+            "Sverige folkomröstar om inträde i Eu?",
+            "Kvinnor i Sverige får allmän rösträtt?",
+            "Heliga Birgitta helgon­förklaras av påven?",
+            "Sovjetiska ubåten U 137 går på grund i Karlskronas skärgård?",
+
+            //FILM
+            "Vad hette Leonardo DiCaprios rollkaraktär i filmen Titanic?",
+            "Vilken skådespelare spelade James Bond i filmen Tomorrow Never Dies?",
+            "Vad var den engelska titeln på första filmen i Tolkiens Sagan om ringen-trilogin?",
+            "Geena Davis spelade Thelma i filmen Thelma & Louise från 1991. Vilken skådis spelade Louise?",
+            "Meryl Streep spelar hemmafrun Francesca Johnson och förälskar sig i en fotograf i denna film?",
+            "Vilket år vann filmen Slumdog Millionaire Oscar för bästa film?",
+            "Vad heter skådespelerskan i La la land som vann Oscar för bästa kvinnliga huvudroll?",
+            "Från vilken film är följande klassiska citat? \"Why so serious?\"?",
+            "Vilken bilmodell körde Simon Templar i filmen Helgonet från 1962?",
+            "Vem skrev boken Hundraåringen som klev ut genom fönstret och försvann som sedan blev film 2013?"
+
+
     };
 
     private static final String[] RIGHT_ANSWER = {
-            //SPORT
-            "Subject0 - RightAnswer0",
-            "Subject0 - RightAnswer1",
-            "42 195 m",
-            "Subject0 - RightAnswer3",
-            "Subject0 - RightAnswer4",
-            "Subject0 - RightAnswer5",
-            "Subject0 - RightAnswer6",
-            "Subject0 - RightAnswer7",
-            "Subject0 - RightAnswer8",
-            "Subject0 - RightAnswer9",
+            //GEOGRAFI
+            "Indien",
+            "4 000 mil",
+            "Tanzania",
+            "New York",
+            "Lima",
+            "Mongoliet",
+            "Teneriffa",
+            "Beirut",
+            "Burj Khalifa",
+            "Neapel",
 
-            //ITALIENSKA KÖKET
-            "Basilika",
-            "Subject1 - RightAnswer1",
-            "Subject1 - RightAnswer2",
-            "Subject1 - RightAnswer3",
-            "Subject1 - RightAnswer4",
-            "Subject1 - RightAnswer5",
-            "Subject1 - RightAnswer6",
-            "Subject1 - RightAnswer7",
-            "Subject1 - RightAnswer8",
-            "Subject1 - RightAnswer9"
+            //FOTBOLL
+            "7",
+            "Steve McClaren",
+            "Ronaldo",
+            "Bologona",
+            "London",
+            "Borås",
+            "Stamford Bridge",
+            "Bordeaux",
+            "Brasilien",
+            "Frank Rijkaard",
+
+            //HISTORISKA ÅRTAL
+            "1523",
+            "1986",
+            "1520",
+            "1792",
+            "1931",
+            "1718",
+            "1994",
+            "1919",
+            "1391",
+            "1981",
+
+            //FILM
+
+
     };
     private static final String[] WRONG_ANSWER = {
-            //SPORT
-            "Subject0 - Answer0-0", "Subject0 - Answer0-1", "Subject0 - Answer0-2",
-            "Subject0 - Answer1-0", "Subject0 - Answer1-1", "Subject0 - Answer1-2",
-            "40 000 m", "42 105 m", "39 850 m",
-            "Subject0 - Answer3-0", "Subject0 - Answer3-1", "Subject0 - Answer3-2",
-            "Subject0 - Answer4-0", "Subject0 - Answer4-1", "Subject0 - Answer4-2",
-            "Subject0 - Answer5-0", "Subject0 - Answer5-1", "Subject0 - Answer5-2",
-            "Subject0 - Answer6-0", "Subject0 - Answer6-1", "Subject0 - Answer6-2",
-            "Subject0 - Answer7-0", "Subject0 - Answer7-1", "Subject0 - Answer7-2",
-            "Subject0 - Answer8-0", "Subject0 - Answer8-1", "Subject0 - Answer8-2",
-            "Subject0 - Answer9-0", "Subject0 - Answer9-1", "Subject0 - Answer9-2",
+            // GEOGRAFI
+            "Kina", "Iran", "Turkiet",
+            "40 000 mil", "400 000 mil", "400 mil",
+            "Uganda", "Kenya", "Ghana",
+            "Liverpool", "Boston", "Philadelphia",
+            "Santa Cruz", "Bogota", "Sao Paulo",
+            "Uzbekistan", "Kazakhstan", "Pakistan",
+            "Mallorca", "Kreta", "Santorini",
+            "Bagdad", "Jerusalem", "Damaskus",
+            "Shanghai Tower", "One World Trade Center", "Tokyo Skytree",
+            "Rom", "Pisa", "Genoa",
 
-            //ITALIENSKA KÖKET
-            "Ruccola", "Pinjenötter", "Vitlök",
-            "Subject1 - WrongAnswer1-0", "Subject1 - WrongAnswer1-1", "Subject1 - WrongAnswer1-2",
-            "Subject1 - WrongAnswer2-0", "Subject1 - WrongAnswer2-1", "Subject1 - WrongAnswer2-2",
-            "Subject1 - WrongAnswer3-0", "Subject1 - WrongAnswer3-1", "Subject1 - WrongAnswer3-2",
-            "Subject1 - WrongAnswer4-0", "Subject1 - WrongAnswer4-1", "Subject1 - WrongAnswer4-2",
-            "Subject1 - WrongAnswer5-0", "Subject1 - WrongAnswer5-1", "Subject1 - WrongAnswer5-2",
-            "Subject1 - WrongAnswer6-0", "Subject1 - WrongAnswer6-1", "Subject1 - WrongAnswer6-2",
-            "Subject1 - WrongAnswer7-0", "Subject1 - WrongAnswer7-1", "Subject1 - WrongAnswer7-2",
-            "Subject1 - WrongAnswer8-0", "Subject1 - WrongAnswer8-1", "Subject1 - WrongAnswer8-2",
-            "Subject1 - WrongAnswer9-0", "Subject1 - WrongAnswer9-1", "Subject1 - WrongAnswer9-2"
+            // FOTBOLL
+            "9", "10", "23",
+            "Kevin Keegan", "Fabio Capello", "Roy Hodgson",
+            "Rivaldo", "Miroslav Klose", "Christian Vieri",
+            "Sampdoria", "Torino", "Parma",
+            "Liverpool", "Birmingham", "Manchester",
+            "Jönköping", "Halmstad", "Karlskrona",
+            "Emirates Stadium", "St James' Park", "White Hart Lane",
+            "Real Madrid", "Lyon", "Marseille",
+            "Tyskland", "Italien", "Spanien",
+            "Ruud Gullit", "Marco Van Basten", "Ronald Koeman",
+
+            //HISTORISKA ÅRTAL
+            "1533", "1543", "1556",
+            "1982", "1984", "1988",
+            "1510", "1459", "1420",
+            "1654", "1667", "1772",
+            "1929", "1933", "1939",
+            "1728", "1732", "1734",
+            "1993", "1995", "1996",
+            "1909", "1939", "1912",
+            "1423", "1549", "1756",
+            "1977", "1969", "1983",
+
+            //FILM
+            "Jay Gatsby", "Rick Dawson", "Caledon Hockley",
+            "Daniel Craig", "Timothy Dalton", "Roger Moore",
+            "The Lords Of The Ring", "The War Of The Ring", "The Journey To Mordor",
+            "Meryl Streep", "Julia Robert", "Meg Ryan",
+            "Mamma Mia!", "The Deer Hunter", "Djävulen Bär Prada",
+            "2010", "2009", "2012",
+            "Natalie Portman", "Julianne Moore", "Brie Larson",
+            "De misstänkta", "Gudfadern", "Titanic",
+            "Pontiacs TRANS AM", "Lotus Espirit S1", "Ford Mustang GT",
+            "Jonas Johansson", "Johan Jonasson", "Johan Johansson"
+
     };
+
 
 
 

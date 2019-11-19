@@ -16,25 +16,42 @@ public class QuizController {
     private int questionCounter = 0;
     private int[] storedQuestion = {5, 5, 5, 5};
     private int answeredState = 0;
-    //private Database database = new Database();
     private QuizView quizView;
-    private QuizItem item;
+    private Object fromServer;
+    private List<QuizItem> itemPack;
+    private QuizItem item;  //eller currentItem?
 
-    public QuizController(QuizView quizView, Object item) {
-        this.item = (QuizItem)item;
+    public QuizController(QuizView quizView, Object fromServer) {
+        this.fromServer = fromServer;
         this.quizView = quizView;
     }
 
     public void start() {
-        //database.loadQuestions();
-        quizView.setUp();
-        showQuestion(item);
+
+
+        loadItemPack(fromServer); //vi anropar först den nya metoden
+        item = itemPack.get(questionCounter);
+        showQuestion(item); //bara startar
+        //förmodligen ska questionCounter loopa s till vardet n
+        // n ska komma (direkt eller odirekt vet ej...)  från properties
+        // men var ska counter loopa? inte har: det är bara en start!
+        // från nextquestion? Eller?
+        // och vad händer när loop tar slut? Alltså när round tar slut?
+
 
         quizView.getAnswerButton1().setOnAction(this::handle);
         quizView.getAnswerButton2().setOnAction(this::handle);
         quizView.getAnswerButton3().setOnAction(this::handle);
         quizView.getAnswerButton4().setOnAction(this::handle);
     }
+
+
+    //NEW METOD!!
+    private void loadItemPack(Object fromServer) {
+        List<QuizItem> itemPack = (List<QuizItem>)fromServer;
+        this.itemPack = itemPack;
+    }
+
 
     private void handle(ActionEvent actionEvent) {
         if (answeredState == 0) {
@@ -88,11 +105,13 @@ public class QuizController {
         answeredState = 1;
     }
 
-    void nextQuestion() {
+    void nextQuestion() {  //nu går vidare genom alla fyra item och sen crashar för Index 4 out of bounds(så klart!)
         quizView.getAnswerButton1().setId(".button");
         quizView.getAnswerButton2().setId(".button");
         quizView.getAnswerButton3().setId(".button");
         quizView.getAnswerButton4().setId(".button");
+        this.questionCounter++;
+        item = itemPack.get(questionCounter);
         showQuestion(item);
         answeredState = 0;
     }

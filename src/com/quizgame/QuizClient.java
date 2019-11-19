@@ -70,19 +70,15 @@ public class QuizClient {
 
 package com.quizgame;
 
-import com.quizgame.Controller.ChoosingSubjectSceneController;
 import com.quizgame.Controller.QuizController;
-import com.quizgame.Controller.StartSceneController;
-import com.quizgame.view.ChoosingSubjectScene;
 import com.quizgame.view.QuizView;
-import com.quizgame.view.StartScene;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.List;
 
 public class QuizClient extends Application {
 
@@ -90,8 +86,6 @@ public class QuizClient extends Application {
     private Socket socket;
     private ObjectInputStream in;
     private PrintWriter out;
-    private Scene scene;
-    private ChoosingSubjectScene choosingSubjectScene;
 
     public QuizClient() {    //NO TOUCH THIS!!!!
     }
@@ -103,44 +97,28 @@ public class QuizClient extends Application {
     }
     @Override
     public void start(Stage stage) throws Exception {
-        stage.setTitle("Quizgame");
-        stage.setResizable(false);
-        stage.getIcons().add(new Image("/images/quizIcon.png"));
-
+        stage.setTitle("Quizgame");             //add "+ username"
         QuizView quizView = new QuizView();
-        StartScene startScene = new StartScene();
-        choosingSubjectScene = new ChoosingSubjectScene();
 
-        scene = new Scene(startScene.getDesignLayout(),480,620);
-        scene.getStylesheets().add(QuizClient.class.getResource("Style.css").toExternalForm());
+        Scene scene = new Scene(quizView.getDesignLayout(),480,620);
+        stage.setResizable(false);
         stage.setScene(scene);
-
-        StartSceneController startSceneController = new StartSceneController(startScene,this);
-        startSceneController.start();
-
-        ChoosingSubjectSceneController choosingSubjectSceneController = new ChoosingSubjectSceneController(choosingSubjectScene,this);
-        choosingSubjectSceneController.start();
+        scene.getStylesheets().add(QuizClient.class.getResource("Style.css").toExternalForm());
+        quizView.setUp();
 
         QuizClient quizClient = new QuizClient("127.0.0.1");
 
-        // item ska vara en List<QuizItem>
-        // vi ska ha den i ROUND_STATE
-        // HÄR  ska det bli bara en response (Objekt fromServer t.e.)
-        // som vi kollar och urskjilier sen (med en cast)
-        QuizItem item = (QuizItem) quizClient.in.readObject();
-        QuizController quizController = new QuizController(quizView, item);
+        //nu är Objektet fromServer som kommer till klienten
+        //vi skickar objektet som argument när vi instansierar QuizController
+        // i quizControll finns en metod loadItemPack som cast objekt till list<QuizItem> och
+        // tar den första item. Sen jobbar vi med en item som förut.
+        Object fromServer = quizClient.in.readObject();
+        QuizController quizController = new QuizController(quizView, fromServer);
         quizController.start();
-
         stage.show();
 
 
     }
-
-    public void goToChoseSubjectScene(){
-        scene.setRoot(choosingSubjectScene.getDesignLayout());
-    }
-
-
 
     public static void main(String[] args) {
         launch(args);

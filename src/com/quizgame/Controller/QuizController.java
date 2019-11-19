@@ -30,7 +30,14 @@ public class QuizController {
 
 
         loadItemPack(fromServer); //vi anropar först den nya metoden
-        showQuestion(item);
+        item = itemPack.get(questionCounter);
+        showQuestion(item); //bara startar
+        //förmodligen ska questionCounter loopa s till vardet n
+        // n ska komma (direkt eller odirekt vet ej...)  från properties
+        // men var ska counter loopa? inte har: det är bara en start!
+        // från nextquestion? Eller?
+        // och vad händer när loop tar slut? Alltså när round tar slut?
+
 
         quizView.getAnswerButton1().setOnAction(this::handle);
         quizView.getAnswerButton2().setOnAction(this::handle);
@@ -42,9 +49,7 @@ public class QuizController {
     //NEW METOD!!
     private void loadItemPack(Object fromServer) {
         List<QuizItem> itemPack = (List<QuizItem>)fromServer;
-        item = itemPack.get(0);
-        //förmodligen ska 0 bli en variabel inom en loop som loopar till vardet n
-        // n ska komma (direkt eller odirekt vet ej...)  från properties
+        this.itemPack = itemPack;
     }
 
 
@@ -100,11 +105,13 @@ public class QuizController {
         answeredState = 1;
     }
 
-    void nextQuestion() {
+    void nextQuestion() {  //nu går vidare genom alla fyra item och sen crashar för Index 4 out of bounds(så klart!)
         quizView.getAnswerButton1().setId(".button");
         quizView.getAnswerButton2().setId(".button");
         quizView.getAnswerButton3().setId(".button");
         quizView.getAnswerButton4().setId(".button");
+        this.questionCounter++;
+        item = itemPack.get(questionCounter);
         showQuestion(item);
         answeredState = 0;
     }

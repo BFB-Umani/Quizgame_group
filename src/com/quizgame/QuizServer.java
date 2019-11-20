@@ -42,6 +42,10 @@ public class QuizServer extends Thread{
 
     }
 
+    public void setNamn(String name) {
+        this.username = name;
+    }
+
     public void setOpponent(QuizServer opponent) {
         this.opponent = opponent;
     }

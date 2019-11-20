@@ -9,11 +9,11 @@ public class QuizItem implements Serializable{
     String rightAnswer;
     ArrayList<String> wrongAnswer = new ArrayList<>(4);
 
-    public QuizItem(/*String subject,*/ String question, String rightAnswer, ArrayList<String> fourAnswer) {
+    public QuizItem(/*String subject,*/ String question, String rightAnswer, ArrayList<String> wrongAnswer) {
         this.subject = subject;
         this.question = question;
         this.rightAnswer = rightAnswer;
-        this.wrongAnswer = fourAnswer;
+        this.wrongAnswer = wrongAnswer;
     }
 
     public String getQuestion() {

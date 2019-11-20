@@ -31,11 +31,16 @@ public class ChoosingSubjectSceneController {
                 categoryCounter++;
             }
             else{
-                if (!categories[randomCategory[categoryCounter]].equals(categories[randomCategory[0]]) || !categories[randomCategory[categoryCounter]].equals(categories[randomCategory[1]])) {
-                    categoryCounter++;
-                    System.out.println(categoryCounter);
+                if(categoryCounter == 1) {
+                    if (!categories[randomCategory[categoryCounter]].equals(categories[randomCategory[0]])) {
+
+                        categoryCounter++;
+                    }
                 }
-                if(categoryCounter == 3){
+                else if(!categories[randomCategory[categoryCounter]].equals(categories[randomCategory[0]]) && !categories[randomCategory[categoryCounter]].equals(categories[randomCategory[1]])) {
+                    categoryCounter++;
+                }
+                if (categoryCounter == 3) {
                     nonRepeat = false;
                 }
             }

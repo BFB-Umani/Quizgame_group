@@ -35,3 +35,40 @@
 #chooseSubject{
     -fx-font-size: 30;
 }
+
+#waitingImage{
+    -fx-graphic: url("../../images/waitingImage.gif");
+}
+
+#waitingText{
+    -fx-font-size: 30;
+    -fx-text-fill: #433dff;
+}
+
+#resultText{
+    -fx-font-size: 30;
+}
+
+#playerOne{
+    -fx-font-size: 15;
+}
+
+#playerTwo{
+    -fx-font-size: 15;
+}
+
+#roundOne{
+    -fx-background-color: #ff8806;
+    -fx-text-fill: #f8ffe8;
+}
+
+#roundTwo{
+    -fx-background-color: #ff8806;
+    -fx-text-fill: #f8ffe8;
+}
+
+#total{
+    -fx-background-color: #ff8806;
+    -fx-text-fill: #f8ffe8;
+}
+

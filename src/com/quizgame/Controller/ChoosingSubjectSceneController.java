@@ -26,7 +26,7 @@ public class ChoosingSubjectSceneController {
         nonRepeat = true;
         while (nonRepeat) {
 
-            randomCategory[categoryCounter] = (r.nextInt(4));
+            randomCategory[categoryCounter] = (r.nextInt(categories.length));
             if(categoryCounter == 0) {
                 categoryCounter++;
             }

@@ -111,9 +111,10 @@ public class QuizClient extends Application {
         waitingScene = new WaitingScene();
         resultScene = new ResultScene();
 
-        //scene = new Scene(startScene.getDesignLayout(),480,620);
+        scene = new Scene(startScene.getDesignLayout(),480,620);
+        // Testar andra scener.
         //scene = new Scene(waitingScene.getDesignLayout(),480,620);
-        scene = new Scene(resultScene.getDesignLayout(),480,620);
+        //scene = new Scene(resultScene.getDesignLayout(),480,620);
         scene.getStylesheets().add(QuizClient.class.getResource("Style.css").toExternalForm());
         stage.setScene(scene);
 

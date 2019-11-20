@@ -20,11 +20,16 @@ public class StartSceneController {
         startScene.getNewGameButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                input = startScene.getTextField().getText();
+                System.out.println(input);
                 changeToChoosingSubjectScene();
             }
         });
     }
 
+    public String getInput() {
+        return input;
+    }
     public void changeToChoosingSubjectScene(){
         quizClient.goToChoseSubjectScene();
     }

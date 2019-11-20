@@ -78,7 +78,6 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.*;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 public class QuizClient extends Application {
 

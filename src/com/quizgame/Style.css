@@ -56,3 +56,19 @@
 #playerTwo{
     -fx-font-size: 15;
 }
+
+#roundOne{
+    -fx-background-color: #ff8806;
+    -fx-text-fill: #f8ffe8;
+}
+
+#roundTwo{
+    -fx-background-color: #ff8806;
+    -fx-text-fill: #f8ffe8;
+}
+
+#total{
+    -fx-background-color: #ff8806;
+    -fx-text-fill: #f8ffe8;
+}
+

@@ -36,7 +36,7 @@ public class StartScene {
         name.setId("nameText");
 
         buttonLayout.setAlignment(Pos.CENTER);
-        newGameButton.setPrefSize(100,30);
+        newGameButton.setPrefSize(88,30);
         buttonLayout.setId("buttonLayout");
         newGameButton.setMaxWidth(Double.MAX_VALUE);
 

@@ -93,6 +93,7 @@ public class QuizClient extends Application {
     private Scene scene;
     private ChoosingSubjectScene choosingSubjectScene;
     private QuizView quizView;
+    QuizClient quizClient;
 
 
     public QuizClient() {    //NO TOUCH THIS!!!!

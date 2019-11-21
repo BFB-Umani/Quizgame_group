@@ -2,6 +2,7 @@ package com.quizgame.Controller;
 
 //import com.quizgame.Database;
 import com.quizgame.QuizItem;
+import com.quizgame.properties.ServerPropertiesReader;
 import com.quizgame.view.QuizView;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
@@ -16,6 +17,7 @@ public class QuizController {
     private int questionCounter = 0;
     private int[] storedQuestion = {5, 5, 5, 5};
     private int answeredState = 0;
+    private int choiceMode = 1;     //0 = "accept mode"
     private QuizView quizView;
     private Object fromServer;
     private List<QuizItem> itemPack;
@@ -31,14 +33,7 @@ public class QuizController {
         quizView.setUp();
         loadItemPack(fromServer); //vi anropar först den nya metoden
         item = itemPack.get(questionCounter);
-        showQuestion(item); //bara startar
-        //förmodligen ska questionCounter loopa s till vardet n
-        // n ska komma (direkt eller odirekt vet ej...)  från properties
-        // men var ska counter loopa? inte har: det är bara en start!
-        // från nextquestion? Eller?
-        // och vad händer när loop tar slut? Alltså när round tar slut?
-
-
+        showQuestion(item);
         quizView.getAnswerButton1().setOnAction(this::handle);
         quizView.getAnswerButton2().setOnAction(this::handle);
         quizView.getAnswerButton3().setOnAction(this::handle);
@@ -46,7 +41,6 @@ public class QuizController {
     }
 
 
-    //NEW METOD!!
     private void loadItemPack(Object fromServer) {
         List<QuizItem> itemPack = (List<QuizItem>)fromServer;
         this.itemPack = itemPack;
@@ -57,8 +51,36 @@ public class QuizController {
         if (answeredState == 0) {
             clickAnswerButton((Button) actionEvent.getSource());
         } else {
+            System.out.println(questionCounter);
             nextQuestion();
         }
+
+    }
+
+
+    private void clickAnswerButton(Button button) {
+
+        if (button.getText().equalsIgnoreCase(item.getRightAnswer())) {
+            clickedRightAnswerButton(button);
+        } else {
+            clickedWrongAnswerButton(button);
+        }
+    }
+
+
+    private void clickedRightAnswerButton(Button button) {
+        button.setId("right");
+        answeredState = 1;
+    }
+
+
+    private void clickedWrongAnswerButton(Button button) {
+        button.setId("wrong");
+        Button rightButton = getRightAnswerButton();
+        if (rightButton != null) {
+            rightButton.setId("right");
+        }
+        answeredState = 1;
     }
 
     private void showQuestion(QuizItem item) {
@@ -82,39 +104,27 @@ public class QuizController {
 
     }
 
-    private void clickAnswerButton(Button button) {
 
-        if (button.getText().equalsIgnoreCase(item.getRightAnswer())) {
-            clickedRightAnswerButton(button);
-        } else {
-            clickedWrongAnswerButton(button);
-        }
+    void nextQuestion() {
+            this.questionCounter++;
+
+            if (questionCounter<this.itemPack.size()) {
+                quizView.getAnswerButton1().setId(".button");
+                quizView.getAnswerButton2().setId(".button");
+                quizView.getAnswerButton3().setId(".button");
+                quizView.getAnswerButton4().setId(".button");
+
+                item = itemPack.get(questionCounter);
+                showQuestion(item);
+                answeredState = 0;
+            }
+            else  //om det inte finns en next Question
+                if (choiceMode == 0)
+                    System.out.println("Vad händer när man slutar en acceptRound?");
+                else if (choiceMode == 1)        //det räcker med else, med så är det tydligare
+                    System.out.println("Vad händer när man slutar en choiceRound?");
     }
 
-    private void clickedRightAnswerButton(Button button) {
-        button.setId("right");
-        answeredState = 1;
-    }
-
-    private void clickedWrongAnswerButton(Button button) {
-        button.setId("wrong");
-        Button rightButton = getRightAnswerButton();
-        if (rightButton != null) {
-            rightButton.setId("right");
-        }
-        answeredState = 1;
-    }
-
-    void nextQuestion() {  //nu går vidare genom alla fyra item och sen crashar för Index 4 out of bounds(så klart!)
-        quizView.getAnswerButton1().setId(".button");
-        quizView.getAnswerButton2().setId(".button");
-        quizView.getAnswerButton3().setId(".button");
-        quizView.getAnswerButton4().setId(".button");
-        this.questionCounter++;
-        item = itemPack.get(questionCounter);
-        showQuestion(item);
-        answeredState = 0;
-    }
 
     private Button getRightAnswerButton() {
 

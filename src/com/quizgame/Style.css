@@ -1,5 +1,6 @@
 .button{
     -fx-background-color: #f07acf;
+    -fx-font-family: "Arial Narrow";
 }
 
 #right{
@@ -69,6 +70,11 @@
 
 #total{
     -fx-background-color: #ff8806;
+    -fx-text-fill: #f8ffe8;
+}
+
+#continueButton{
+    -fx-background-color: #bd69ff;
     -fx-text-fill: #f8ffe8;
 }
 

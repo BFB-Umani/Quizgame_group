@@ -43,6 +43,8 @@ public class QuizController {
         quizView.getAnswerButton2().setOnAction(this::handle);
         quizView.getAnswerButton3().setOnAction(this::handle);
         quizView.getAnswerButton4().setOnAction(this::handle);
+
+        quizView.getContinueButton().setOnAction(this::clickedContinueButton);
     }
 
 
@@ -52,12 +54,13 @@ public class QuizController {
         this.itemPack = itemPack;
     }
 
+    private void clickedContinueButton(ActionEvent actionEvent){
+        nextQuestion();
+    }
 
     private void handle(ActionEvent actionEvent) {
         if (answeredState == 0) {
             clickAnswerButton((Button) actionEvent.getSource());
-        } else {
-            nextQuestion();
         }
     }
 
@@ -80,6 +83,9 @@ public class QuizController {
         quizView.getAnswerButton3().setText(answerList.get(2));
         quizView.getAnswerButton4().setText(answerList.get(3));
 
+        quizView.getContinueButton().setVisible(false);
+
+
     }
 
     private void clickAnswerButton(Button button) {
@@ -89,6 +95,7 @@ public class QuizController {
         } else {
             clickedWrongAnswerButton(button);
         }
+        quizView.getContinueButton().setVisible(true);
     }
 
     private void clickedRightAnswerButton(Button button) {

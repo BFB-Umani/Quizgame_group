@@ -1,12 +1,10 @@
 package com.quizgame.view;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 
 public class QuizView {
     private VBox designLayout = new VBox();
@@ -16,6 +14,7 @@ public class QuizView {
     private Button answerButton2 = new Button();
     private Button answerButton3 = new Button();
     private Button answerButton4 = new Button();
+    private Button continueButton = new Button("Continue");
 
     public void setUp(){
         designLayout.setId("background");
@@ -59,7 +58,18 @@ public class QuizView {
 
         answerLayout.setVgap(1);
         answerLayout.setHgap(1);
-        answerLayout.setPadding(new Insets(5,0,0,25));
+        answerLayout.setPadding(new Insets(20,0,20,25));
+
+        HBox continueLayout = new HBox();
+        designLayout.getChildren().add(continueLayout);
+        continueLayout.getChildren().add(continueButton);
+        continueLayout.setPrefSize(400,100);
+        continueLayout.setAlignment(Pos.CENTER);
+        continueButton.setAlignment(Pos.CENTER);
+        continueButton.setId("continueButton");
+        continueButton.setMinSize(100,50);
+        continueLayout.setPadding(new Insets(20));
+
 //        questionLabel.setVisible(false);
 //        answerButton1.setVisible(false);
 //        answerButton2.setVisible(false);
@@ -93,5 +103,9 @@ public class QuizView {
 
     public Button getAnswerButton4() {
         return answerButton4;
+    }
+
+    public Button getContinueButton() {
+        return continueButton;
     }
 }

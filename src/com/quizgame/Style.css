@@ -10,7 +10,7 @@
 #wrong{
     -fx-background-color: rgba(188, 35, 37, 0.96);
 }
-#questionLabel {
+#questionBackground {
     -fx-background-image: url("../../images/question_label.png");
 
 }

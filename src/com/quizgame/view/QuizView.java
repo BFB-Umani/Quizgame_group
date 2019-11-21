@@ -17,9 +17,9 @@ public class QuizView {
     private Button continueButton = new Button("Continue");
 
     public void setUp(){
+        HBox questionPane = new HBox();
         designLayout.setId("background");
-        designLayout.getChildren().add(questionLabel);
-        questionLabel.setId("questionLabel");
+        designLayout.getChildren().add(questionPane);
         designLayout.getChildren().add(answerLayout);
         answerLayout.getChildren().add(answerButton1);
         answerLayout.getChildren().add(answerButton2);
@@ -37,7 +37,14 @@ public class QuizView {
 
         answerLayout.setPrefSize(400,500);
 
-        questionLabel.setPrefSize(400,500);
+        questionPane.setId("questionBackground");
+        questionPane.setPrefSize(400,500);
+        questionPane.getChildren().add(questionLabel);
+        questionLabel.setPrefSize(280,100);
+        questionLabel.setWrapText(true);
+        questionLabel.setAlignment(Pos.CENTER);
+        questionPane.setPadding(new Insets(100));
+
 
         ColumnConstraints column0 = new ColumnConstraints();
         column0.setPercentWidth(50);

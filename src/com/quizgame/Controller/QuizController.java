@@ -13,14 +13,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class QuizController {
+    private QuizView quizView;
     private int lastQuestion = 0;
+    private int[] storedQuestion = {5, 5, 5, 5};
     private int questionCounter = 0;
     private int roundCounter = 1; // det måste uppdateras när acceptRound tar slut
-    private int totalRound = 4; // det ska komma från server. att skicka med list<quizItem>?
-    private int[] storedQuestion = {5, 5, 5, 5};
+    private int totalRound = 2; // det ska komma från server. att skicka med list<quizItem>?
     private int answeredState = 0;
     private int choiceMode = 1;     //0 = "accept mode"
-    private QuizView quizView;
     private Object fromServer;
     private List<QuizItem> itemPack;
     private QuizItem item;
@@ -31,7 +31,6 @@ public class QuizController {
     }
 
     public void start() {
-
         quizView.setUp();
         loadItemPack(fromServer);
         item = itemPack.get(questionCounter);
@@ -126,18 +125,26 @@ public class QuizController {
 
 
     void nextRound(){
-        if (choiceMode == 0) {          // AcceptRound
-            System.out.println("Vad händer när man slutar en acceptRound?\nförst kolla om matchen är slut");
+        if (choiceMode == 0) {              // AcceptRound
+            System.out.println("AcceptRound är slut: först kolla om matchen är slut");
             if (isGameOver()) {
-                System.out.println("game över, Statistik");
-            } else
-                System.out.println("new chosingSubjectscene och new choiceRound");
+                System.out.println("game över: visa färdiga resultScenen");
+                System.exit(0);      //bara för att prova
+            } else                          //det finns en till round!
+                System.out.println("game continue:\nSpara resultatet i resultScene, men också summan i en variabel score!");
+                choiceMode = 1;             //det blir choiceRound
                 roundCounter++;
-
+                System.out.println("new chosingSubjectscene och new QuizView");
+                System.out.println("Server ska skicka ett nytt Quizpaket");
+                System.out.println("choiceMode = 1  (choiceRound)  &   roundCounter++");
         }
 
-        else if (choiceMode == 1)        //ChoiceRound
-            System.out.println("Vad händer när man slutar en choiceRound?");
+        else if (choiceMode == 1) {        //ChoiceRound
+            System.out.println("ChoiceRound är slut: då så?");
+            System.out.println("Spara resultatet i resultScene, men också summan i en variabel score!");
+            System.out.println("Switch player");
+            System.out.println("Server måste skicka samma Quizpaket");
+        }
     }
 
 

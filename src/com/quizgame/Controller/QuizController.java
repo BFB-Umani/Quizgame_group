@@ -20,6 +20,7 @@ public class QuizController {
     private Object fromServer;
     private List<QuizItem> itemPack;
     private QuizItem item;  //eller currentItem?
+    private int score = 0;
 
     public QuizController(QuizView quizView, Object fromServer) {
         this.fromServer = fromServer;
@@ -101,6 +102,7 @@ public class QuizController {
     private void clickedRightAnswerButton(Button button) {
         button.setId("right");
         answeredState = 1;
+        increaseScore();
     }
 
     private void clickedWrongAnswerButton(Button button) {
@@ -136,6 +138,12 @@ public class QuizController {
         } else {
             return null;
         }
+
+    }
+
+    private void increaseScore(){
+        score++;
+        quizView.getScoreCounter().setText("Score: " + score);
     }
 
 

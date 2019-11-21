@@ -104,4 +104,8 @@ public class QuizView {
     public Button getAnswerButton4() {
         return answerButton4;
     }
+
+    public Button getContinueButton() {
+        return continueButton;
+    }
 }

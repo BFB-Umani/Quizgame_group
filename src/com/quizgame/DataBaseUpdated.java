@@ -4,12 +4,14 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class DataBaseUpdated {
     private List<QuizItem> quizItems = new ArrayList<>();
+    private DataBaseUpdated dataBaseUpdated = new DataBaseUpdated();
+    private QuizItem quizItem;
 
     public DataBaseUpdated() {
         loadQuestionsFromFile();
@@ -37,7 +39,7 @@ public class DataBaseUpdated {
         }
     }
 
-    public List getSubjectList() {
+    public List<String> getSubjectList() {
         List<String> subjectList = new ArrayList<>();
         for (int i = 0; i < quizItems.size(); i++) {
             String subject = quizItems.get(i).getSubject();
@@ -72,7 +74,14 @@ public class DataBaseUpdated {
         return rightAnswersList;
     }
 
-    public QuizItem getItem() {
-        return quizItems.get(0);
+    public List<QuizItem> getItemsBySubject(String subjectInput) {
+        return quizItems.stream().filter(q -> q.getSubject().equals(subjectInput)).collect(Collectors.toList());
+
+    }
+
+    public QuizItem getARandomQuizItemBySubject(String subject){
+        List<QuizItem> itemsBySubject = getItemsBySubject(subject);
+         Collections.shuffle(itemsBySubject);
+         return itemsBySubject.get(0);
     }
 }

@@ -9,24 +9,31 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class QuizServer {
+public class QuizServer extends Thread {
+    private Socket socketToClient;
+    private String userName;
+    private QuizServer opponent;
+    private DataBaseUpdated dataBaseUpdated = new DataBaseUpdated();
 
-    int portNr = 12345;
+    //int portNr = 12345;
 
-    public QuizServer() {
-        try (
-                ServerSocket serverSocket = new ServerSocket(portNr);
-                Socket socketToClient = serverSocket.accept();
-                PrintWriter out = new PrintWriter(socketToClient.getOutputStream(),true);
-                BufferedReader in = new BufferedReader(new InputStreamReader(socketToClient.getInputStream()));
-        ) {
+    public QuizServer(Socket socketToClient, String userName) {
+        this.socketToClient = socketToClient;
+        this.userName = userName;
+        try {
+            //ServerSocket serverSocket = new ServerSocket(portNr);
+            //Socket socketToClient = serverSocket.accept();
+            PrintWriter out = new PrintWriter(socketToClient.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(socketToClient.getInputStream()));
 
 
-
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
 
+    public void setOpponent(QuizServer opponent) {
+        this.opponent = opponent;
+    }
 }

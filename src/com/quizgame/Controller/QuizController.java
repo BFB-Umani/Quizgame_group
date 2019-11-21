@@ -15,13 +15,15 @@ import java.util.List;
 public class QuizController {
     private int lastQuestion = 0;
     private int questionCounter = 0;
+    private int roundCounter = 1; // det måste uppdateras när acceptRound tar slut
+    private int totalRound = 4; // det ska komma från server. att skicka med list<quizItem>?
     private int[] storedQuestion = {5, 5, 5, 5};
     private int answeredState = 0;
     private int choiceMode = 1;     //0 = "accept mode"
     private QuizView quizView;
     private Object fromServer;
     private List<QuizItem> itemPack;
-    private QuizItem item;  //eller currentItem?
+    private QuizItem item;
 
     public QuizController(QuizView quizView, Object fromServer) {
         this.fromServer = fromServer;
@@ -31,7 +33,7 @@ public class QuizController {
     public void start() {
 
         quizView.setUp();
-        loadItemPack(fromServer); //vi anropar först den nya metoden
+        loadItemPack(fromServer);
         item = itemPack.get(questionCounter);
         showQuestion(item);
         quizView.getAnswerButton1().setOnAction(this::handle);
@@ -51,7 +53,7 @@ public class QuizController {
         if (answeredState == 0) {
             clickAnswerButton((Button) actionEvent.getSource());
         } else {
-            System.out.println(questionCounter);
+            System.out.println(questionCounter); //vi kan ta bor det
             nextQuestion();
         }
 
@@ -106,23 +108,41 @@ public class QuizController {
 
 
     void nextQuestion() {
-            this.questionCounter++;
+        this.questionCounter++;
 
-            if (questionCounter<this.itemPack.size()) {
-                quizView.getAnswerButton1().setId(".button");
-                quizView.getAnswerButton2().setId(".button");
-                quizView.getAnswerButton3().setId(".button");
-                quizView.getAnswerButton4().setId(".button");
+        if (questionCounter<this.itemPack.size()) {
+            quizView.getAnswerButton1().setId(".button");
+            quizView.getAnswerButton2().setId(".button");
+            quizView.getAnswerButton3().setId(".button");
+            quizView.getAnswerButton4().setId(".button");
 
-                item = itemPack.get(questionCounter);
-                showQuestion(item);
-                answeredState = 0;
-            }
-            else  //om det inte finns en next Question
-                if (choiceMode == 0)
-                    System.out.println("Vad händer när man slutar en acceptRound?");
-                else if (choiceMode == 1)        //det räcker med else, med så är det tydligare
-                    System.out.println("Vad händer när man slutar en choiceRound?");
+            item = itemPack.get(questionCounter);
+            showQuestion(item);
+            answeredState = 0;
+        }
+        else                                // om det inte finns en next Question
+            nextRound();
+    }
+
+
+    void nextRound(){
+        if (choiceMode == 0) {          // AcceptRound
+            System.out.println("Vad händer när man slutar en acceptRound?\nförst kolla om matchen är slut");
+            if (isGameOver()) {
+                System.out.println("game över, Statistik");
+            } else
+                System.out.println("new chosingSubjectscene och new choiceRound");
+                roundCounter++;
+
+        }
+
+        else if (choiceMode == 1)        //ChoiceRound
+            System.out.println("Vad händer när man slutar en choiceRound?");
+    }
+
+
+    private boolean isGameOver() {
+        return (roundCounter==totalRound);
     }
 
 

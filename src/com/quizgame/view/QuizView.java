@@ -10,13 +10,16 @@ public class QuizView {
     private VBox designLayout = new VBox();
     private Label questionLabel = new Label();
     private GridPane answerLayout = new GridPane();
+    private Label scoreCounter = new Label();
     private Button answerButton1 = new Button();
     private Button answerButton2 = new Button();
     private Button answerButton3 = new Button();
     private Button answerButton4 = new Button();
     private Button continueButton = new Button("Continue");
 
+
     public void setUp(){
+        designLayout.getChildren().add(scoreCounter);
         HBox questionPane = new HBox();
         designLayout.setId("background");
         designLayout.getChildren().add(questionPane);
@@ -44,6 +47,11 @@ public class QuizView {
         questionLabel.setWrapText(true);
         questionLabel.setAlignment(Pos.CENTER);
         questionPane.setPadding(new Insets(100));
+
+        scoreCounter.setText("Score: 0");
+        scoreCounter.setId("scoreCounter");
+        scoreCounter.setPrefSize(70,50);
+
 
 
         ColumnConstraints column0 = new ColumnConstraints();
@@ -114,5 +122,10 @@ public class QuizView {
 
     public Button getContinueButton() {
         return continueButton;
+    }
+
+
+    public Label getScoreCounter() {
+        return scoreCounter;
     }
 }

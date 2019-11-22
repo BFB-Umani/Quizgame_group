@@ -23,6 +23,7 @@ public class QuizController {
     private QuizItem item;  //eller currentItem?
     private int totalQuestion;
     private int totalRound;
+    private int totalPoints;
 
     public QuizController(QuizView quizView, QuizClient quizClient) {
         this.quizView = quizView;
@@ -48,19 +49,11 @@ public class QuizController {
 
     public void loadQuestion(Object fromServer) {
         this.fromServer = fromServer;
-        loadItemPack(fromServer); //vi anropar först den nya metoden
+        loadItemPack(fromServer);
         item = itemPack.get(questionCounter);
-        showQuestion(item); //bara startar
-        //förmodligen ska questionCounter loopa s till vardet n
-        // n ska komma (direkt eller odirekt vet ej...)  från properties
-        // men var ska counter loopa? inte har: det är bara en start!
-        // från nextquestion? Eller?
-        // och vad händer när loop tar slut? Alltså när round tar slut?
-
+        showQuestion(item);
     }
 
-
-    //NEW METOD!!
     private void loadItemPack(Object fromServer) {
         List<QuizItem> itemPack = (List<QuizItem>)fromServer;
         this.itemPack = itemPack;
@@ -104,6 +97,7 @@ public class QuizController {
 
         if (button.getText().equalsIgnoreCase(item.getRightAnswer())) {
             clickedRightAnswerButton(button);
+            totalPoints++;
         } else {
             clickedWrongAnswerButton(button);
         }
@@ -130,8 +124,11 @@ public class QuizController {
         quizView.getAnswerButton3().setId(".button");
         quizView.getAnswerButton4().setId(".button");
 
+        //Round och Question counters
         this.questionCounter++;
         if(questionCounter >= totalQuestion) {
+            quizClient.sendPoints(totalPoints);
+            totalPoints = 0;
             this.roundCounter++;
             System.out.println("Done!");
             this.questionCounter = 0;

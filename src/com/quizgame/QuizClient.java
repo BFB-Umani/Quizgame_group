@@ -91,6 +91,14 @@ public class QuizClient extends Application {
         }
     }
 
+    public void sendPoints(int points) {
+        try {
+            quizClient.out.writeObject(points);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void getMsg() {
         Object fromServer;
         try {

@@ -27,9 +27,6 @@ public class StartSceneController {
         });
     }
 
-    public String getInput() {
-        return input;
-    }
     public void changeToChoosingSubjectScene(){
         quizClient.goToChoseSubjectScene();
     }

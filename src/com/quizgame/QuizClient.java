@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.List;
@@ -24,6 +25,7 @@ public class QuizClient extends Application {
     private QuizClient quizClient;
     private Object quest;
     private QuizController quizController;
+    private ResultSceneController resultSceneController;
 
 
     public QuizClient() {    //NO TOUCH THIS!!!!
@@ -69,14 +71,13 @@ public class QuizClient extends Application {
         WaitingSceneController waitingSceneController = new WaitingSceneController(waitingScene);
         waitingSceneController.start();
 
-        ResultSceneController resultSceneController = new ResultSceneController(resultScene);
+        resultSceneController = new ResultSceneController(resultScene, this);
         resultSceneController.start();
 
         quizController = new QuizController(quizView, this);
         quizController.start();
 
         stage.show();
-
 
 
     }
@@ -93,7 +94,9 @@ public class QuizClient extends Application {
 
     public void sendPoints(int points) {
         try {
+            resultSceneController.loadScore(points);
             quizClient.out.writeObject(points);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -119,33 +122,31 @@ public class QuizClient extends Application {
                     System.out.println(gameInfo[1]);
                     System.out.println("I got int item");
                     quizController.loadGameInfo(gameInfo);
-                }
-                else if(fromServer instanceof Integer) {
+                } else if (fromServer instanceof Integer) {
                     System.out.println("I got a single int item");
                 }
                 break;
             }
-        }catch(IOException | ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
-    public Object getQuest() {
-        return quest;
+
+    public void goToChoseSubjectScene() {
+        scene.setRoot(choosingSubjectScene.getDesignLayout());
     }
 
-
-        public void goToChoseSubjectScene () {
-            scene.setRoot(choosingSubjectScene.getDesignLayout());
-        }
-
-        public void goToQuizScene () {
-            scene.setRoot(quizView.getDesignLayout());
-        }
-
-        public static void main (String[]args){
-            launch(args);
-        }
-
-
+    public void goToQuizScene() {
+        scene.setRoot(quizView.getDesignLayout());
     }
+
+    public void goToResult() {
+        scene.setRoot(resultScene.getDesignLayout());
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+}
 

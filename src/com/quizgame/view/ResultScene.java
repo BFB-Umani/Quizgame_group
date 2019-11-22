@@ -19,6 +19,31 @@ public class ResultScene {
     private Button roundOne = new Button("Round 1");
     private Button roundTwo = new Button("Round 2");
     private Button total = new Button("Total");
+
+    public Button getRoundOneResult1() {
+        return roundOneResult1;
+    }
+
+    public Button getRoundTwoResult1() {
+        return roundTwoResult1;
+    }
+
+    public Button getRoundOneResult2() {
+        return roundOneResult2;
+    }
+
+    public Button getRoundTwoResult2() {
+        return roundTwoResult2;
+    }
+
+    public Button getTotalResult1() {
+        return totalResult1;
+    }
+
+    public Button getTotalResult2() {
+        return totalResult2;
+    }
+
     private Button roundOneResult1 = new Button("1/3");
     private Button roundTwoResult1 = new Button("2/3");
     private Button roundOneResult2 = new Button("0/3");

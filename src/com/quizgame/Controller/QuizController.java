@@ -128,10 +128,13 @@ public class QuizController {
         this.questionCounter++;
         if(questionCounter >= totalQuestion) {
             quizClient.sendPoints(totalPoints);
+
             totalPoints = 0;
             this.roundCounter++;
             System.out.println("Done!");
             this.questionCounter = 0;
+            changeToResult();
+
             if(roundCounter >= totalRound) {
                 System.out.println("Rounds done!");
             }
@@ -156,6 +159,10 @@ public class QuizController {
         } else {
             return null;
         }
+    }
+
+    public void changeToResult() {
+        quizClient.goToResult();
     }
 
 

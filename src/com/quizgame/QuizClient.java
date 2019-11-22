@@ -78,6 +78,7 @@ public class QuizClient extends Application {
         stage.show();
 
 
+
     }
 
     public void sendMsg(String output) {
@@ -99,16 +100,20 @@ public class QuizClient extends Application {
                     quest = fromServer;
                     System.out.println(quest);
                     quizController.loadQuestion(quest);
-//                    System.out.println(question.getQuestion());
 
                 } else if (fromServer instanceof String) {
                     String message = (String) fromServer;
                     System.out.println(message);
                     System.out.println("I got STring item");
-                } else if (fromServer instanceof Integer[]) {
-                    Integer[] points = (Integer[]) fromServer;
-                    System.out.println(points[0]);
+                } else if (fromServer instanceof int[]) {
+                    int[] gameInfo = (int[]) fromServer;
+                    System.out.println(gameInfo[0]);
+                    System.out.println(gameInfo[1]);
                     System.out.println("I got int item");
+                    quizController.loadGameInfo(gameInfo);
+                }
+                else if(fromServer instanceof Integer) {
+                    System.out.println("I got a single int item");
                 }
                 break;
             }

@@ -13,15 +13,16 @@ import java.util.Collections;
 import java.util.List;
 
 public class QuizController {
-    private int lastQuestion = 0;
     private int questionCounter = 0;
-    private int[] storedQuestion = {5, 5, 5, 5};
+    private int roundCounter = 0;
     private int answeredState = 0;
     private QuizView quizView;
     private QuizClient quizClient;
     private Object fromServer;
     private List<QuizItem> itemPack;
     private QuizItem item;  //eller currentItem?
+    private int totalQuestion;
+    private int totalRound;
 
     public QuizController(QuizView quizView, QuizClient quizClient) {
         this.quizView = quizView;
@@ -38,6 +39,11 @@ public class QuizController {
         quizView.getAnswerButton4().setOnAction(this::handle);
 
         quizView.getContinueButton().setOnAction(this::clickedContinueButton);
+    }
+
+    public void loadGameInfo(int [] roundInfo) {
+        this.totalQuestion = roundInfo[0];
+        this.totalRound = roundInfo[1];
     }
 
     public void loadQuestion(Object fromServer) {
@@ -118,12 +124,23 @@ public class QuizController {
         answeredState = 1;
     }
 
-    void nextQuestion() {  //nu går vidare genom alla fyra item och sen crashar för Index 4 out of bounds(så klart!)
+    void nextQuestion() {
         quizView.getAnswerButton1().setId(".button");
         quizView.getAnswerButton2().setId(".button");
         quizView.getAnswerButton3().setId(".button");
         quizView.getAnswerButton4().setId(".button");
+
         this.questionCounter++;
+        if(questionCounter >= totalQuestion) {
+            this.roundCounter++;
+            System.out.println("Done!");
+            this.questionCounter = 0;
+            if(roundCounter >= totalRound) {
+                System.out.println("Rounds done!");
+            }
+
+
+        }
         item = itemPack.get(questionCounter);
         showQuestion(item);
         answeredState = 0;

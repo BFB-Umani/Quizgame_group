@@ -27,7 +27,7 @@ public class QuizServer extends Thread{
             in = new ObjectInputStream(socketToClient.getInputStream());
 
             String thisMsg;
-            QuizProtocol qp = new QuizProtocol();
+            QuizProtocol qp = new QuizProtocol(this);
             while((thisMsg =  (String)in.readObject()) != null) {
                 System.out.println("Server: " + thisMsg);
                 out.writeObject(qp.processQuestion(thisMsg));
@@ -42,6 +42,7 @@ public class QuizServer extends Thread{
 
     public void setNamn(String name) {
         this.username = name;
+        System.out.println("In setNamn: " + username);
     }
 
     public void setOpponent(QuizServer opponent) {

@@ -1,6 +1,7 @@
 package com.quizgame.Controller;
 
 //import com.quizgame.Database;
+import com.quizgame.QuizClient;
 import com.quizgame.QuizItem;
 import com.quizgame.view.QuizView;
 import javafx.event.ActionEvent;
@@ -17,34 +18,39 @@ public class QuizController {
     private int[] storedQuestion = {5, 5, 5, 5};
     private int answeredState = 0;
     private QuizView quizView;
+    private QuizClient quizClient;
     private Object fromServer;
     private List<QuizItem> itemPack;
     private QuizItem item;  //eller currentItem?
 
-    public QuizController(QuizView quizView) {
+    public QuizController(QuizView quizView, QuizClient quizClient) {
         this.quizView = quizView;
+        this.quizClient = quizClient;
 //        this.fromServer = fromServer;
     }
 
     public void start() {
 
         quizView.setUp();
-//        loadItemPack(fromServer); //vi anropar först den nya metoden
-//        item = itemPack.get(questionCounter);
-//        showQuestion(item); //bara startar
-        //förmodligen ska questionCounter loopa s till vardet n
-        // n ska komma (direkt eller odirekt vet ej...)  från properties
-        // men var ska counter loopa? inte har: det är bara en start!
-        // från nextquestion? Eller?
-        // och vad händer när loop tar slut? Alltså när round tar slut?
-
-
         quizView.getAnswerButton1().setOnAction(this::handle);
         quizView.getAnswerButton2().setOnAction(this::handle);
         quizView.getAnswerButton3().setOnAction(this::handle);
         quizView.getAnswerButton4().setOnAction(this::handle);
 
         quizView.getContinueButton().setOnAction(this::clickedContinueButton);
+    }
+
+    public void loadQuestion(Object fromServer) {
+        this.fromServer = fromServer;
+        loadItemPack(fromServer); //vi anropar först den nya metoden
+        item = itemPack.get(questionCounter);
+        showQuestion(item); //bara startar
+        //förmodligen ska questionCounter loopa s till vardet n
+        // n ska komma (direkt eller odirekt vet ej...)  från properties
+        // men var ska counter loopa? inte har: det är bara en start!
+        // från nextquestion? Eller?
+        // och vad händer när loop tar slut? Alltså när round tar slut?
+
     }
 
 

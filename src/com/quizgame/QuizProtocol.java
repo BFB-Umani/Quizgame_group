@@ -6,18 +6,17 @@ public class QuizProtocol<T> {
     private static final int SUBJECT = 1;
     private static final int CHECKINGANSWER = 2;
     private static final int ANOTHER = 3;
-
     private int state = GETTINGNAME;
-    QuizServer qs;
+    Database db = new Database();
 
     public T processQuestion(String answer) {
-        String output = "";
+        T output = null;
         if(state == GETTINGNAME) {
-            output = "FirstStage";
+            output = (T) ("Välkommen: " + answer);
             state = SUBJECT;
         }
         else if(state == SUBJECT) {
-            output = "SecondStage";
+            output = (T) db.getItemPack(answer);
         }
         else if(state == CHECKINGANSWER) {
             // do something
@@ -25,6 +24,6 @@ public class QuizProtocol<T> {
         else if(state == ANOTHER) {
             // do something
         }
-        return (T) output;
+        return  output;
     }
 }

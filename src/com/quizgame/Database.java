@@ -24,6 +24,54 @@ public class Database {
     public String chosenSubject = "FOTBOLL";
 
 
+
+
+
+
+
+    public Database() {
+        for (int indexQuestion = 0; indexQuestion < QUESTION.length; indexQuestion++) {
+
+            //skapar en tillfälligt wrongAnswer list som blir parameter i new QuizItem
+            ArrayList<String> wrongAnswer = new ArrayList<>();
+            for (int indexWrongAnswer = 0; indexWrongAnswer < 3; indexWrongAnswer++)
+                wrongAnswer.add(WRONG_ANSWER[(3 * indexQuestion) + indexWrongAnswer]);  //koordinerar 10 String(Q) med 30 String(A)
+            QuizItem item = new QuizItem(QUESTION[indexQuestion], RIGHT_ANSWER[indexQuestion], wrongAnswer);
+            allItems.add(item);
+        }
+        geografi = allItems.subList(0,9);                      // numbers... :( det blir 10 items utan att kunna förändra antalet!!!
+        fotboll = allItems.subList(10,19);           // men det är bra förtillfället :)
+        historia = allItems.subList(20, 29);
+        film = allItems.subList(30, 39);
+        //bara för att skicka något
+    }
+
+    //inte längre getitem: nu skickar vi ett helt paket med 4(n) frågor (listan är shuffled) om italienska köket.
+
+    public List<QuizItem> getItemPack(String subject){    // n-frågorspaket om en särskild subject
+        chosenSubject = subject;
+        ServerPropertiesReader properties = new ServerPropertiesReader();
+        if(chosenSubject.equalsIgnoreCase("HISTORIA")) {
+            chosenCategory = historia;
+        }
+        else if(chosenSubject.equalsIgnoreCase("FOTBOLL")) {
+            chosenCategory = fotboll;
+        }
+        else if(chosenSubject.equalsIgnoreCase("GEOGRAFI")) {
+            chosenCategory = geografi;
+        }
+        else if(chosenSubject.equalsIgnoreCase("FILM")) {
+            chosenCategory = film;
+        }
+        Collections.shuffle(chosenCategory);//italienskKoket ska bli en variabel som beror på users val
+        for (int i = 0; i < properties.getQuestionsPerRound() ; i++)             // till i<4  4 ska bli en variabel som beror på properties
+            itemPack.add(chosenCategory.get(i));
+        //eller utan loop
+        /*questionList = italienskKöket.subList(0,4);*/
+        return itemPack;
+    }
+
+
     private static final String[] QUESTION = {
             //GEOGRAFI
             "Var ligger Taj Mahal?",
@@ -176,51 +224,4 @@ public class Database {
             "Pontiacs TRANS AM", "Lotus Espirit S1", "Ford Mustang GT",
             "Jonas Johansson", "Johan Jonasson", "Johan Johansson"
     };
-
-
-
-
-
-
-    public Database() {
-        for (int indexQuestion = 0; indexQuestion < QUESTION.length; indexQuestion++) {
-
-            //skapar en tillfälligt wrongAnswer list som blir parameter i new QuizItem
-            ArrayList<String> wrongAnswer = new ArrayList<>();
-            for (int indexWrongAnswer = 0; indexWrongAnswer < 3; indexWrongAnswer++)
-                wrongAnswer.add(WRONG_ANSWER[(3 * indexQuestion) + indexWrongAnswer]);  //koordinerar 10 String(Q) med 30 String(A)
-            QuizItem item = new QuizItem(QUESTION[indexQuestion], RIGHT_ANSWER[indexQuestion], wrongAnswer);
-            allItems.add(item);
-        }
-        geografi = allItems.subList(0,9);                      // numbers... :( det blir 10 items utan att kunna förändra antalet!!!
-        fotboll = allItems.subList(10,19);           // men det är bra förtillfället :)
-        historia = allItems.subList(20, 29);
-        film = allItems.subList(30, 39);
-        //bara för att skicka något
-    }
-
-    //inte längre getitem: nu skickar vi ett helt paket med 4(n) frågor (listan är shuffled) om italienska köket.
-    public List<QuizItem> getItemPack(){    // n-frågorspaket om en särskild subject
-        ServerPropertiesReader properties = new ServerPropertiesReader();
-        if(chosenSubject.equalsIgnoreCase("HISTORIA")) {
-            chosenCategory = historia;
-        }
-        else if(chosenSubject.equalsIgnoreCase("FOTBOLL")) {
-            chosenCategory = fotboll;
-        }
-        else if(chosenSubject.equalsIgnoreCase("GEOGRAFI")) {
-            chosenCategory = geografi;
-        }
-        else if(chosenSubject.equalsIgnoreCase("FILM")) {
-            chosenCategory = film;
-        }
-        Collections.shuffle(chosenCategory);//italienskKoket ska bli en variabel som beror på users val
-        for (int i = 0; i < properties.getQuestionsPerRound() ; i++)             // till i<4  4 ska bli en variabel som beror på properties
-            itemPack.add(chosenCategory.get(i));
-        //eller utan loop
-        /*questionList = italienskKöket.subList(0,4);*/
-        return itemPack;
-    }
-
-
 }

@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.*;
 import java.net.Socket;
+import java.util.List;
 
 public class QuizClient extends Application {
 
@@ -21,6 +22,8 @@ public class QuizClient extends Application {
     private ResultScene resultScene;
     private QuizView quizView;
     private QuizClient quizClient;
+    private Object quest;
+    private QuizController quizController;
 
 
     public QuizClient() {    //NO TOUCH THIS!!!!
@@ -69,7 +72,7 @@ public class QuizClient extends Application {
         ResultSceneController resultSceneController = new ResultSceneController(resultScene);
         resultSceneController.start();
 
-        QuizController quizController = new QuizController(quizView);
+        quizController = new QuizController(quizView, this);
         quizController.start();
 
         stage.show();
@@ -89,25 +92,32 @@ public class QuizClient extends Application {
 
     public void getMsg() {
         Object fromServer;
-        String fromSrv;
         try {
             while ((fromServer = quizClient.in.readObject()) != null) {
-                if (fromServer instanceof QuizItem) {
-                    QuizItem question = (QuizItem) fromServer;
-
+                if (fromServer instanceof List) {
+                    System.out.println("I got Quizitem");
+                    quest = fromServer;
+                    System.out.println(quest);
+                    quizController.loadQuestion(quest);
+//                    System.out.println(question.getQuestion());
 
                 } else if (fromServer instanceof String) {
                     String message = (String) fromServer;
-                    System.out.println("Client: " + message);
+                    System.out.println(message);
+                    System.out.println("I got STring item");
                 } else if (fromServer instanceof Integer[]) {
                     Integer[] points = (Integer[]) fromServer;
                     System.out.println(points[0]);
+                    System.out.println("I got int item");
                 }
                 break;
             }
         }catch(IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+    public Object getQuest() {
+        return quest;
     }
 
 

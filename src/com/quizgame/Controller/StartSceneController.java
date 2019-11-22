@@ -21,7 +21,7 @@ public class StartSceneController {
             @Override
             public void handle(ActionEvent actionEvent) {
                 input = startScene.getTextField().getText();
-                System.out.println(input);
+                quizClient.sendMsg(input);
                 changeToChoosingSubjectScene();
             }
         });

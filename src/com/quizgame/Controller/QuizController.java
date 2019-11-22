@@ -21,17 +21,17 @@ public class QuizController {
     private List<QuizItem> itemPack;
     private QuizItem item;  //eller currentItem?
 
-    public QuizController(QuizView quizView, Object fromServer) {
-        this.fromServer = fromServer;
+    public QuizController(QuizView quizView) {
         this.quizView = quizView;
+//        this.fromServer = fromServer;
     }
 
     public void start() {
 
         quizView.setUp();
-        loadItemPack(fromServer); //vi anropar först den nya metoden
-        item = itemPack.get(questionCounter);
-        showQuestion(item); //bara startar
+//        loadItemPack(fromServer); //vi anropar först den nya metoden
+//        item = itemPack.get(questionCounter);
+//        showQuestion(item); //bara startar
         //förmodligen ska questionCounter loopa s till vardet n
         // n ska komma (direkt eller odirekt vet ej...)  från properties
         // men var ska counter loopa? inte har: det är bara en start!

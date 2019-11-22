@@ -13,11 +13,11 @@ public class ServerListener {
             while(true) {
 
                 QuizServer player1 = new QuizServer(listener.accept(), "player1");
-                QuizServer player2 = new QuizServer(listener.accept(), "player2");
-                player1.setOpponent(player2);
-                player2.setOpponent(player1);
+//                QuizServer player2 = new QuizServer(listener.accept(), "player2");
+//                player1.setOpponent(player2);
+//                player2.setOpponent(player1);
                 player1.start();
-                player2.start();
+//                player2.start();
 
             }
         }

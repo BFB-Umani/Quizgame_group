@@ -16,10 +16,11 @@ public class QuizProtocol<T> {
     public T processQuestion(String answer) {
         String output = "";
         if(state == GETTINGNAME) {
-            qs.setNamn(answer);
+            output = "FirstStage";
+            state = SUBJECT;
         }
         else if(state == SUBJECT) {
-            // do something
+            output = "SecondStage";
         }
         else if(state == CHECKINGANSWER) {
             // do something

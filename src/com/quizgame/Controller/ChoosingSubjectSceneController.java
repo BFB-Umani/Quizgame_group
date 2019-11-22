@@ -59,7 +59,7 @@ public class ChoosingSubjectSceneController {
 
         Button Subject = (Button) actionEvent.getSource();
         db.chosenSubject = Subject.getText();
-        System.out.println(db.chosenSubject);
+        quizClient.sendMsg(Subject.getText());
         changeToQuizScene();
     }
 
@@ -73,5 +73,6 @@ public class ChoosingSubjectSceneController {
 
     public void start() {
         choosingSubjectScene.setUp();
+
     }
 }

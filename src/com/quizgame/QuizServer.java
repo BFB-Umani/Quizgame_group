@@ -11,7 +11,6 @@ public class QuizServer extends Thread{
     ObjectOutputStream out;
     ObjectInputStream in;
     String username;
-    Database database = new Database();
 
 
     QuizServer(Socket socketToClient, String username) {

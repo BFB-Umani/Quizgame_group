@@ -1,8 +1,5 @@
 package com.quizgame;
 
-import com.quizgame.Controller.QuizController;
-import com.quizgame.view.QuizView;
-
 public class QuizProtocol<T> {
 
     private static final int GETTINGNAME = 0;

@@ -20,8 +20,8 @@ public class StartSceneController {
         startScene.getNewGameButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                input = startScene.getTextField().getText();
-                System.out.println(input);
+                input = startScene.getTextField().getText();//något till server
+                System.out.println(input);                  //något från server
                 changeToChoosingSubjectScene();
             }
         });

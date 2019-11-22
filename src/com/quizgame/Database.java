@@ -21,7 +21,7 @@ public class Database {
     List<QuizItem> film;
     List<QuizItem> chosenCategory;
     List<QuizItem> itemPack = new ArrayList<>();
-    public String chosenSubject = "FOTBOLL";
+    public String chosenSubject = "FOTBOLL";  // det måste komma från klient
 
 
     private static final String[] QUESTION = {

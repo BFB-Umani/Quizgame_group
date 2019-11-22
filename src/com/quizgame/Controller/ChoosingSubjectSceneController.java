@@ -12,11 +12,11 @@ public class ChoosingSubjectSceneController {
     private ChoosingSubjectScene choosingSubjectScene;
     private QuizClient quizClient;
     private String chosenCategory;
-    private String[] categories = {"GEOGRAFI", "FOTBOLL", "HISTORIA", "FILM"};
+    private String[] categories = {"GEOGRAFI", "FOTBOLL", "HISTORIA", "FILM"}; //från server!
     private boolean nonRepeat;
     private int[] randomCategory = new int[4];
     private int categoryCounter;
-    Database db = new Database();
+    Database db = new Database();                                              //!!!
     Random r = new Random();
 
     public ChoosingSubjectSceneController(ChoosingSubjectScene choosingSubjectScene, QuizClient quizClient) {
@@ -57,8 +57,8 @@ public class ChoosingSubjectSceneController {
 
     private void handle(ActionEvent actionEvent) {
 
-        Button Subject = (Button) actionEvent.getSource();
-        db.chosenSubject = Subject.getText();
+        Button Subject = (Button) actionEvent.getSource();        //nr skicka någon request rill server
+        db.chosenSubject = Subject.getText();                     //något som kommer från server
         System.out.println(db.chosenSubject);
         changeToQuizScene();
     }

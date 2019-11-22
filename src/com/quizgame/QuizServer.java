@@ -12,20 +12,25 @@ public class QuizServer extends Thread{
     ObjectOutputStream out;
     String username;
     Database database = new Database();
+    QuizProtocol game;
 
 
-    QuizServer(Socket socketToClient, String username) {
+
+    QuizServer(Socket socketToClient, String username/*, QuizProtocol game*/) {
 
         this.socketToClient = socketToClient;
         this.username = username;
+        /*this.game = game;*/
         try {
             out = new ObjectOutputStream(socketToClient.getOutputStream());
             in = new BufferedReader(new InputStreamReader(socketToClient.getInputStream()));
 
-            // out.println("WELCOME " + username);
+            //out.println("WELCOME " + username);
             //out.println("MESSAGE Waiting for opponent to connect");*/
-            //out.println(database.allItems.get(8).getFourAnswer().get(2));
-            List<QuizItem> toClient= database.getItemPack();
+
+
+
+            List<QuizItem> toClient= database.getItemPack(); //det får inte vara här men i protokollet
             out.writeObject(toClient);
 
         } catch (IOException e) {
@@ -35,10 +40,12 @@ public class QuizServer extends Thread{
 
     }
 
-    @Override
+
     public void run() {
 
-
+    //antingen hela protokollet eller vi instansierar protokollet här
+        /*QuizProtocol game = new QuizProtocol();*/
+        System.out.println("nu startar protokollet för" + username);
 
     }
 

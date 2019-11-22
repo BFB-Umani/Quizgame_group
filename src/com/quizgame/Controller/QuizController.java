@@ -17,9 +17,9 @@ public class QuizController {
     private int lastQuestion = 0;
     private int[] storedQuestion = {5, 5, 5, 5};
     private int questionCounter = 0;
-    private int roundCounter = 1; // det måste uppdateras när acceptRound tar slut
-    private int totalRound = 2; // det ska komma från server. att skicka med list<quizItem>?
-    private int answeredState = 0;
+    private int roundCounter = 2; // det måste uppdateras när acceptRound tar slut
+    private int totalRound = 3; // det ska komma från server. att skicka med list<quizItem>?
+    private int answeredState = 1;
     private int choiceMode = 1;     //0 = "accept mode"
     private Object fromServer;
     private List<QuizItem> itemPack;

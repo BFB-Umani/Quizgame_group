@@ -105,13 +105,45 @@ public class QuizClient extends Application {
     }
     @Override
     public void start(Stage stage) throws Exception {
+        QuizClient quizClient = new QuizClient("127.0.0.1"); // skicka från server ämne!!
+        Object fromServer = quizClient.in.readObject();
+
+
+        /*String toServer= out.println("Football");*/
+
+
+
+/*        try {
+            while ((fromServer = in.readObject()) != null) {
+                if (fromServer instanceof QuizItem) {
+                    QuizItem question = (QuizItem) fromServer;
+                    *//*anropa rätta metoden*//*
+                } else if (fromServer instanceof String) {
+                    String message = (String) fromServer;
+                    *//*anropa rätta metoden*//*
+
+
+                } else if (fromServer instanceof Integer[]) {
+                    Integer[] points = (Integer[]) fromServer;
+                    *//*anropa rätta metoden*//*
+                }
+            }//while
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }*/
+
+
+
         stage.setTitle("Quizgame");
         stage.setResizable(false);
         stage.getIcons().add(new Image("/images/quizIcon.png"));
 
-        quizView = new QuizView();
+
         StartScene startScene = new StartScene();
         choosingSubjectScene = new ChoosingSubjectScene();
+        quizView = new QuizView();
 
         scene = new Scene(startScene.getDesignLayout(),480,620);
         scene.getStylesheets().add(QuizClient.class.getResource("Style.css").toExternalForm());
@@ -123,13 +155,13 @@ public class QuizClient extends Application {
         ChoosingSubjectSceneController choosingSubjectSceneController = new ChoosingSubjectSceneController(choosingSubjectScene,this);
         choosingSubjectSceneController.start();
 
-        QuizClient quizClient = new QuizClient("127.0.0.1");
+
 
         //nu är Objektet fromServer som kommer till klienten
         //vi skickar objektet som argument när vi instansierar QuizController
         // i quizControll finns en metod loadItemPack som cast objekt till list<QuizItem> och
         // tar den första item. Sen jobbar vi med en item som förut.
-        Object fromServer = quizClient.in.readObject();
+
         QuizController quizController = new QuizController(quizView, fromServer);
         quizController.start();
         stage.show();

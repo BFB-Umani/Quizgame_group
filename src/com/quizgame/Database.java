@@ -63,11 +63,11 @@ public class Database {
         else if(chosenSubject.equalsIgnoreCase("FILM")) {
             chosenCategory = film;
         }
-        Collections.shuffle(chosenCategory);//italienskKoket ska bli en variabel som beror på users val
-        for (int i = 0; i < properties.getQuestionsPerRound() ; i++)             // till i<4  4 ska bli en variabel som beror på properties
+        Collections.shuffle(chosenCategory);
+        for (int i = 0; i < properties.getQuestionsPerRound() ; i++)
             itemPack.add(chosenCategory.get(i));
         //eller utan loop
-        /*questionList = italienskKöket.subList(0,4);*/
+        /*itemPack = chosenCategory.subList(0,properties.getQuestionsPerRound());*/
         return itemPack;
     }
 

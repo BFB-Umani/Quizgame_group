@@ -121,18 +121,17 @@ public class QuizClient extends Application {
     }
 
 
-        public void goToChoseSubjectScene () {
-            scene.setRoot(choosingSubjectScene.getDesignLayout());
-        }
-
-        public void goToQuizScene () {
-            scene.setRoot(quizView.getDesignLayout());
-        }
-
-        public static void main (String[]args){
-            launch(args);
-        }
-
-
+    public void goToChoseSubjectScene () {
+        scene.setRoot(choosingSubjectScene.getDesignLayout());
     }
 
+    public void goToQuizScene () {
+        scene.setRoot(quizView.getDesignLayout());
+    }
+
+    public static void main (String[]args){
+        launch(args);
+    }
+
+
+}

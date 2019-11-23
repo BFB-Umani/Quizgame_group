@@ -13,15 +13,18 @@ import java.util.Collections;
 import java.util.List;
 
 public class QuizController {
-    private int lastQuestion = 0;
-    private int questionCounter = 0;
-    private int[] storedQuestion = {5, 5, 5, 5};
-    private int answeredState = 0;
     private QuizView quizView;
-    private QuizClient quizClient;
+    private int lastQuestion = 0;
+    private int[] storedQuestion = {5, 5, 5, 5};
+    private int questionCounter = 0;
+    private int roundCounter = 1;   //---
+    private int totalRound = 1;     //---  det ska komma från properties. Genom server?
+    private int answeredState = 0;
+    private int choiceMode = 0;     //--- 0 = "accept mode"
     private Object fromServer;
     private List<QuizItem> itemPack;
-    private QuizItem item;  //eller currentItem?
+    private QuizItem item;
+    private QuizClient quizClient;
 
     public QuizController(QuizView quizView, QuizClient quizClient) {
         this.quizView = quizView;
@@ -42,26 +45,15 @@ public class QuizController {
 
     public void loadQuestion(Object fromServer) {
         this.fromServer = fromServer;
-        loadItemPack(fromServer); //vi anropar först den nya metoden
+        loadItemPack(fromServer);
         item = itemPack.get(questionCounter);
-        showQuestion(item); //bara startar
-        //förmodligen ska questionCounter loopa s till vardet n
-        // n ska komma (direkt eller odirekt vet ej...)  från properties
-        // men var ska counter loopa? inte har: det är bara en start!
-        // från nextquestion? Eller?
-        // och vad händer när loop tar slut? Alltså när round tar slut?
+        showQuestion(item);
 
     }
 
-
-    //NEW METOD!!
     private void loadItemPack(Object fromServer) {
         List<QuizItem> itemPack = (List<QuizItem>)fromServer;
         this.itemPack = itemPack;
-    }
-
-    private void clickedContinueButton(ActionEvent actionEvent){
-        nextQuestion();
     }
 
     private void handle(ActionEvent actionEvent) {
@@ -70,27 +62,12 @@ public class QuizController {
         }
     }
 
-    private void showQuestion(QuizItem item) {
-
-        List<String> answerList = new ArrayList<>();
-
-        answerList.add(item.getRightAnswer());
-        answerList.add(item.getWrongAnswer().get(0));
-        answerList.add(item.getWrongAnswer().get(1));
-        answerList.add(item.getWrongAnswer().get(2));
-
-        Collections.shuffle(answerList);
-
-        quizView.getQuestionLabel().setMaxWidth(Double.MAX_VALUE);
-        quizView.getQuestionLabel().setAlignment(Pos.CENTER);
-        quizView.getQuestionLabel().setText(item.getQuestion());
-        quizView.getAnswerButton1().setText(answerList.get(0));
-        quizView.getAnswerButton2().setText(answerList.get(1));
-        quizView.getAnswerButton3().setText(answerList.get(2));
-        quizView.getAnswerButton4().setText(answerList.get(3));
-
-        quizView.getContinueButton().setVisible(false);
-
+    private void clickedContinueButton(ActionEvent actionEvent){
+        this.questionCounter++;
+        if (questionCounter<this.itemPack.size())
+            nextQuestion();
+        else
+            nextRound();
 
     }
 
@@ -118,6 +95,30 @@ public class QuizController {
         answeredState = 1;
     }
 
+    private void showQuestion(QuizItem item) {
+
+        List<String> answerList = new ArrayList<>();
+
+        answerList.add(item.getRightAnswer());
+        answerList.add(item.getWrongAnswer().get(0));
+        answerList.add(item.getWrongAnswer().get(1));
+        answerList.add(item.getWrongAnswer().get(2));
+
+        Collections.shuffle(answerList);
+
+        quizView.getQuestionLabel().setMaxWidth(Double.MAX_VALUE);
+        quizView.getQuestionLabel().setAlignment(Pos.CENTER);
+        quizView.getQuestionLabel().setText(item.getQuestion());
+        quizView.getAnswerButton1().setText(answerList.get(0));
+        quizView.getAnswerButton2().setText(answerList.get(1));
+        quizView.getAnswerButton3().setText(answerList.get(2));
+        quizView.getAnswerButton4().setText(answerList.get(3));
+
+        quizView.getContinueButton().setVisible(false);
+
+
+    }
+
     void nextQuestion() {  //nu går vidare genom alla fyra item och sen crashar för Index 4 out of bounds(så klart!)
         quizView.getAnswerButton1().setId(".button");
         quizView.getAnswerButton2().setId(".button");
@@ -128,6 +129,35 @@ public class QuizController {
         showQuestion(item);
         answeredState = 0;
     }
+
+    void nextRound(){
+        if (choiceMode == 0) {              // AcceptRound
+            System.out.println("AcceptRound är slut  \nKollar om matchen är slut");
+            if (isGameOver()) {
+                System.out.println("game över: visa färdiga resultScenen");
+                System.out.println("SPELA OM?");
+            } else                          //det finns en till round!
+                System.out.println("game continue:\nSpara resultatet i resultScene, men också summan i en variabel score!");
+            choiceMode = 1;             //det blir choiceRound
+            roundCounter++;
+            System.out.println("new chosingSubjectscene och new QuizView");
+            System.out.println("Server ska skicka new subject list och ett nytt Quizpaket");
+            System.out.println("choiceMode = 1  (choiceRound)  &   roundCounter++");
+        }
+
+        else if (choiceMode == 1) {        //ChoiceRound
+            System.out.println("ChoiceRound är slut: då så?");
+            System.out.println("Spara resultatet i resultScene, men också summan i en variabel score!");
+            System.out.println("Switch player");
+            System.out.println("Server måste skicka samma Quizpaket");
+        }
+    }
+
+
+    private boolean isGameOver() {
+        return (roundCounter==totalRound);
+    }
+
 
     private Button getRightAnswerButton() {
 

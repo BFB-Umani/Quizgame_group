@@ -61,7 +61,7 @@ public class DataBaseUpdated {
     public List getAllAnswerList() {
         List<String> allAnswerList = new ArrayList<>();
         for (int i = 0; i < quizItems.size(); i++) {
-            allAnswerList.add(quizItems.get(i).getAllAnswer().toString());
+            allAnswerList.add(quizItems.get(i).getAllAnswers().toString());
         }
         return allAnswerList;
     }

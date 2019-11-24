@@ -1,31 +1,28 @@
 package com.quizgame.view;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 
 public class QuizView {
-    private Label questionLabel = new Label();
-    private Label pointsLabel = new Label("Actual points");
-    private GridPane answerLayout = new GridPane();
     private VBox designLayout = new VBox();
+    private Label questionLabel = new Label();
+    private GridPane answerLayout = new GridPane();
+    private Label scoreCounter = new Label();
     private Button answerButton1 = new Button();
     private Button answerButton2 = new Button();
     private Button answerButton3 = new Button();
     private Button answerButton4 = new Button();
+    private Button continueButton = new Button("Continue");
+
 
     public void setUp(){
+        designLayout.getChildren().add(scoreCounter);
+        HBox questionPane = new HBox();
         designLayout.setId("background");
-        questionLabel.setId("questionLabel");
-        pointsLabel.setId("pointLabel");
-        designLayout.getChildren().add(pointsLabel);
-        designLayout.getChildren().add(questionLabel);
-
-
+        designLayout.getChildren().add(questionPane);
         designLayout.getChildren().add(answerLayout);
         answerLayout.getChildren().add(answerButton1);
         answerLayout.getChildren().add(answerButton2);
@@ -43,8 +40,17 @@ public class QuizView {
 
         answerLayout.setPrefSize(400,500);
 
-        questionLabel.setPrefSize(350,500);
-        pointsLabel.setPrefSize(50,150);
+        questionPane.setId("questionBackground");
+        questionPane.setPrefSize(400,500);
+        questionPane.getChildren().add(questionLabel);
+        questionLabel.setPrefSize(280,100);
+        questionLabel.setWrapText(true);
+        questionLabel.setAlignment(Pos.CENTER);
+        questionPane.setPadding(new Insets(100));
+
+        scoreCounter.setText("Score: 0");
+        scoreCounter.setId("scoreCounter");
+        scoreCounter.setPrefSize(70,50);
 
 
 
@@ -60,16 +66,6 @@ public class QuizView {
         row1.setPercentHeight(50);
         answerLayout.getRowConstraints().addAll(row0,row1);
 
-//        answerButton1.setMaxWidth(1000);
-//        answerButton2.setMaxWidth(1000);
-//        answerButton3.setMaxWidth(1000);
-//        answerButton4.setMaxWidth(1000);
-//
-//        answerButton1.setMaxHeight(1000);
-//        answerButton2.setMaxHeight(1000);
-//        answerButton3.setMaxHeight(1000);
-//        answerButton4.setMaxHeight(1000);
-
         answerButton1.setMinSize(200,100);
         answerButton2.setMinSize(200,100);
         answerButton3.setMinSize(200,100);
@@ -77,7 +73,18 @@ public class QuizView {
 
         answerLayout.setVgap(1);
         answerLayout.setHgap(1);
-        answerLayout.setPadding(new Insets(5,0,0,25));
+        answerLayout.setPadding(new Insets(20,0,20,25));
+
+        HBox continueLayout = new HBox();
+        designLayout.getChildren().add(continueLayout);
+        continueLayout.getChildren().add(continueButton);
+        continueLayout.setPrefSize(400,100);
+        continueLayout.setAlignment(Pos.CENTER);
+        continueButton.setAlignment(Pos.CENTER);
+        continueButton.setId("continueButton");
+        continueButton.setMinSize(100,50);
+        continueLayout.setPadding(new Insets(20));
+
 //        questionLabel.setVisible(false);
 //        answerButton1.setVisible(false);
 //        answerButton2.setVisible(false);
@@ -111,5 +118,14 @@ public class QuizView {
 
     public Button getAnswerButton4() {
         return answerButton4;
+    }
+
+    public Button getContinueButton() {
+        return continueButton;
+    }
+
+
+    public Label getScoreCounter() {
+        return scoreCounter;
     }
 }

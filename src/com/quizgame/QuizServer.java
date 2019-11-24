@@ -1,39 +1,54 @@
 package com.quizgame;
 
-import javafx.animation.ScaleTransition;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.ServerSocket;
+import java.io.*;
 import java.net.Socket;
+import java.util.Collections;
+import java.util.List;
 
-public class QuizServer extends Thread {
+public class QuizServer extends Thread{
     private Socket socketToClient;
-    private String userName;
-    private QuizServer opponent;
-    private DataBaseUpdated dataBaseUpdated = new DataBaseUpdated();
+    QuizServer opponent;
+    BufferedReader in;
+    ObjectOutputStream out;
+    String username;
+    Database database = new Database();
 
-    //int portNr = 12345;
 
-    public QuizServer(Socket socketToClient, String userName) {
+    QuizServer(Socket socketToClient, String username) {
+
         this.socketToClient = socketToClient;
-        this.userName = userName;
+        this.username = username;
         try {
-            //ServerSocket serverSocket = new ServerSocket(portNr);
-            //Socket socketToClient = serverSocket.accept();
-            PrintWriter out = new PrintWriter(socketToClient.getOutputStream(), true);
-            BufferedReader in = new BufferedReader(new InputStreamReader(socketToClient.getInputStream()));
+            out = new ObjectOutputStream(socketToClient.getOutputStream());
+            in = new BufferedReader(new InputStreamReader(socketToClient.getInputStream()));
 
+            // out.println("WELCOME " + username);
+            //out.println("MESSAGE Waiting for opponent to connect");*/
+            //out.println(database.allItems.get(8).getFourAnswer().get(2));
+            List<QuizItem> toClient= database.getItemPack();
+            out.writeObject(toClient);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Player died: " + e);
         }
+
+
     }
 
+    @Override
+    public void run() {
+
+
+
+    }
+
+    public void setNamn(String name) {
+        this.username = name;
+    }
 
     public void setOpponent(QuizServer opponent) {
         this.opponent = opponent;
     }
+
 }
+

@@ -1,18 +1,19 @@
 package com.quizgame;
 
-import java.util.List;
+import java.io.Serializable;
+import java.util.ArrayList;
 
-public class QuizItem {
-    private String subject;
-    private String question;
-    private String rightAnswer;
-    private List<String> allAnswers;
+public class QuizItem implements Serializable{
+    String subject;
+    String question;
+    String rightAnswer;
+    ArrayList<String> wrongAnswer = new ArrayList<>(4);
 
-    public QuizItem(String subject, String question,List<String> allAnswers, String rightAnswer) {
+    public QuizItem(/*String subject,*/ String question, String rightAnswer, ArrayList<String> wrongAnswer) {
         this.subject = subject;
         this.question = question;
-        this.allAnswers = allAnswers;
         this.rightAnswer = rightAnswer;
+        this.wrongAnswer = wrongAnswer;
     }
 
     public String getQuestion() {
@@ -23,11 +24,7 @@ public class QuizItem {
         return rightAnswer;
     }
 
-    public List<String> getAllAnswer() {
-        return allAnswers;
-    }
-
-    public String getSubject() {
-        return subject;
+    public ArrayList<String> getWrongAnswer() {
+        return wrongAnswer;
     }
 }

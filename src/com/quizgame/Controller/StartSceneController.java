@@ -9,6 +9,7 @@ public class StartSceneController {
     private String input;
     private StartScene startScene;
     private QuizClient quizClient;
+    private QuizController quizController;
 
     public StartSceneController(StartScene startScene, QuizClient quizClient){
         this.startScene = startScene;
@@ -16,6 +17,7 @@ public class StartSceneController {
     }
 
     public void start(){
+        quizClient.getMsg();
         startScene.setUp();
         startScene.getNewGameButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override

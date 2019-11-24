@@ -7,10 +7,11 @@ import java.util.List;
 
 public class QuizServer extends Thread{
     private Socket socketToClient;
-    QuizServer opponent;
-    ObjectOutputStream out;
-    ObjectInputStream in;
-    String username;
+    private QuizServer opponent;
+    private ObjectOutputStream out;
+    private ObjectInputStream in;
+    private String username;
+    private int playerNumber;
 
 
     QuizServer(Socket socketToClient, String username) {
@@ -28,6 +29,7 @@ public class QuizServer extends Thread{
 
             String thisMsg;
             QuizProtocol qp = new QuizProtocol();
+            out.writeObject(playerNumber);
             while((thisMsg =  (String)in.readObject()) != null) {
                 System.out.println("Server: " + thisMsg);
                 out.writeObject(qp.processQuestion(thisMsg));
@@ -46,6 +48,12 @@ public class QuizServer extends Thread{
 
     public void setOpponent(QuizServer opponent) {
         this.opponent = opponent;
+    }
+    public void setPlayerNumber(int playerNumber) {
+        this.playerNumber = playerNumber;
+    }
+    public QuizServer getOpponent() {
+        return this.opponent;
     }
 
 }

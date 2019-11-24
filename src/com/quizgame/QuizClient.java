@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.List;
@@ -24,6 +25,8 @@ public class QuizClient extends Application {
     private QuizClient quizClient;
     private Object quest;
     private QuizController quizController;
+    private int playerNumber;
+    private int rond = 1;
 
 
     public QuizClient() {    //NO TOUCH THIS!!!!
@@ -109,30 +112,55 @@ public class QuizClient extends Application {
                     Integer[] points = (Integer[]) fromServer;
                     System.out.println(points[0]);
                     System.out.println("I got int item");
+                } else if (fromServer instanceof Integer) {
+                    playerNumber = (Integer) fromServer;
+                    System.out.println(playerNumber);
                 }
                 break;
             }
-        }catch(IOException | ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
+
     public Object getQuest() {
         return quest;
     }
 
 
-        public void goToChoseSubjectScene () {
-            scene.setRoot(choosingSubjectScene.getDesignLayout());
+    public void goToChoseSubjectScene() {
+        if ((rond & 1) == 1) {
+            if (playerNumber == 1) {
+                scene.setRoot(choosingSubjectScene.getDesignLayout());
+            } else {
+                goToWaitingScene();
+            }
+        } else {
+            if (playerNumber == 2) {
+                scene.setRoot(choosingSubjectScene.getDesignLayout());
+            } else {
+                goToWaitingScene();
+            }
         }
-
-        public void goToQuizScene () {
-            scene.setRoot(quizView.getDesignLayout());
-        }
-
-        public static void main (String[]args){
-            launch(args);
-        }
-
 
     }
+
+    public void goToQuizScene() {
+        scene.setRoot(quizView.getDesignLayout());
+    }
+
+    public void goToWaitingScene() {
+        scene.setRoot(waitingScene.getDesignLayout());
+    }
+
+    public void goToResultScene(){
+        scene.setRoot(resultScene.getDesignLayout());
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+
+}
 

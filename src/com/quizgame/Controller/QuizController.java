@@ -1,8 +1,10 @@
 package com.quizgame.Controller;
 
 //import com.quizgame.Database;
+import com.quizgame.PropertiesReader;
 import com.quizgame.QuizClient;
 import com.quizgame.QuizItem;
+import com.quizgame.QuizServer;
 import com.quizgame.view.QuizView;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
@@ -13,24 +15,25 @@ import java.util.Collections;
 import java.util.List;
 
 public class QuizController {
-    private int lastQuestion = 0;
+    private int questionNumber = 0;
     private int questionCounter = 0;
-    private int[] storedQuestion = {5, 5, 5, 5};
     private int answeredState = 0;
     private QuizView quizView;
     private QuizClient quizClient;
+    private QuizServer quizServer;
     private Object fromServer;
     private List<QuizItem> itemPack;
     private QuizItem item;  //eller currentItem?
+    private int QpR;
+    private PropertiesReader prpReader = new PropertiesReader();
 
     public QuizController(QuizView quizView, QuizClient quizClient) {
         this.quizView = quizView;
         this.quizClient = quizClient;
-//        this.fromServer = fromServer;
     }
 
     public void start() {
-
+        setQpR(prpReader.getQuestionsPerRound());
         quizView.setUp();
         quizView.getAnswerButton1().setOnAction(this::handle);
         quizView.getAnswerButton2().setOnAction(this::handle);
@@ -56,12 +59,19 @@ public class QuizController {
 
     //NEW METOD!!
     private void loadItemPack(Object fromServer) {
-        List<QuizItem> itemPack = (List<QuizItem>)fromServer;
-        this.itemPack = itemPack;
+        this.itemPack = (List<QuizItem>)fromServer;
     }
 
     private void clickedContinueButton(ActionEvent actionEvent){
-        nextQuestion();
+        if(questionNumber < QpR - 1 ) {
+            System.out.println(questionNumber);
+            nextQuestion();
+        }
+        else {
+            System.out.println("ok");
+            questionNumber = 0;
+            quizClient.goToResultScene();
+        }
     }
 
     private void handle(ActionEvent actionEvent) {
@@ -123,10 +133,11 @@ public class QuizController {
         quizView.getAnswerButton2().setId(".button");
         quizView.getAnswerButton3().setId(".button");
         quizView.getAnswerButton4().setId(".button");
-        this.questionCounter++;
+        questionCounter++;
         item = itemPack.get(questionCounter);
         showQuestion(item);
         answeredState = 0;
+        questionNumber++;
     }
 
     private Button getRightAnswerButton() {
@@ -142,6 +153,10 @@ public class QuizController {
         } else {
             return null;
         }
+    }
+
+    public void setQpR(int QpR) {
+        this.QpR = QpR;
     }
 
 

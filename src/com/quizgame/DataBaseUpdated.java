@@ -5,12 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class DataBaseUpdated {
     private List<QuizItem> quizItems = new ArrayList<>();
-    private DataBaseUpdated dataBaseUpdated = new DataBaseUpdated();
     private QuizItem quizItem;
 
     public DataBaseUpdated() {

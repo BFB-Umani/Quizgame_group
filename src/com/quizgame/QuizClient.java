@@ -81,25 +81,18 @@ import java.net.Socket;
 
 public class QuizClient extends Application {
 
-    private static int PORT = 12345;
-    private Socket socket;
-    private ObjectInputStream in;
-    private PrintWriter out;
     private Scene scene;
     private ChoosingSubjectScene choosingSubjectScene;
     private WaitingScene waitingScene;
     private ResultScene resultScene;
     private QuizView quizView;
+    private ServerConnection serverConnection;
 
 
     public QuizClient() {    //NO TOUCH THIS!!!!
     }
 
-    public QuizClient(String serverAddress) throws IOException {
-        socket = new Socket(serverAddress, PORT);
-        out = new PrintWriter(socket.getOutputStream(), true);
-        in = new ObjectInputStream(socket.getInputStream());
-    }
+
     @Override
     public void start(Stage stage) throws Exception {
         stage.setTitle("Quizgame");
@@ -131,15 +124,14 @@ public class QuizClient extends Application {
         ResultSceneController resultSceneController = new ResultSceneController(resultScene);
         resultSceneController.start();
 
-        QuizClient quizClient = new QuizClient("127.0.0.1");
 
-        //nu är Objektet fromServer som kommer till klienten
-        //vi skickar objektet som argument när vi instansierar QuizController
-        // i quizControll finns en metod loadItemPack som cast objekt till list<QuizItem> och
-        // tar den första item. Sen jobbar vi med en item som förut.
-        Object fromServer = quizClient.in.readObject();
-        QuizController quizController = new QuizController(quizView, fromServer);
-        quizController.start();
+        serverConnection = new ServerConnection();
+        serverConnection.connect();
+
+
+        //Object fromServer = quizClient.in.readObject();
+        //QuizController quizController = new QuizController(quizView, fromServer);
+        //quizController.start();
         stage.show();
 
 
@@ -155,6 +147,10 @@ public class QuizClient extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public ServerConnection getServerConnection(){
+        return serverConnection;
     }
 
 

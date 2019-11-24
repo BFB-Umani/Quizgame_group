@@ -68,13 +68,9 @@ public class QuizController {
     private void showQuestion(QuizItem item) {
 
         List<String> answerList = new ArrayList<>();
-
-        answerList.add(item.getRightAnswer());
-        answerList.add(item.getWrongAnswer().get(0));
-        answerList.add(item.getWrongAnswer().get(1));
-        answerList.add(item.getWrongAnswer().get(2));
-
+        answerList.addAll(item.getAllAnswers());
         Collections.shuffle(answerList);
+
 
         quizView.getQuestionLabel().setMaxWidth(Double.MAX_VALUE);
         quizView.getQuestionLabel().setAlignment(Pos.CENTER);

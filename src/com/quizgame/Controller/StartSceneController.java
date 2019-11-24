@@ -22,6 +22,7 @@ public class StartSceneController {
             public void handle(ActionEvent actionEvent) {
                 input = startScene.getTextField().getText();
                 System.out.println(input);
+                quizClient.getServerConnection().sendNameToServer(input);
                 changeToChoosingSubjectScene();
             }
         });

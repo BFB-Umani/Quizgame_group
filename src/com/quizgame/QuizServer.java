@@ -9,9 +9,11 @@ public class QuizServer extends Thread {
     private Socket socketToClient;
     QuizClient quizclient;
     private QuizServer opponent;
+    private QuizServer currentPlayer;
     private ObjectOutputStream out;
     private ObjectInputStream in;
     private String username;
+    private QuizProtocol qp;
     private int playerNumber;
     private boolean doneRound = false;
 
@@ -30,7 +32,7 @@ public class QuizServer extends Thread {
             out = new ObjectOutputStream(socketToClient.getOutputStream());
             in = new ObjectInputStream(socketToClient.getInputStream());
             String thisMsg;
-            QuizProtocol qp = new QuizProtocol(this);
+            qp = new QuizProtocol(this);
             out.writeObject(playerNumber);
             while((thisMsg =  (String)in.readObject()) != null) {
                 System.out.println("Server: " + thisMsg);
@@ -51,6 +53,7 @@ public class QuizServer extends Thread {
 
     public <T> void sendRound(T fromProto) {
         try {
+            opponent.qp.setState(opponent);
             opponent.out.writeObject(fromProto);
             System.out.println("Sent round to: " + opponent);
         } catch (IOException e) {
@@ -71,6 +74,18 @@ public class QuizServer extends Thread {
     }
     public void setPlayerNumber(int playerNumber) {
         this.playerNumber = playerNumber;
+    }
+
+    public QuizServer getOpponent() {
+        return opponent;
+    }
+
+    public QuizServer getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(QuizServer currentPlayer) {
+        this.currentPlayer = currentPlayer;
     }
 
     public void setDoneRound(boolean doneRound) {

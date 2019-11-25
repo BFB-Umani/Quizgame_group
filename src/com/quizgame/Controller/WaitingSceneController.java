@@ -34,13 +34,16 @@ public class WaitingSceneController {
             }
             else {
 
-                System.out.println("im in waiting else statement");
-                System.out.println(quizClient.getQuest());
+                System.out.println("GOinG 2 quizScene");
                 quizClient.goToQuizScene();
             }
 
         });
         waitingScene.setUp();
+    }
+
+    public void leaveWaiting() {
+        quizClient.goToQuizScene();
     }
 
     public void setStart(boolean boolStart) {

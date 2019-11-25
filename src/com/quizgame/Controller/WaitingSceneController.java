@@ -35,6 +35,7 @@ public class WaitingSceneController {
             else {
 
                 System.out.println("im in waiting else statement");
+                System.out.println(quizClient.getQuest());
                 quizClient.goToQuizScene();
             }
 

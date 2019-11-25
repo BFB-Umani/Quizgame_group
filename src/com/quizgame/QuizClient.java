@@ -3,6 +3,7 @@ package com.quizgame;
 import com.quizgame.Controller.*;
 import com.quizgame.view.*;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -123,8 +124,7 @@ public class QuizClient extends Application {
                 else if(fromServer instanceof Boolean) {
                     System.out.println("I got a boolean");
                     waitingSceneController.setStart(true);
-//                    quizController.loadQuestion(quest);
-                }
+                    Platform.runLater(() -> sendMsg("testing shit"));                }
                 break;
             }
         } catch (IOException | ClassNotFoundException e) {

@@ -38,7 +38,12 @@ public class QuizServer extends Thread {
             }
 
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Player died: " + currentThread().getName());
+            System.out.println("Player: " + currentThread().getName() + " disconnected");
+            try {
+                socketToClient.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
 
     }

@@ -1,5 +1,7 @@
 package com.quizgame;
 
+import javafx.application.Platform;
+
 public class QuizProtocol<T> {
 
     private static final int GETTINGNAME = 0;
@@ -9,6 +11,7 @@ public class QuizProtocol<T> {
     private int state = GETTINGNAME;
     Database db = new Database();
     T currentQuest;
+    String currentSubject = null;
     QuizServer qs;
 
     QuizProtocol(QuizServer qs) {
@@ -24,6 +27,9 @@ public class QuizProtocol<T> {
             state = SUBJECT;
         }
         else if(state == SUBJECT) {
+            if(answer != null) {
+                currentSubject = answer;
+            }
             System.out.println("Current state: "  + state);
             currentQuest = (T) db.getItemPack(answer);
             output = currentQuest;
@@ -33,10 +39,10 @@ public class QuizProtocol<T> {
             System.out.println("Current state: "  + state);
             System.out.println(qs.getNamn());
             qs.sendRound(true);
-            state = SUBJECT;
+            state = ANOTHER;
         }
         else if(state == ANOTHER) {
-            // do something
+
         }
         return  output;
     }

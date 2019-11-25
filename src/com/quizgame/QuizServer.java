@@ -32,6 +32,8 @@ public class QuizServer extends Thread {
             String thisMsg;
             QuizProtocol qp = new QuizProtocol(this);
             out.writeObject(playerNumber);
+            Object toClient;
+            Object currentQuestion;
             while((thisMsg =  (String)in.readObject()) != null) {
                 System.out.println("Server: " + thisMsg);
                 out.writeObject(qp.processQuestion(thisMsg));

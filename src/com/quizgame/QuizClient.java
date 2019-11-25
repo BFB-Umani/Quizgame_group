@@ -105,7 +105,6 @@ public class QuizClient extends Application {
                     quest = fromServer;
                     System.out.println(quest);
                     quizController.loadQuestion(quest);
-
                 } else if (fromServer instanceof String) {
                     String message = (String) fromServer;
                     System.out.println(message);
@@ -122,13 +121,18 @@ public class QuizClient extends Application {
                 }
                 else if(fromServer instanceof Boolean) {
                     System.out.println("I got a boolean");
-                    setDoneRound((Boolean) fromServer);
+                    setDoneRound(true);
+//                    quizController.loadQuestion(quest);
                 }
                 break;
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public Object getQuest() {
+        return quest;
     }
 
     public void setDoneRound(boolean doneRound){

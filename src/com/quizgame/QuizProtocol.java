@@ -30,8 +30,6 @@ public class QuizProtocol<T> {
         else if(state == DONEANSWER) {
             System.out.println("Current state: "  + state);
             System.out.println(qs.getNamn());
-            qs.getOpponent().setDoneRound(true);
-//            output = (T) (Boolean) true;
             qs.sendRound();
             state = SUBJECT;
         }

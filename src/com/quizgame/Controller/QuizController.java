@@ -1,15 +1,11 @@
 package com.quizgame.Controller;
 
-//import com.quizgame.Database;
-import com.quizgame.PropertiesReader;
 import com.quizgame.QuizClient;
 import com.quizgame.QuizItem;
-import com.quizgame.QuizServer;
 import com.quizgame.view.QuizView;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,6 +27,10 @@ public class QuizController {
         this.quizClient = quizClient;
     }
 
+    public QuizController() {
+
+    }
+
     public void loadGameInfo(int [] roundInfo) {
         this.totalQuestion = roundInfo[0];
         this.totalRound = roundInfo[1];
@@ -48,19 +48,12 @@ public class QuizController {
 
     public void loadQuestion(Object fromServer) {
         this.fromServer = fromServer;
-        loadItemPack(fromServer); //vi anropar först den nya metoden
+        loadItemPack(fromServer);
         item = itemPack.get(questionCounter);
-        showQuestion(item); //bara startar
-        //förmodligen ska questionCounter loopa s till vardet n
-        // n ska komma (direkt eller odirekt vet ej...)  från properties
-        // men var ska counter loopa? inte har: det är bara en start!
-        // från nextquestion? Eller?
-        // och vad händer när loop tar slut? Alltså när round tar slut?
+        showQuestion(item);
 
     }
 
-
-    //NEW METOD!!
     private void loadItemPack(Object fromServer) {
         this.itemPack = (List<QuizItem>)fromServer;
     }
@@ -139,8 +132,9 @@ public class QuizController {
 //            totalPoints = 0;
             this.roundCounter++;
             System.out.println("Done!");
-            quizClient.sendMsg("Done");
+            quizClient.sendMsg("done");
             this.questionCounter = 0;
+            this.totalQuestion = 0;
             changeToResult();
 
             if(roundCounter >= totalRound) {

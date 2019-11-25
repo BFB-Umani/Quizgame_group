@@ -1,6 +1,7 @@
 package com.quizgame.Controller;
 
 import com.quizgame.QuizClient;
+import com.quizgame.view.QuizView;
 import com.quizgame.view.WaitingScene;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
@@ -17,7 +18,6 @@ public class WaitingSceneController {
 
     public void start() {
         waitingScene.getB1().setOnAction(actionEvent -> {
-            System.out.println("Waiting scene waiting TEaAM");
             quizClient.getMsg();
             if(!quizClient.getDoneRound()) {
                 Stage dialogStage = new Stage();
@@ -28,11 +28,14 @@ public class WaitingSceneController {
                 });
                 dialogStage.setScene(new Scene(vBox));
                 dialogStage.show();
+
             }
             else {
+
                 System.out.println("im in waiting else statement");
                 quizClient.goToQuizScene();
             }
+
         });
         waitingScene.setUp();
     }

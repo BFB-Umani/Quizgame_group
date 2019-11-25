@@ -20,7 +20,7 @@ public class ServerListener {
                 player2.setOpponent(player1);
                 player1.setPlayerNumber(1);
                 player2.setPlayerNumber(2);
-                quiz.currentPlayer = player1;
+                quiz.currentPlayer = player1;  /// ???
                 player1.start();
                 player2.start();
             }

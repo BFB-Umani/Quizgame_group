@@ -6,9 +6,11 @@ import com.quizgame.QuizClient;
 import com.quizgame.QuizItem;
 import com.quizgame.QuizServer;
 import com.quizgame.view.QuizView;
+import com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_OUTPeer;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import org.w3c.dom.ls.LSOutput;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,6 +27,7 @@ public class QuizController {
     private QuizItem item;  //eller currentItem?
     private int QpR;
     private PropertiesReader prpReader = new PropertiesReader();
+    private int score = 0;
 
     public QuizController(QuizView quizView, QuizClient quizClient) {
         this.quizView = quizView;
@@ -117,6 +120,8 @@ public class QuizController {
     private void clickedRightAnswerButton(Button button) {
         button.setId("right");
         answeredState = 1;
+        increaseScore();
+
     }
 
     private void clickedWrongAnswerButton(Button button) {
@@ -158,6 +163,13 @@ public class QuizController {
     public void setQpR(int QpR) {
         this.QpR = QpR;
     }
+
+    public void increaseScore(){
+        quizView.getScoreCounter().setText("Score: " + score++);
+
+    }
+
+
 
 
 }

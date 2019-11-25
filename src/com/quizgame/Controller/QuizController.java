@@ -15,24 +15,29 @@ import java.util.Collections;
 import java.util.List;
 
 public class QuizController {
-    private int questionNumber = 0;
     private int questionCounter = 0;
     private int answeredState = 0;
+    private int roundCounter = 0;
+    private int totalQuestion = 0;
+    private int totalRound = 0;
     private QuizView quizView;
     private QuizClient quizClient;
     private Object fromServer;
     private List<QuizItem> itemPack;
     private QuizItem item;  //eller currentItem?
     private int QpR;
-    private PropertiesReader prpReader = new PropertiesReader();
 
     public QuizController(QuizView quizView, QuizClient quizClient) {
         this.quizView = quizView;
         this.quizClient = quizClient;
     }
 
+    public void loadGameInfo(int [] roundInfo) {
+        this.totalQuestion = roundInfo[0];
+        this.totalRound = roundInfo[1];
+    }
+
     public void start() {
-        setQpR(prpReader.getQuestionsPerRound());
         quizView.setUp();
         quizView.getAnswerButton1().setOnAction(this::handle);
         quizView.getAnswerButton2().setOnAction(this::handle);
@@ -62,12 +67,12 @@ public class QuizController {
     }
 
     private void clickedContinueButton(ActionEvent actionEvent){
-        if(questionNumber < (QpR-1) ) {
-            System.out.println(questionNumber);
+        if(questionCounter < totalQuestion) {
+            System.out.println(questionCounter);
             nextQuestion();
         }
         else {
-            questionNumber = 0;
+            questionCounter = 0;
 //            quizClient.currentPlayer = quizClient.currentPlayer.getOpponent();
 //            quizClient.currentPlayer.setDoneRound(true);
             quizClient.goToResultScene();
@@ -137,7 +142,6 @@ public class QuizController {
         item = itemPack.get(questionCounter);
         showQuestion(item);
         answeredState = 0;
-        questionNumber++;
     }
 
     private Button getRightAnswerButton() {
@@ -153,10 +157,6 @@ public class QuizController {
         } else {
             return null;
         }
-    }
-
-    public void setQpR(int QpR) {
-        this.QpR = QpR;
     }
 
 

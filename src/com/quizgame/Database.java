@@ -21,6 +21,7 @@ public class Database {
     List<QuizItem> film;
     List<QuizItem> chosenCategory;
     List<QuizItem> itemPack = new ArrayList<>();
+    ServerPropertiesReader properties = new ServerPropertiesReader();
     public String chosenSubject;
 
 
@@ -50,7 +51,6 @@ public class Database {
 
     public List<QuizItem> getItemPack(String subject){    // n-frågorspaket om en särskild subject
         chosenSubject = subject;
-        ServerPropertiesReader properties = new ServerPropertiesReader();
         if(chosenSubject.equalsIgnoreCase("HISTORIA")) {
             chosenCategory = historia;
         }
@@ -69,6 +69,10 @@ public class Database {
         //eller utan loop
         /*questionList = italienskKöket.subList(0,4);*/
         return itemPack;
+    }
+
+    public int[] getRoundInfo(){
+        return new int[]{properties.getQuestionsPerRound(), properties.getRoundsPerGame()};
     }
 
 

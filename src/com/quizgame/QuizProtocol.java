@@ -12,7 +12,7 @@ public class QuizProtocol<T> {
     public T processQuestion(String answer) {
         T output = null;
         if(state == GETTINGNAME) {
-            output = (T) ("Välkommen: " + answer);
+            output = (T) db.getRoundInfo();
             state = SUBJECT;
         }
         else if(state == SUBJECT) {

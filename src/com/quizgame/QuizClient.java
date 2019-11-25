@@ -109,9 +109,9 @@ public class QuizClient extends Application {
                     String message = (String) fromServer;
                     System.out.println(message);
                     System.out.println("I got STring item");
-                } else if (fromServer instanceof Integer[]) {
-                    Integer[] points = (Integer[]) fromServer;
-                    System.out.println(points[0]);
+                } else if (fromServer instanceof int[]) {
+                    int[] gameInfo = (int[]) fromServer;
+                    quizController.loadGameInfo(gameInfo);
                     System.out.println("I got int item");
                 } else if (fromServer instanceof Integer) {
                     playerNumber = (Integer) fromServer;

@@ -27,8 +27,10 @@ public class Player extends Thread{
 
     @Override
     public void run() {
+
         try{
         TransferObject transferObject = (TransferObject) in.readObject();
+
         setPlayerName(transferObject.text);
         }catch (ClassNotFoundException | IOException e){
             e.printStackTrace();

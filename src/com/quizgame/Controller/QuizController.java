@@ -20,7 +20,6 @@ public class QuizController {
     private int answeredState = 0;
     private QuizView quizView;
     private QuizClient quizClient;
-    private QuizServer quizServer;
     private Object fromServer;
     private List<QuizItem> itemPack;
     private QuizItem item;  //eller currentItem?
@@ -63,13 +62,14 @@ public class QuizController {
     }
 
     private void clickedContinueButton(ActionEvent actionEvent){
-        if(questionNumber < QpR - 1 ) {
+        if(questionNumber < (QpR-1) ) {
             System.out.println(questionNumber);
             nextQuestion();
         }
         else {
-            System.out.println("ok");
             questionNumber = 0;
+//            quizClient.currentPlayer = quizClient.currentPlayer.getOpponent();
+//            quizClient.currentPlayer.setDoneRound(true);
             quizClient.goToResultScene();
         }
     }

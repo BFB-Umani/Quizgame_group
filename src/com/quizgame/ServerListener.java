@@ -1,5 +1,6 @@
 package com.quizgame;
 
+import com.quizgame.Controller.QuizController;
 import com.quizgame.QuizServer;
 
 import java.io.IOException;
@@ -12,12 +13,14 @@ public class ServerListener {
         try {
             while(true) {
 
+                QuizClient quiz = new QuizClient();
                 QuizServer player1 = new QuizServer(listener.accept(), "player1");
                 QuizServer player2 = new QuizServer(listener.accept(), "player2");
                 player1.setOpponent(player2);
                 player2.setOpponent(player1);
                 player1.setPlayerNumber(1);
                 player2.setPlayerNumber(2);
+                quiz.currentPlayer = player1;
                 player1.start();
                 player2.start();
             }

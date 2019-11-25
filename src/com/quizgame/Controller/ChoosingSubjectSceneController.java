@@ -58,7 +58,6 @@ public class ChoosingSubjectSceneController {
     private void handle(ActionEvent actionEvent) {
 
         Button Subject = (Button) actionEvent.getSource();
-        db.chosenSubject = Subject.getText();
         quizClient.sendMsg(Subject.getText());
         changeToQuizScene();
     }

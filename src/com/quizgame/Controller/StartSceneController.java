@@ -1,11 +1,13 @@
 package com.quizgame.Controller;
 
 import com.quizgame.QuizClient;
+import com.quizgame.QuizServer;
 import com.quizgame.view.StartScene;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 public class StartSceneController {
+    private QuizServer quizServer;
     private String input;
     private StartScene startScene;
     private QuizClient quizClient;

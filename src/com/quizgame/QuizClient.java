@@ -26,7 +26,9 @@ public class QuizClient extends Application {
     private Object quest;
     private QuizController quizController;
     private int playerNumber;
+    private boolean doneRound = false;
     private int rond = 1;
+    public QuizServer currentPlayer;
 
 
     public QuizClient() {    //NO TOUCH THIS!!!!
@@ -102,7 +104,6 @@ public class QuizClient extends Application {
                     quest = fromServer;
                     System.out.println(quest);
                     quizController.loadQuestion(quest);
-//                    System.out.println(question.getQuestion());
 
                 } else if (fromServer instanceof String) {
                     String message = (String) fromServer;
@@ -125,6 +126,14 @@ public class QuizClient extends Application {
 
     public Object getQuest() {
         return quest;
+    }
+
+    public void setDoneRound(boolean doneRound){
+        this.doneRound = doneRound;
+    }
+
+    public boolean getDoneRound(){
+        return this.doneRound;
     }
 
 

@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 public class WaitingSceneController {
     private WaitingScene waitingScene;
     private QuizClient quizClient;
+    private boolean boolStart;
     public WaitingSceneController(WaitingScene waitingScene, QuizClient quizClient){
         this.waitingScene = waitingScene;
         this.quizClient = quizClient;
@@ -18,8 +19,10 @@ public class WaitingSceneController {
 
     public void start() {
         waitingScene.getB1().setOnAction(actionEvent -> {
+            System.out.println(quizClient.getDoneRound());
             quizClient.getMsg();
-            if(!quizClient.getDoneRound()) {
+
+            if(!boolStart) {
                 Stage dialogStage = new Stage();
                 VBox vBox = new VBox(waitingScene.getTextArea(), waitingScene.getOkButton());
                 waitingScene.getOkButton().setCursor(Cursor.HAND);
@@ -39,4 +42,9 @@ public class WaitingSceneController {
         });
         waitingScene.setUp();
     }
+
+    public void setStart(boolean boolStart) {
+        this.boolStart = boolStart;
+    }
+
 }

@@ -25,6 +25,7 @@ public class QuizClient extends Application {
     private QuizClient quizClient;
     private Object quest;
     private QuizController quizController;
+    private WaitingSceneController waitingSceneController;
     private int playerNumber;
     private boolean doneRound = false;
     private int rond = 1;
@@ -71,7 +72,7 @@ public class QuizClient extends Application {
         ChoosingSubjectSceneController choosingSubjectSceneController = new ChoosingSubjectSceneController(choosingSubjectScene, this);
         choosingSubjectSceneController.start();
 
-        WaitingSceneController waitingSceneController = new WaitingSceneController(waitingScene, this);
+        waitingSceneController = new WaitingSceneController(waitingScene, this);
         waitingSceneController.start();
 
         ResultSceneController resultSceneController = new ResultSceneController(resultScene, this);
@@ -121,7 +122,7 @@ public class QuizClient extends Application {
                 }
                 else if(fromServer instanceof Boolean) {
                     System.out.println("I got a boolean");
-                    setDoneRound(true);
+                    waitingSceneController.setStart(true);
 //                    quizController.loadQuestion(quest);
                 }
                 break;
@@ -135,9 +136,9 @@ public class QuizClient extends Application {
         return quest;
     }
 
-    public void setDoneRound(boolean doneRound){
-        this.doneRound = doneRound;
-    }
+//    public void setDoneRound(boolean doneRound){
+//        this.doneRound = doneRound;
+//    }
 
     public boolean getDoneRound(){
         return this.doneRound;

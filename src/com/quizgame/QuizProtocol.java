@@ -8,6 +8,7 @@ public class QuizProtocol<T> {
     private static final int ANOTHER = 3;
     private int state = GETTINGNAME;
     Database db = new Database();
+    T currentQuest;
     QuizServer qs;
 
     QuizProtocol(QuizServer qs) {
@@ -24,13 +25,14 @@ public class QuizProtocol<T> {
         }
         else if(state == SUBJECT) {
             System.out.println("Current state: "  + state);
-            output = (T) db.getItemPack(answer);
+            currentQuest = (T) db.getItemPack(answer);
+            output = currentQuest;
             state = DONEANSWER;
         }
         else if(state == DONEANSWER) {
             System.out.println("Current state: "  + state);
             System.out.println(qs.getNamn());
-            qs.sendRound();
+            qs.sendRound(currentQuest);
             state = SUBJECT;
         }
         else if(state == ANOTHER) {

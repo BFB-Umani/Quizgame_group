@@ -32,18 +32,9 @@ public class QuizServer extends Thread {
             String thisMsg;
             QuizProtocol qp = new QuizProtocol(this);
             out.writeObject(playerNumber);
-            Object toServer;
             while((thisMsg =  (String)in.readObject()) != null) {
                 System.out.println("Server: " + thisMsg);
-                toServer = qp.processQuestion(thisMsg);
-                sendMsg(toServer);
-                //                toServer = qp.processQuestion(thisMsg);
-//                if(toServer == null) {
-//                    break;
-//                }
-//                else {
-//                    out.writeObject(toServer);
-//                }
+                out.writeObject(qp.processQuestion(thisMsg));
             }
 
         } catch (IOException | ClassNotFoundException e) {
@@ -52,9 +43,6 @@ public class QuizServer extends Thread {
 
     }
 
-    public synchronized void sendMsg(Object toServer) throws IOException {
-        out.writeObject(toServer);
-    }
 
     public <T> void sendRound(T fromProto) {
         try {

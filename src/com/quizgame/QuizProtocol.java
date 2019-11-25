@@ -32,7 +32,7 @@ public class QuizProtocol<T> {
         else if(state == DONEANSWER) {
             System.out.println("Current state: "  + state);
             System.out.println(qs.getNamn());
-            qs.sendRound(currentQuest);
+            qs.sendRound(true);
             state = SUBJECT;
         }
         else if(state == ANOTHER) {

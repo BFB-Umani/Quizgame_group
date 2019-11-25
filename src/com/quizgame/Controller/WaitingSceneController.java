@@ -21,7 +21,6 @@ public class WaitingSceneController {
         waitingScene.getB1().setOnAction(actionEvent -> {
             System.out.println(quizClient.getDoneRound());
             quizClient.getMsg();
-
             if(!boolStart) {
                 Stage dialogStage = new Stage();
                 VBox vBox = new VBox(waitingScene.getTextArea(), waitingScene.getOkButton());

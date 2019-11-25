@@ -105,6 +105,12 @@ public class ResultScene {
            createRound(round);
         }
 
+
+
+
+
+
+
         // add total result buttons here
     }
 
@@ -120,6 +126,11 @@ public class ResultScene {
 
         player1Result.setMinSize(60,30);
         player2Result.setMinSize(60,30);
+        roundButton.setMinSize(60,30);
+
+        roundButton.setPrefWidth(80);
+        player1Result.setPrefWidth(80);
+        player2Result.setPrefWidth(80);
 
 
     }

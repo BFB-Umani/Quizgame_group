@@ -175,14 +175,22 @@ public class QuizClient extends Application {
         round1.player1Score = 3;
         round1.player2Score = 2;
 
+
         Round round2 = new Round();
         round2.round = 2;
         round2.questionsPerRound = 3;
         round2.player1Score = 1;
         round2.player2Score = 1;
 
+        Round round3 = new Round();
+        round3.round = 3;
+        round3.questionsPerRound =3;
+        round3.player1Score = 0;
+        round3.player2Score = 1;
+
         quizResult.rounds.add(round1);
         quizResult.rounds.add(round2);
+        quizResult.rounds.add(round3);
 
         resultScene.showResult(quizResult);
 

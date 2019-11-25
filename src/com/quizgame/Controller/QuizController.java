@@ -165,7 +165,8 @@ public class QuizController {
     }
 
     public void increaseScore(){
-        quizView.getScoreCounter().setText("Score: " + score++);
+        score++;
+        quizView.getScoreCounter().setText("Score: " + score);
 
     }
 

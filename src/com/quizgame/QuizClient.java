@@ -124,7 +124,7 @@ public class QuizClient extends Application {
                 else if(fromServer instanceof Boolean) {
                     System.out.println("I got a boolean");
                     waitingSceneController.setStart(true);
-                    Platform.runLater(() -> sendMsg("testing shit"));                }
+                }
                 break;
             }
         } catch (IOException | ClassNotFoundException e) {

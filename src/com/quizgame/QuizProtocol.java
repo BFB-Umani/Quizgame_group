@@ -27,12 +27,10 @@ public class QuizProtocol<T> {
             state = SUBJECT;
         }
         else if(state == SUBJECT) {
-            if(answer != null) {
-                currentSubject = answer;
-            }
             System.out.println("Current state: "  + state);
             currentQuest = (T) db.getItemPack(answer);
             output = currentQuest;
+            qs.sendRound(currentQuest);
             state = DONEANSWER;
         }
         else if(state == DONEANSWER) {

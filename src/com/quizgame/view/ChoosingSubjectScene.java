@@ -18,6 +18,10 @@ public class ChoosingSubjectScene {
     private Button subjectButton2 = new Button("test2");
     private Button subjectButton3 = new Button("test3");
 
+    public Label getChooseSubject() {
+        return chooseSubject;
+    }
+
     public void setUp(){
         designLayout.getChildren().add(chooseSubject);
         designLayout.getChildren().add(buttonArea);

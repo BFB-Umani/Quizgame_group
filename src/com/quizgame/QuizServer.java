@@ -5,40 +5,42 @@ import java.net.Socket;
 import java.util.Collections;
 import java.util.List;
 
-public class QuizServer extends Thread{
+public class QuizServer extends Thread {
     private Socket socketToClient;
-    QuizServer opponent;
-    BufferedReader in;
-    ObjectOutputStream out;
-    String username;
-    Database database = new Database();
+    QuizClient quizclient;
+    private QuizServer opponent;
+    private ObjectOutputStream out;
+    private ObjectInputStream in;
+    private String username;
+    private int playerNumber;
+    private boolean doneRound = false;
 
 
     QuizServer(Socket socketToClient, String username) {
 
         this.socketToClient = socketToClient;
         this.username = username;
-        try {
-            out = new ObjectOutputStream(socketToClient.getOutputStream());
-            in = new BufferedReader(new InputStreamReader(socketToClient.getInputStream()));
-
-            // out.println("WELCOME " + username);
-            //out.println("MESSAGE Waiting for opponent to connect");*/
-            //out.println(database.allItems.get(8).getFourAnswer().get(2));
-            List<QuizItem> toClient= database.getItemPack();
-            out.writeObject(toClient);
-
-        } catch (IOException e) {
-            System.out.println("Player died: " + e);
-        }
-
 
     }
 
     @Override
     public void run() {
+        try {
+            out = new ObjectOutputStream(socketToClient.getOutputStream());
+            in = new ObjectInputStream(socketToClient.getInputStream());
 
+            String thisMsg;
+            QuizProtocol qp = new QuizProtocol();
+            out.writeObject(playerNumber);
+            while((thisMsg =  (String)in.readObject()) != null) {
+                System.out.println("Server: " + thisMsg);
+                out.writeObject(qp.processQuestion(thisMsg));
 
+            }
+
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Player died: " + e);
+        }
 
     }
 
@@ -48,6 +50,19 @@ public class QuizServer extends Thread{
 
     public void setOpponent(QuizServer opponent) {
         this.opponent = opponent;
+    }
+    public void setPlayerNumber(int playerNumber) {
+        this.playerNumber = playerNumber;
+    }
+    public QuizServer getOpponent() {
+        return this.opponent;
+    }
+
+    public void setDoneRound(boolean doneRound) {
+        this.doneRound = doneRound;
+    }
+    public boolean getDoneRound() {
+        return this.doneRound;
     }
 
 }

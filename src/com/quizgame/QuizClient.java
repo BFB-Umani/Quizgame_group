@@ -111,6 +111,8 @@ public class QuizClient extends Application {
                     System.out.println("I got STring item");
                 } else if (fromServer instanceof int[]) {
                     int[] gameInfo = (int[]) fromServer;
+                    System.out.println(gameInfo[0]);
+                    System.out.println(gameInfo[1]);
                     quizController.loadGameInfo(gameInfo);
                     System.out.println("I got int item");
                 } else if (fromServer instanceof Integer) {

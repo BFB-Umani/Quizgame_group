@@ -25,7 +25,6 @@ public class QuizController {
     private Object fromServer;
     private List<QuizItem> itemPack;
     private QuizItem item;  //eller currentItem?
-    private int QpR;
 
     public QuizController(QuizView quizView, QuizClient quizClient) {
         this.quizView = quizView;
@@ -67,16 +66,7 @@ public class QuizController {
     }
 
     private void clickedContinueButton(ActionEvent actionEvent){
-        if(questionCounter < totalQuestion) {
-            System.out.println(questionCounter);
-            nextQuestion();
-        }
-        else {
-            questionCounter = 0;
-//            quizClient.currentPlayer = quizClient.currentPlayer.getOpponent();
-//            quizClient.currentPlayer.setDoneRound(true);
-            quizClient.goToResultScene();
-        }
+        nextQuestion();
     }
 
     private void handle(ActionEvent actionEvent) {
@@ -138,10 +128,24 @@ public class QuizController {
         quizView.getAnswerButton2().setId(".button");
         quizView.getAnswerButton3().setId(".button");
         quizView.getAnswerButton4().setId(".button");
-        questionCounter++;
         item = itemPack.get(questionCounter);
         showQuestion(item);
         answeredState = 0;
+
+        //Round och Question counters
+        this.questionCounter++;
+        if(questionCounter >= totalQuestion) {
+//            quizClient.sendPoints(totalPoints);
+//            totalPoints = 0;
+            this.roundCounter++;
+            System.out.println("Done!");
+            this.questionCounter = 0;
+            changeToResult();
+
+            if(roundCounter >= totalRound) {
+                System.out.println("Rounds done!");
+            }
+        }
     }
 
     private Button getRightAnswerButton() {
@@ -157,6 +161,10 @@ public class QuizController {
         } else {
             return null;
         }
+    }
+
+    public void changeToResult() {
+        quizClient.goToResultScene();
     }
 
 

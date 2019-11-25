@@ -26,26 +26,38 @@ public class QuizServer extends Thread {
     @Override
     public void run() {
         try {
+            System.out.println(Thread.currentThread().getName());
             out = new ObjectOutputStream(socketToClient.getOutputStream());
             in = new ObjectInputStream(socketToClient.getInputStream());
-
             String thisMsg;
-            QuizProtocol qp = new QuizProtocol();
+            QuizProtocol qp = new QuizProtocol(this);
             out.writeObject(playerNumber);
             while((thisMsg =  (String)in.readObject()) != null) {
                 System.out.println("Server: " + thisMsg);
                 out.writeObject(qp.processQuestion(thisMsg));
-
             }
 
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Player died: " + e);
+            System.out.println("Player died: " + currentThread().getName());
         }
 
     }
 
+    public void sendRound() {
+        try {
+            opponent.out.writeObject(true);
+            System.out.println("Sent true to: " + opponent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void setNamn(String name) {
-        this.username = name;
+        Thread.currentThread().setName(name);
+    }
+
+    public String getNamn() {
+        return Thread.currentThread().getName();
     }
 
     public void setOpponent(QuizServer opponent) {

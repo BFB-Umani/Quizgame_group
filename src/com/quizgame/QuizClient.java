@@ -71,10 +71,10 @@ public class QuizClient extends Application {
         ChoosingSubjectSceneController choosingSubjectSceneController = new ChoosingSubjectSceneController(choosingSubjectScene, this);
         choosingSubjectSceneController.start();
 
-        WaitingSceneController waitingSceneController = new WaitingSceneController(waitingScene);
+        WaitingSceneController waitingSceneController = new WaitingSceneController(waitingScene, this);
         waitingSceneController.start();
 
-        ResultSceneController resultSceneController = new ResultSceneController(resultScene);
+        ResultSceneController resultSceneController = new ResultSceneController(resultScene, this);
         resultSceneController.start();
 
         quizController = new QuizController(quizView, this);
@@ -94,6 +94,7 @@ public class QuizClient extends Application {
             e.printStackTrace();
         }
     }
+
 
     public void getMsg() {
         Object fromServer;
@@ -119,15 +120,15 @@ public class QuizClient extends Application {
                     playerNumber = (Integer) fromServer;
                     System.out.println(playerNumber);
                 }
+                else if(fromServer instanceof Boolean) {
+                    System.out.println("I got a boolean");
+                    setDoneRound((Boolean) fromServer);
+                }
                 break;
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-    }
-
-    public Object getQuest() {
-        return quest;
     }
 
     public void setDoneRound(boolean doneRound){

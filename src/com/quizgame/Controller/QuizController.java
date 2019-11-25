@@ -139,6 +139,7 @@ public class QuizController {
 //            totalPoints = 0;
             this.roundCounter++;
             System.out.println("Done!");
+            quizClient.sendMsg("Done");
             this.questionCounter = 0;
             changeToResult();
 

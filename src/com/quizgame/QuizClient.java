@@ -25,7 +25,10 @@ public class QuizClient extends Application {
     private QuizClient quizClient;
     private Object quest;
     private QuizController quizController;
-    private ResultSceneController resultSceneController;
+    private int playerNumber;
+    private boolean doneRound = false;
+    private int rond = 1;
+    public QuizServer currentPlayer;
 
 
     public QuizClient() {    //NO TOUCH THIS!!!!
@@ -71,7 +74,7 @@ public class QuizClient extends Application {
         WaitingSceneController waitingSceneController = new WaitingSceneController(waitingScene);
         waitingSceneController.start();
 
-        resultSceneController = new ResultSceneController(resultScene, this);
+        ResultSceneController resultSceneController = new ResultSceneController(resultScene);
         resultSceneController.start();
 
         quizController = new QuizController(quizView, this);
@@ -87,16 +90,6 @@ public class QuizClient extends Application {
         try {
             quizClient.out.writeObject(output);
             getMsg();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void sendPoints(int points) {
-        try {
-            resultSceneController.loadScore(points);
-            quizClient.out.writeObject(points);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -120,10 +113,11 @@ public class QuizClient extends Application {
                     int[] gameInfo = (int[]) fromServer;
                     System.out.println(gameInfo[0]);
                     System.out.println(gameInfo[1]);
-                    System.out.println("I got int item");
                     quizController.loadGameInfo(gameInfo);
+                    System.out.println("I got int item");
                 } else if (fromServer instanceof Integer) {
-                    System.out.println("I got a single int item");
+                    playerNumber = (Integer) fromServer;
+                    System.out.println(playerNumber);
                 }
                 break;
             }
@@ -132,21 +126,52 @@ public class QuizClient extends Application {
         }
     }
 
+    public Object getQuest() {
+        return quest;
+    }
+
+    public void setDoneRound(boolean doneRound){
+        this.doneRound = doneRound;
+    }
+
+    public boolean getDoneRound(){
+        return this.doneRound;
+    }
+
+
     public void goToChoseSubjectScene() {
-        scene.setRoot(choosingSubjectScene.getDesignLayout());
+        if ((rond & 1) == 1) {
+            if (playerNumber == 1) {
+                scene.setRoot(choosingSubjectScene.getDesignLayout());
+            } else {
+                goToWaitingScene();
+            }
+        } else {
+            if (playerNumber == 2) {
+                scene.setRoot(choosingSubjectScene.getDesignLayout());
+            } else {
+                goToWaitingScene();
+            }
+        }
+
     }
 
     public void goToQuizScene() {
         scene.setRoot(quizView.getDesignLayout());
     }
 
-    public void goToResult() {
+    public void goToWaitingScene() {
+        scene.setRoot(waitingScene.getDesignLayout());
+    }
+
+    public void goToResultScene(){
         scene.setRoot(resultScene.getDesignLayout());
     }
 
     public static void main(String[] args) {
         launch(args);
     }
+
 
 }
 

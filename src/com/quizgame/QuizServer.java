@@ -5,13 +5,15 @@ import java.net.Socket;
 import java.util.Collections;
 import java.util.List;
 
-public class QuizServer extends Thread{
+public class QuizServer extends Thread {
     private Socket socketToClient;
-    QuizServer opponent;
-    ObjectOutputStream out;
-    ObjectInputStream in;
-    String username;
-    int point;
+    QuizClient quizclient;
+    private QuizServer opponent;
+    private ObjectOutputStream out;
+    private ObjectInputStream in;
+    private String username;
+    private int playerNumber;
+    private boolean doneRound = false;
 
 
     QuizServer(Socket socketToClient, String username) {
@@ -27,17 +29,13 @@ public class QuizServer extends Thread{
             out = new ObjectOutputStream(socketToClient.getOutputStream());
             in = new ObjectInputStream(socketToClient.getInputStream());
 
-            Object thisMsg;
-            QuizProtocol qp = new QuizProtocol(this);
-            while((thisMsg =  in.readObject()) != null) {
+            String thisMsg;
+            QuizProtocol qp = new QuizProtocol();
+            out.writeObject(playerNumber);
+            while((thisMsg =  (String)in.readObject()) != null) {
                 System.out.println("Server: " + thisMsg);
-                if(thisMsg instanceof String) {
-                    out.writeObject(qp.processQuestion((String) thisMsg));
-                }
-                else if(thisMsg instanceof Integer) {
-                    int points = (int) thisMsg;
-                    System.out.println("You got this many points :" + points);
-                }
+                out.writeObject(qp.processQuestion(thisMsg));
+
             }
 
         } catch (IOException | ClassNotFoundException e) {
@@ -48,16 +46,23 @@ public class QuizServer extends Thread{
 
     public void setNamn(String name) {
         this.username = name;
-        System.out.println("In setNamn: " + username);
-    }
-
-    public void setPoints(int point) {
-        this.point = point;
-
     }
 
     public void setOpponent(QuizServer opponent) {
         this.opponent = opponent;
+    }
+    public void setPlayerNumber(int playerNumber) {
+        this.playerNumber = playerNumber;
+    }
+    public QuizServer getOpponent() {
+        return this.opponent;
+    }
+
+    public void setDoneRound(boolean doneRound) {
+        this.doneRound = doneRound;
+    }
+    public boolean getDoneRound() {
+        return this.doneRound;
     }
 
 }

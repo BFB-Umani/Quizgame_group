@@ -1,5 +1,6 @@
 package com.quizgame.view;
 
+import com.quizgame.QuizServer;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -8,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class ResultScene {
+    private QuizServer quizServer;
     private VBox designLayout = new VBox();
     private Label resultText = new Label("Result");
     private HBox playerLayout = new HBox();
@@ -114,7 +116,6 @@ public class ResultScene {
 
 
     }
-
 
     public VBox getDesignLayout() {
         return designLayout;

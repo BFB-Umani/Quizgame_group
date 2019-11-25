@@ -1,19 +1,11 @@
 package com.quizgame;
 
-import com.quizgame.Controller.ChoosingSubjectSceneController;
 import com.quizgame.properties.ServerPropertiesReader;
-
-import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Database {
-    /* private static final String[] SUBJECT = {"subject0", "subject1"};*/
-
-
-    QuizItem item;
-    QuizClient quizClient = new QuizClient();
     List<QuizItem> allItems = new ArrayList<>();
     List<QuizItem> geografi;
     List<QuizItem> fotboll;
@@ -21,8 +13,8 @@ public class Database {
     List<QuizItem> film;
     List<QuizItem> chosenCategory;
     List<QuizItem> itemPack = new ArrayList<>();
-    public String chosenSubject = "FOTBOLL";
-    ServerPropertiesReader properties;
+    ServerPropertiesReader properties = new ServerPropertiesReader();
+    public String chosenSubject;
 
 
 
@@ -31,7 +23,6 @@ public class Database {
 
 
     public Database() {
-        properties = new ServerPropertiesReader();
         for (int indexQuestion = 0; indexQuestion < QUESTION.length; indexQuestion++) {
 
             //skapar en tillfälligt wrongAnswer list som blir parameter i new QuizItem
@@ -72,12 +63,8 @@ public class Database {
         return itemPack;
     }
 
-    public int[] getRoundInfo() {
-        int[] info = new int[2];
-        info[0] = properties.getQuestionsPerRound();
-        info[1] = properties.getRoundsPerGame();
-        return info;
-
+    public int[] getRoundInfo(){
+        return new int[]{properties.getQuestionsPerRound(), properties.getRoundsPerGame()};
     }
 
 

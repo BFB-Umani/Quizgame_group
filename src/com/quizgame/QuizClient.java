@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuizClient extends Application {
@@ -82,7 +83,7 @@ public class QuizClient extends Application {
 
         stage.show();
 
-
+        goToResultScene();
     }
 
     public void sendMsg(String output) {
@@ -163,6 +164,28 @@ public class QuizClient extends Application {
     }
 
     public void goToResultScene(){
+
+        QuizResult quizResult = new QuizResult();
+        quizResult.player1Name = "Kening";
+        quizResult.player2Name = "Andre";
+        quizResult.rounds = new ArrayList<>();
+        Round round1 = new Round();
+        round1.round = 1;
+        round1.questionsPerRound = 3;
+        round1.player1Score = 3;
+        round1.player2Score = 2;
+
+        Round round2 = new Round();
+        round2.round = 2;
+        round2.questionsPerRound = 3;
+        round2.player1Score = 1;
+        round2.player2Score = 1;
+
+        quizResult.rounds.add(round1);
+        quizResult.rounds.add(round2);
+
+        resultScene.showResult(quizResult);
+
         scene.setRoot(resultScene.getDesignLayout());
     }
 

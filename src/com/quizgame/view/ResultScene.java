@@ -1,6 +1,8 @@
 package com.quizgame.view;
 
+import com.quizgame.QuizResult;
 import com.quizgame.QuizServer;
+import com.quizgame.Round;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -13,20 +15,22 @@ public class ResultScene {
     private VBox designLayout = new VBox();
     private Label resultText = new Label("Result");
     private HBox playerLayout = new HBox();
+
     private VBox resultLayout = new VBox();
     private VBox playerOne = new VBox();
     private VBox playerTwo = new VBox();
-    private Label playerOneText = new Label("Player 1");
-    private Label playerTwoText = new Label("Player 2");
-    private Button roundOne = new Button("Round 1");
-    private Button roundTwo = new Button("Round 2");
-    private Button total = new Button("Total");
-    private Button roundOneResult1 = new Button("1/3");
-    private Button roundTwoResult1 = new Button("2/3");
-    private Button roundOneResult2 = new Button("0/3");
-    private Button roundTwoResult2 = new Button("3/3");
-    private Button totalResult1 = new Button("2/6");
-    private Button totalResult2 = new Button("5/6");
+
+    private Label playerOneText = new Label();
+    private Label playerTwoText = new Label();
+//    private Button roundOne = new Button("Round 1");
+//    private Button roundTwo = new Button("Round 2");
+//    private Button total = new Button("Total");
+//    private Button roundOneResult1 = new Button("1/3");
+//    private Button roundTwoResult1 = new Button("2/3");
+//    private Button roundOneResult2 = new Button("0/3");
+//    private Button roundTwoResult2 = new Button("3/3");
+//    private Button totalResult1 = new Button("2/6");
+//    private Button totalResult2 = new Button("5/6");
 
     public void setUp(){
         designLayout.getChildren().add(resultText);
@@ -34,23 +38,25 @@ public class ResultScene {
         playerLayout.getChildren().add(resultLayout);
         playerLayout.getChildren().add(playerOne);
         playerLayout.getChildren().add(playerTwo);
+
         playerOne.getChildren().add(playerOneText);
-        resultLayout.getChildren().add(roundOne);
-        resultLayout.getChildren().add(roundTwo);
-        resultLayout.getChildren().add(total);
-        playerOne.getChildren().add(roundOneResult1);
-        playerOne.getChildren().add(roundTwoResult1);
-        playerOne.getChildren().add(totalResult1);
         playerTwo.getChildren().add(playerTwoText);
-        playerTwo.getChildren().add(roundOneResult2);
-        playerTwo.getChildren().add(roundTwoResult2);
-        playerTwo.getChildren().add(totalResult2);
+
+//        resultLayout.getChildren().add(roundOne);
+//        resultLayout.getChildren().add(roundTwo);
+//        resultLayout.getChildren().add(total);
+//        playerOne.getChildren().add(roundOneResult1);
+//        playerOne.getChildren().add(roundTwoResult1);
+//        playerOne.getChildren().add(totalResult1);
+//        playerTwo.getChildren().add(roundOneResult2);
+//        playerTwo.getChildren().add(roundTwoResult2);
+//        playerTwo.getChildren().add(totalResult2);
 
         designLayout.setId("background");
         resultText.setId("resultText");
-        roundOne.setId("roundOne");
-        roundTwo.setId("roundTwo");
-        total.setId("total");
+//        roundOne.setId("roundOne");
+//        roundTwo.setId("roundTwo");
+//        total.setId("total");
         playerOne.setId("playerOne");
         playerTwo.setId("playerTwo");
         resultText.setPrefSize(480,100);
@@ -65,29 +71,55 @@ public class ResultScene {
         resultLayout.setSpacing(40);
         resultLayout.setPadding(new Insets(50,50,50,-100));
 
-
-        roundOne.setPrefWidth(200);
-        roundTwo.setPrefWidth(200);
-        total.setPrefWidth(200);
-
-
-        roundOne.setMinSize(60,30);
-        roundTwo.setMinSize(60,30);
-        total.setMinSize(60,30);
+//
+//        roundOne.setPrefWidth(200);
+//        roundTwo.setPrefWidth(200);
+//        total.setPrefWidth(200);
+//
+//
+//        roundOne.setMinSize(60,30);
+//        roundTwo.setMinSize(60,30);
+//        total.setMinSize(60,30);
 
         playerLayout.setPadding(new Insets(50,50,50,140));
 
         playerOne.setSpacing(40);
         playerTwo.setSpacing(40);
 
-        roundOneResult1.setMinSize(60,30);
-        roundOneResult2.setMinSize(60,30);
-        totalResult1.setMinSize(60,30);
-        roundTwoResult1.setMinSize(60,30);
-        roundTwoResult2.setMinSize(60,30);
-        totalResult2.setMinSize(60,30);
+
+//        totalResult1.setMinSize(60,30);
+//        roundTwoResult1.setMinSize(60,30);
+//        roundTwoResult2.setMinSize(60,30);
+//        totalResult2.setMinSize(60,30);
 
 
+
+
+    }
+
+    public void showResult(QuizResult quizResult){
+        playerOneText.setText(quizResult.player1Name);
+        playerTwoText.setText(quizResult.player2Name);
+
+        for (Round round : quizResult.rounds) {
+           createRound(round);
+        }
+
+        // add total result buttons here
+    }
+
+    private void createRound(Round round){
+        Button roundButton = new Button("Round "+round.round);
+        resultLayout.getChildren().add(roundButton);
+
+        Button player1Result = new Button(round.player1Score + "/" + round.questionsPerRound);
+        playerOne.getChildren().add(player1Result);
+
+        Button player2Result = new Button(round.player2Score + "/" + round.questionsPerRound);
+        playerTwo.getChildren().add(player2Result);
+
+        player1Result.setMinSize(60,30);
+        player2Result.setMinSize(60,30);
 
 
     }

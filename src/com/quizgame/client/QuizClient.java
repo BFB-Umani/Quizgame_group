@@ -124,13 +124,13 @@ public class QuizClient extends Application {
         choosingSubjectSceneController = new ChoosingSubjectSceneController(choosingSubjectScene,this);
         choosingSubjectSceneController.start();
 
-        WaitingSceneController waitingSceneController = new WaitingSceneController(waitingScene);
+        WaitingSceneController waitingSceneController = new WaitingSceneController(waitingScene,this);
         waitingSceneController.start();
 
         quizController = new QuizController(quizView,this);
         quizController.start();
 
-        ResultSceneController resultSceneController = new ResultSceneController(resultScene);
+        ResultSceneController resultSceneController = new ResultSceneController(resultScene,this);
         resultSceneController.start();
 
         serverConnection = new ServerConnection(this);

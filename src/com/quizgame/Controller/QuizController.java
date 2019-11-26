@@ -2,7 +2,10 @@ package com.quizgame.Controller;
 
 import com.quizgame.client.QuizClient;
 import com.quizgame.QuizItem;
+import com.quizgame.client.ServerConnection;
+import com.quizgame.properties.ServerPropertiesReader;
 import com.quizgame.view.QuizView;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -14,12 +17,14 @@ public class QuizController {
     private int questionCounter = 0;
     private int answeredState = 0;
     private int roundCounter = 0;
-    private int totalQuestion = 0;
-    private int totalRound = 0;
+    ServerPropertiesReader prop = new ServerPropertiesReader(); // tillfälligt
+    private int totalQuestion = prop.getQuestionsPerRound(); // tillfälligt
+    private int totalRound = prop.getRoundsPerGame(); // tillfälligt
     private QuizView quizView;
     private QuizClient quizClient;
     private List<QuizItem> questions;
     private QuizItem currentQuestion;
+    private int quizCounter;
 
     public QuizController(QuizView quizView, QuizClient quizClient) {
         this.quizView = quizView;
@@ -43,6 +48,7 @@ public class QuizController {
 
     public void loadQuestions(List<QuizItem> questions) {
         this.questions = questions;
+        System.out.println(questions);
         currentQuestion = this.questions.get(questionCounter);
         showQuestion(currentQuestion);
 
@@ -79,6 +85,7 @@ public class QuizController {
         quizView.getContinueButton().setVisible(false);
 
 
+
     }
 
     private void clickAnswerButton(Button button) {
@@ -92,6 +99,7 @@ public class QuizController {
     }
 
     private void clickedRightAnswerButton(Button button) {
+        quizView.getScoreCounter().setText("Score: " + String.valueOf(++quizCounter));
         button.setId("right");
         answeredState = 1;
     }
@@ -106,6 +114,19 @@ public class QuizController {
     }
 
     void nextQuestion() {  //nu går vidare genom alla fyra item och sen crashar för Index 4 out of bounds(så klart!)
+        this.questionCounter++;
+        if(questionCounter >= totalQuestion) {
+            this.roundCounter++;
+            System.out.println("Done!");
+            this.questionCounter = 0;
+//            Platform.runLater(() -> quizClient.getServerConnection().sendRoundComplete(quizCounter));
+//            quizClient.getResultScene().getPlayerOneText().setText(quizClient.getStartScene().getTextField().getText());
+//            quizClient.getResultScene().getRoundOneResult1().setText(roundCounter+"/x");
+            changeToResult();
+            if(roundCounter >= totalRound*2) {
+                System.out.println("Rounds done!");
+            }
+        }
         quizView.getAnswerButton1().setId(".button");
         quizView.getAnswerButton2().setId(".button");
         quizView.getAnswerButton3().setId(".button");
@@ -115,20 +136,6 @@ public class QuizController {
         answeredState = 0;
 
         //Round och Question counters
-        this.questionCounter++;
-        if(questionCounter >= totalQuestion) {
-//            quizClient.sendPoints(totalPoints);
-//            totalPoints = 0;
-            this.roundCounter++;
-            System.out.println("Done!");
-            this.questionCounter = 0;
-            this.totalQuestion = 0;
-            changeToResult();
-
-            if(roundCounter >= totalRound) {
-                System.out.println("Rounds done!");
-            }
-        }
     }
 
     private Button getRightAnswerButton() {
@@ -149,6 +156,7 @@ public class QuizController {
     public void changeToResult() {
         quizClient.goToResultScene();
     }
+
 
 
 }

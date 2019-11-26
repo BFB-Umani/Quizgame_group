@@ -29,9 +29,6 @@ public class Game {
         player1.setGame(this); // Give the player reference to the game
         player2.setGame(this);//????????????????????/
     }
-    public void choosingSubject(){
-
-    }
 
     public void playerReady() {
             List<String> threeSubjects = new ArrayList<>();
@@ -44,6 +41,15 @@ public class Game {
             threeSubjects.add(database.getSubjectList().get(2));
             player1.sendSubjectsToClient(threeSubjects);
         }
+    }
+
+    public void anotherSubject() {
+        List<String> threeSubjects = new ArrayList<>();
+        Collections.shuffle(database.getSubjectList());
+        threeSubjects.add(database.getSubjectList().get(0));
+        threeSubjects.add(database.getSubjectList().get(1));
+        threeSubjects.add(database.getSubjectList().get(2));
+        player2.sendSubjectsToClient(threeSubjects);
     }
     public List<QuizItem> getQuestionsBySubjects(String subject){
         return database.getItemsBySubject(subject);

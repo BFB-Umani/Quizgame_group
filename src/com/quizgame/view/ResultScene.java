@@ -20,15 +20,6 @@ public class ResultScene {
 
     private Label playerOneText = new Label();
     private Label playerTwoText = new Label();
-//    private Button roundOne = new Button("Round 1");
-//    private Button roundTwo = new Button("Round 2");
-//    private Button total = new Button("Total");
-//    private Button roundOneResult1 = new Button("1/3");
-//    private Button roundTwoResult1 = new Button("2/3");
-//    private Button roundOneResult2 = new Button("0/3");
-//    private Button roundTwoResult2 = new Button("3/3");
-//    private Button totalResult1 = new Button("2/6");
-//    private Button totalResult2 = new Button("5/6");
 
     public void setUp(){
         designLayout.getChildren().add(resultText);
@@ -40,21 +31,8 @@ public class ResultScene {
         playerOne.getChildren().add(playerOneText);
         playerTwo.getChildren().add(playerTwoText);
 
-//        resultLayout.getChildren().add(roundOne);
-//        resultLayout.getChildren().add(roundTwo);
-//        resultLayout.getChildren().add(total);
-//        playerOne.getChildren().add(roundOneResult1);
-//        playerOne.getChildren().add(roundTwoResult1);
-//        playerOne.getChildren().add(totalResult1);
-//        playerTwo.getChildren().add(roundOneResult2);
-//        playerTwo.getChildren().add(roundTwoResult2);
-//        playerTwo.getChildren().add(totalResult2);
-
         designLayout.setId("background");
         resultText.setId("resultText");
-//        roundOne.setId("roundOne");
-//        roundTwo.setId("roundTwo");
-//        total.setId("total");
         playerOne.setId("playerOne");
         playerTwo.setId("playerTwo");
         resultText.setPrefSize(480,100);
@@ -69,30 +47,10 @@ public class ResultScene {
         resultLayout.setSpacing(40);
         resultLayout.setPadding(new Insets(50,50,50,-100));
 
-//
-//        roundOne.setPrefWidth(200);
-//        roundTwo.setPrefWidth(200);
-//        total.setPrefWidth(200);
-//
-//
-//        roundOne.setMinSize(60,30);
-//        roundTwo.setMinSize(60,30);
-//        total.setMinSize(60,30);
-
         playerLayout.setPadding(new Insets(50,50,50,140));
 
         playerOne.setSpacing(40);
         playerTwo.setSpacing(40);
-
-
-//        totalResult1.setMinSize(60,30);
-//        roundTwoResult1.setMinSize(60,30);
-//        roundTwoResult2.setMinSize(60,30);
-//        totalResult2.setMinSize(60,30);
-
-
-
-
     }
 
     public void showResult(QuizResult quizResult){
@@ -102,14 +60,34 @@ public class ResultScene {
         for (Round round : quizResult.rounds) {
            createRound(round);
         }
+        createTotalResultButton(quizResult);
+    }
 
+    private void createTotalResultButton(QuizResult quizResult){
+        Button total = new Button("Total");
+        int playerOneTotalScore = 0;
+        int playerTwoTotalScore = 0;
+        int totalNumberOfQuestions = 0;
+        for (int i = 0; i <quizResult.rounds.size() ; i++) {
+            playerOneTotalScore +=quizResult.rounds.get(i).player1Score; // player1Score got from server - actual score every round.
+            playerTwoTotalScore +=quizResult.rounds.get(i).player2Score;
 
+            totalNumberOfQuestions +=quizResult.rounds.get(i).questionsPerRound;
+        }
+        Button totalResult1 = new Button(playerOneTotalScore + "/" + totalNumberOfQuestions );
+        Button totalResult2 = new Button(playerTwoTotalScore + "/" + totalNumberOfQuestions);
 
+        resultLayout.getChildren().add(total);
+        playerOne.getChildren().add(totalResult1);
+        playerTwo.getChildren().add(totalResult2);
 
+        totalResult1.setMinSize(60,30);
+        totalResult2.setMinSize(60,30);
+        total.setMinSize(60,30);
 
-
-
-        // add total result buttons here
+        totalResult1.setPrefWidth(80);
+        totalResult2.setPrefWidth(80);
+        total.setPrefWidth(80);
     }
 
     private void createRound(Round round){
@@ -129,7 +107,6 @@ public class ResultScene {
         roundButton.setPrefWidth(80);
         player1Result.setPrefWidth(80);
         player2Result.setPrefWidth(80);
-
 
     }
 

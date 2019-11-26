@@ -14,7 +14,16 @@ public class Player extends Thread {
     private String username;
     private Game game;
     private List<QuizItem> questions;
+    private int round = 0;
 
+
+    public int getRound() {
+        return round;
+    }
+
+    public void setRound(int round) {
+        this.round = round;
+    }
 
     public Player(Socket socketToClient, String username) {
 
@@ -47,8 +56,17 @@ public class Player extends Thread {
                     sendQuestionsToClient(questions);
                 }
                 else if(object instanceof Boolean) {
-                    game.setRound(1);
-                    sendOpponent(questions);
+                    setRound(1);
+                    System.out.println(username + " " + getRound());
+                    System.out.println(opponent.username + " " + opponent.getRound());
+                    if(getRound() == 1 && opponent.getRound() == 1) {
+                        System.out.println("both at round 1");
+                        game.anotherSubject();
+                    }
+                    else {
+                        sendOpponentQuestion(questions);
+                    }
+
                 }
             } catch (ClassNotFoundException | IOException e) {
                 e.printStackTrace();
@@ -96,7 +114,7 @@ public class Player extends Thread {
 
     }
 
-    public void sendOpponent(List<QuizItem> questions) {
+    public void sendOpponentQuestion(List<QuizItem> questions) {
         QuestionsBySubjectObject questionsBySubjectObject = new QuestionsBySubjectObject();
         questionsBySubjectObject.questions = questions;
         try {

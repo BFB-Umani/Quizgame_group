@@ -33,6 +33,10 @@ public class Game {
 
     }
 
+    public int getRound() {
+        return round;
+    }
+
     public void setRound(int x) {
         this.round = x;
     }
@@ -48,6 +52,15 @@ public class Game {
             threeSubjects.add(database.getSubjectList().get(2));
             player1.sendSubjectsToClient(threeSubjects);
         }
+    }
+
+    public void anotherSubject() {
+        List<String> threeSubjects = new ArrayList<>();
+        Collections.shuffle(database.getSubjectList());
+        threeSubjects.add(database.getSubjectList().get(0));
+        threeSubjects.add(database.getSubjectList().get(1));
+        threeSubjects.add(database.getSubjectList().get(2));
+        player2.sendSubjectsToClient(threeSubjects);
     }
     public List<QuizItem> getQuestionsBySubjects(String subject){
         return database.getItemsBySubject(subject);

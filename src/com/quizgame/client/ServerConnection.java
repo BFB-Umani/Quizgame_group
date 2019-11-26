@@ -3,12 +3,14 @@ package com.quizgame.client;
 import com.quizgame.*;
 import com.quizgame.properties.ClientPropertiesReader;
 import javafx.application.Platform;
+import org.w3c.dom.ls.LSOutput;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.List;
+import java.util.Map;
 
 public class ServerConnection extends Thread {
     private Socket socket;
@@ -17,6 +19,9 @@ public class ServerConnection extends Thread {
     private ClientPropertiesReader clientPropertiesReader = new ClientPropertiesReader();
     private QuizClient quizClient;
     private List<QuizItem> questions;
+    private SetNameObject setNameObject = new SetNameObject();
+
+
 
     public ServerConnection(QuizClient quizClient){
         this.quizClient = quizClient;
@@ -32,7 +37,6 @@ public class ServerConnection extends Thread {
 
 
     public void sendNameToServer(String name){
-        SetNameObject setNameObject = new SetNameObject();
         setNameObject.text = name;
         try{
         out.writeObject(setNameObject);
@@ -55,9 +59,9 @@ public class ServerConnection extends Thread {
         }
     }
 
-    public void sendRoundComplete(boolean done) {
+    public void sendRoundComplete(int score) {
         try {
-            out.writeObject(done);
+            out.writeObject(score);
             out.flush();
         }
         catch (IOException e) {
@@ -81,9 +85,13 @@ public class ServerConnection extends Thread {
                     System.out.println("Client el questions");
                     Platform.runLater(() -> quizClient.goToQuizScene(questions)); // just in case that main thread is busy. Thank you google!
                 }
-                if(object instanceof Boolean) {
-                    System.out.println("Client el boolean");
-                    Platform.runLater(() -> quizClient.goToQuizScene(questions));
+                if(object instanceof Map) {
+                    System.out.println("Client el Map");
+                    Map<String, Integer> stats = (Map<String, Integer>) object;
+                    String firstKey = stats.keySet().stream().findFirst().get();
+                    int firstValue = stats.get(firstKey);
+                    Platform.runLater(() -> quizClient.getResultScene().getPlayerTwoText().setText(firstKey) ); // Tillfällig
+                    Platform.runLater(()-> quizClient.getResultScene().getRoundOneResult2().setText(firstValue + "/x")); // Tillfällig
                 }
             } catch (ClassNotFoundException | IOException e) {
                 e.printStackTrace();

@@ -1,10 +1,13 @@
 package com.quizgame.server;
 
 import com.quizgame.*;
+import com.quizgame.properties.ServerPropertiesReader;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Player extends Thread {
     private Socket socketToClient;
@@ -48,8 +51,9 @@ public class Player extends Thread {
                     questions = game.getQuestionsBySubjects(chosenSubjectObject.subject);
                     sendQuestionsToClient(questions);
                 }
-                else if(object instanceof Boolean) {
+                else if(object instanceof Integer) {
                     setRound();
+                    sendScore((Integer) object);
                     System.out.println(username + " " + getRound());
                     System.out.println(opponent.username + " " + opponent.getRound());
                     if(getRound() == opponent.getRound()) {
@@ -91,6 +95,19 @@ public class Player extends Thread {
             e.printStackTrace();
         }
 
+    }
+
+    public void sendScore(int points) {
+        Map<String, Integer> stats = new HashMap<>();
+        stats.put(username, points);
+        stats.forEach((k, v) -> System.out.println("Namn: " + k + " Poäng:" + v));
+        try {
+            opponent.out.writeObject(stats);
+            System.out.println("sending map: " + username);
+            opponent.out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void sendQuestionsToClient(List<QuizItem> questions){

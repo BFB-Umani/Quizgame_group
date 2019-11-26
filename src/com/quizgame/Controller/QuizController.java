@@ -119,7 +119,9 @@ public class QuizController {
             this.roundCounter++;
             System.out.println("Done!");
             this.questionCounter = 0;
-            Platform.runLater(() -> quizClient.getServerConnection().sendRoundComplete(true));
+            Platform.runLater(() -> quizClient.getServerConnection().sendRoundComplete(quizCounter));
+            quizClient.getResultScene().getPlayerOneText().setText(quizClient.getStartScene().getTextField().getText());
+            quizClient.getResultScene().getRoundOneResult1().setText(roundCounter+"/x");
             changeToResult();
             if(roundCounter >= totalRound*2) {
                 System.out.println("Rounds done!");

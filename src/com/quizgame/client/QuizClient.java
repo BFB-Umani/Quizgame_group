@@ -20,11 +20,19 @@ public class QuizClient extends Application {
     private ServerConnection serverConnection;
     private QuizController quizController;
     private ChoosingSubjectSceneController choosingSubjectSceneController;
+    private StartScene startScene;
 
 
     public QuizClient() {    //NO TOUCH THIS!!!!
     }
 
+    public StartScene getStartScene() {
+        return startScene;
+    }
+
+    public ResultScene getResultScene() {
+        return resultScene;
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -33,7 +41,7 @@ public class QuizClient extends Application {
         stage.getIcons().add(new Image("/images/quizIcon.png"));
 
         quizView = new QuizView();
-        StartScene startScene = new StartScene();
+        startScene = new StartScene();
         choosingSubjectScene = new ChoosingSubjectScene();
         waitingScene = new WaitingScene();
         resultScene = new ResultScene();

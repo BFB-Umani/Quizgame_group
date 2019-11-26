@@ -1,29 +1,31 @@
 package com.quizgame;
 
-public class QuizProtocol<T> {
+import com.quizgame.server.Player;
+
+public class QuizProtocol {
 
     private static final int GETTINGNAME = 0;
     private static final int SUBJECT = 1;
-    private static final int DONEANSWER = 2;
+    private static final int CHECKINGANSWER = 2;
     private static final int ANOTHER = 3;
-    private int state = GETTINGNAME;
-    Database db = new Database();
 
-    public T processQuestion(String answer) {
-        T output = null;
+    private int state = GETTINGNAME;
+    Player qs;
+
+    public void processQuestion(String answer) {
+        String output = "";
         if(state == GETTINGNAME) {
-            output = (T) ("Välkommen: " + answer);
-            state = SUBJECT;
+            qs.setPlayerName(answer);
         }
         else if(state == SUBJECT) {
-            output = (T) db.getItemPack(answer);
+            // do something
         }
-        else if(state == DONEANSWER) {
-            output = (T) (Boolean) true;
+        else if(state == CHECKINGANSWER) {
+            // do something
         }
         else if(state == ANOTHER) {
             // do something
         }
-        return  output;
+
     }
 }

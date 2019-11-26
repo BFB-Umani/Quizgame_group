@@ -71,6 +71,7 @@ public class QuizClient {
 package com.quizgame.client;
 
 import com.quizgame.Controller.*;
+import com.quizgame.QuizItem;
 import com.quizgame.view.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -87,6 +88,8 @@ public class QuizClient extends Application {
     private ResultScene resultScene;
     private QuizView quizView;
     private ServerConnection serverConnection;
+    private QuizController quizController;
+    private ChoosingSubjectSceneController choosingSubjectSceneController;
 
 
     public QuizClient() {    //NO TOUCH THIS!!!!
@@ -115,38 +118,38 @@ public class QuizClient extends Application {
         StartSceneController startSceneController = new StartSceneController(startScene,this);
         startSceneController.start();
 
-        ChoosingSubjectSceneController choosingSubjectSceneController = new ChoosingSubjectSceneController(choosingSubjectScene,this);
+        choosingSubjectSceneController = new ChoosingSubjectSceneController(choosingSubjectScene,this);
         choosingSubjectSceneController.start();
 
         WaitingSceneController waitingSceneController = new WaitingSceneController(waitingScene);
         waitingSceneController.start();
 
+        quizController = new QuizController(quizView,this);
+        quizController.start();
+
         ResultSceneController resultSceneController = new ResultSceneController(resultScene);
         resultSceneController.start();
-
 
         serverConnection = new ServerConnection(this);
         serverConnection.connect();
         serverConnection.start();
 
-
-        //Object fromServer = quizClient.in.readObject();
-        //QuizController quizController = new QuizController(quizView, fromServer);
-        //quizController.start();
         stage.show();
-
-
     }
 
     public void goToChoseSubjectScene(List<String> subjectsList){
         scene.setRoot(choosingSubjectScene.getDesignLayout());
-        choosingSubjectScene.getSubjectButton1().setText(subjectsList.get(0));
-        choosingSubjectScene.getSubjectButton2().setText(subjectsList.get(1));
-        choosingSubjectScene.getSubjectButton3().setText(subjectsList.get(2));
+        choosingSubjectSceneController.showSubjects(subjectsList);
+
+//        choosingSubjectScene.getSubjectButton1().setText(subjectsList.get(0));
+//        choosingSubjectScene.getSubjectButton2().setText(subjectsList.get(1));
+//        choosingSubjectScene.getSubjectButton3().setText(subjectsList.get(2));
     }
 
-    public void goToQuizScene() {
+    public void goToQuizScene(List<QuizItem> questions) {
         scene.setRoot(quizView.getDesignLayout());
+        quizController.loadQuestions(questions);
+
     }
 
     public void goToWaitingScene(){
@@ -157,13 +160,13 @@ public class QuizClient extends Application {
         scene.setRoot(resultScene.getDesignLayout());
     }
 
+    public ServerConnection getServerConnection(){
+        return serverConnection;
+    }
     public static void main(String[] args) {
         launch(args);
     }
 
-    public ServerConnection getServerConnection(){
-        return serverConnection;
-    }
 
 
 }

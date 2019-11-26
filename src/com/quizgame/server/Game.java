@@ -1,5 +1,7 @@
 package com.quizgame.server;
 
+import com.quizgame.QuizItem;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -42,5 +44,8 @@ public class Game {
             threeSubjects.add(database.getSubjectList().get(2));
             player1.sendSubjectsToClient(threeSubjects);
         }
+    }
+    public List<QuizItem> getQuestionsBySubjects(String subject){
+        return database.getItemsBySubject(subject);
     }
 }

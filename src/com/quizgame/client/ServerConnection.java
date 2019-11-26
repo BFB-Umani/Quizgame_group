@@ -1,8 +1,6 @@
 package com.quizgame.client;
 
-import com.quizgame.ChooseSubjectObject;
-import com.quizgame.Controller.QuizController;
-import com.quizgame.TransferObject;
+import com.quizgame.*;
 import com.quizgame.properties.ClientPropertiesReader;
 
 import java.io.IOException;
@@ -32,11 +30,22 @@ public class ServerConnection extends Thread {
 
 
     public void sendNameToServer(String name){
-        TransferObject transferObject = new TransferObject();
-        transferObject.text = name;
+        SetNameObject setNameObject = new SetNameObject();
+        setNameObject.text = name;
         try{
-        out.writeObject(transferObject);
+        out.writeObject(setNameObject);
         out.flush();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void sendSubjectToServer(String subject){
+        ChosenSubjectObject chosenSubjectObject = new ChosenSubjectObject();
+        chosenSubjectObject.subject = subject;
+        try{
+            out.writeObject(chosenSubjectObject);
+            out.flush();
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -51,6 +60,10 @@ public class ServerConnection extends Thread {
                 if(object instanceof ChooseSubjectObject){
                     List<String> threeSubjects = ((ChooseSubjectObject) object).subjects;
                     quizClient.goToChoseSubjectScene(threeSubjects);
+                }
+                else if(object instanceof QuestionsBySubjectObject){
+                    List<QuizItem> questions =((QuestionsBySubjectObject) object).questions;
+                    quizClient.goToQuizScene(questions);
                 }
             } catch (ClassNotFoundException | IOException e) {
                 e.printStackTrace();

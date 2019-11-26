@@ -18,17 +18,12 @@ public class QuizController {
     private int totalRound = 0;
     private QuizView quizView;
     private QuizClient quizClient;
-    private Object fromServer;
-    private List<QuizItem> itemPack;
-    private QuizItem item ;  //eller currentItem?
+    private List<QuizItem> questions;
+    private QuizItem currentQuestion;
 
     public QuizController(QuizView quizView, QuizClient quizClient) {
         this.quizView = quizView;
         this.quizClient = quizClient;
-    }
-
-    public QuizController() {
-
     }
 
     public void loadGameInfo(int [] roundInfo) {
@@ -46,17 +41,14 @@ public class QuizController {
         quizView.getContinueButton().setOnAction(this::clickedContinueButton);
     }
 
-    public void loadQuestion(Object fromServer) {
-        this.fromServer = fromServer;
-        loadItemPack(fromServer);
-        item = itemPack.get(questionCounter);
-        showQuestion(item);
+    public void loadQuestions(List<QuizItem> questions) {
+        this.questions = questions;
+        currentQuestion = this.questions.get(questionCounter);
+        showQuestion(currentQuestion);
 
     }
 
-    private void loadItemPack(Object fromServer) {
-        this.itemPack = (List<QuizItem>)fromServer;
-    }
+
 
     private void clickedContinueButton(ActionEvent actionEvent){
         nextQuestion();
@@ -70,12 +62,9 @@ public class QuizController {
 
     private void showQuestion(QuizItem item) {
 
-        List<String> answerList = new ArrayList<>();
+        List<String> answerList;
+        answerList = item.getAllAnswers();
 
-//        answerList.add(item.getRightAnswer());
-//        answerList.add(item.getWrongAnswer().get(0));
-//        answerList.add(item.getWrongAnswer().get(1));
-//        answerList.add(item.getWrongAnswer().get(2));
 
         Collections.shuffle(answerList);
 
@@ -94,7 +83,7 @@ public class QuizController {
 
     private void clickAnswerButton(Button button) {
 
-        if (button.getText().equalsIgnoreCase(item.getRightAnswer())) {
+        if (button.getText().equalsIgnoreCase(currentQuestion.getRightAnswer())) {
             clickedRightAnswerButton(button);
         } else {
             clickedWrongAnswerButton(button);
@@ -121,8 +110,8 @@ public class QuizController {
         quizView.getAnswerButton2().setId(".button");
         quizView.getAnswerButton3().setId(".button");
         quizView.getAnswerButton4().setId(".button");
-        item = itemPack.get(questionCounter);
-        showQuestion(item);
+        currentQuestion = questions.get(questionCounter);
+        showQuestion(currentQuestion);
         answeredState = 0;
 
         //Round och Question counters
@@ -144,13 +133,13 @@ public class QuizController {
 
     private Button getRightAnswerButton() {
 
-        if (item.getRightAnswer().equalsIgnoreCase(quizView.getAnswerButton1().getText())) {
+        if (currentQuestion.getRightAnswer().equalsIgnoreCase(quizView.getAnswerButton1().getText())) {
             return quizView.getAnswerButton1();
-        } else if (item.getRightAnswer().equalsIgnoreCase(quizView.getAnswerButton2().getText())) {
+        } else if (currentQuestion.getRightAnswer().equalsIgnoreCase(quizView.getAnswerButton2().getText())) {
             return quizView.getAnswerButton2();
-        } else if (item.getRightAnswer().equalsIgnoreCase(quizView.getAnswerButton3().getText())) {
+        } else if (currentQuestion.getRightAnswer().equalsIgnoreCase(quizView.getAnswerButton3().getText())) {
             return quizView.getAnswerButton3();
-        } else if (item.getRightAnswer().equalsIgnoreCase(quizView.getAnswerButton4().getText())) {
+        } else if (currentQuestion.getRightAnswer().equalsIgnoreCase(quizView.getAnswerButton4().getText())) {
             return quizView.getAnswerButton4();
         } else {
             return null;

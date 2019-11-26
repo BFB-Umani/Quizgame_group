@@ -26,8 +26,8 @@ public class Game {
         player2.setOpponent(player1);
         player1.start();
         player2.start();
-        player1.setGame(this);
-        player2.setGame(this);
+        player1.setGame(this); // Give the player reference to the game
+        player2.setGame(this);//????????????????????/
     }
     public void choosingSubject(){
 
@@ -37,7 +37,7 @@ public class Game {
             List<String> threeSubjects = new ArrayList<>();
         numberOfPlayerReady++;
 
-        if(numberOfPlayerReady == 2){
+        if(numberOfPlayerReady == 2){  // when both two players accept new game
             Collections.shuffle(database.getSubjectList());
             threeSubjects.add(database.getSubjectList().get(0));
             threeSubjects.add(database.getSubjectList().get(1));

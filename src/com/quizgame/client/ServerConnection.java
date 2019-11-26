@@ -16,6 +16,7 @@ public class ServerConnection extends Thread {
     private ObjectOutputStream out;
     private ClientPropertiesReader clientPropertiesReader = new ClientPropertiesReader();
     private QuizClient quizClient;
+    private List<QuizItem> questions;
 
     public ServerConnection(QuizClient quizClient){
         this.quizClient = quizClient;
@@ -54,6 +55,16 @@ public class ServerConnection extends Thread {
         }
     }
 
+    public void sendRoundComplete(boolean done) {
+        try {
+            out.writeObject(done);
+            out.flush();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void run(){
         while (true) {
@@ -66,11 +77,13 @@ public class ServerConnection extends Thread {
                     Platform.runLater(() -> quizClient.goToChoseSubjectScene(threeSubjects)); // main thread runs this when it has time.
                 }
                 else if(object instanceof QuestionsBySubjectObject){
-                    List<QuizItem> questions =((QuestionsBySubjectObject) object).questions;
+                    questions =((QuestionsBySubjectObject) object).questions;
                     System.out.println("Client el questions");
                     Platform.runLater(() -> quizClient.goToQuizScene(questions)); // just in case that main thread is busy. Thank you google!
-
-
+                }
+                if(object instanceof Boolean) {
+                    System.out.println("Client el boolean");
+                    Platform.runLater(() -> quizClient.goToQuizScene(questions));
                 }
             } catch (ClassNotFoundException | IOException e) {
                 e.printStackTrace();

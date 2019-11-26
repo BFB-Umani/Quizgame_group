@@ -2,8 +2,10 @@ package com.quizgame.Controller;
 
 import com.quizgame.client.QuizClient;
 import com.quizgame.QuizItem;
+import com.quizgame.client.ServerConnection;
 import com.quizgame.properties.ServerPropertiesReader;
 import com.quizgame.view.QuizView;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -118,8 +120,9 @@ public class QuizController {
             System.out.println("Done!");
             this.questionCounter = 0;
             this.totalQuestion = 0;
+            Platform.runLater(() -> quizClient.getServerConnection().sendRoundComplete(true));
             changeToResult();
-            if(roundCounter >= totalRound) {
+            if(roundCounter >= totalRound*2) {
                 System.out.println("Rounds done!");
             }
         }

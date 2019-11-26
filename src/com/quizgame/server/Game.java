@@ -33,6 +33,10 @@ public class Game {
 
     }
 
+    public void setRound(int x) {
+        this.round = x;
+    }
+
     public void playerReady() {
             List<String> threeSubjects = new ArrayList<>();
         numberOfPlayerReady++;

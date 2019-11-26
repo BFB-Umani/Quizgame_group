@@ -13,6 +13,7 @@ public class Player extends Thread {
     private ObjectOutputStream out;
     private String username;
     private Game game;
+    private List<QuizItem> questions;
 
 
     public Player(Socket socketToClient, String username) {
@@ -42,9 +43,12 @@ public class Player extends Thread {
                 }
                 else if(object instanceof ChosenSubjectObject){
                     ChosenSubjectObject chosenSubjectObject = (ChosenSubjectObject) object;
-                    List<QuizItem> questions = game.getQuestionsBySubjects(chosenSubjectObject.subject);
+                    questions = game.getQuestionsBySubjects(chosenSubjectObject.subject);
                     sendQuestionsToClient(questions);
-
+                }
+                else if(object instanceof Boolean) {
+                    game.setRound(1);
+                    sendOpponent(questions);
                 }
             } catch (ClassNotFoundException | IOException e) {
                 e.printStackTrace();
@@ -89,6 +93,19 @@ public class Player extends Thread {
             e.printStackTrace();
         }
 
+
+    }
+
+    public void sendOpponent(List<QuizItem> questions) {
+        QuestionsBySubjectObject questionsBySubjectObject = new QuestionsBySubjectObject();
+        questionsBySubjectObject.questions = questions;
+        try {
+            opponent.out.writeObject(questionsBySubjectObject);
+            System.out.println("sending questions");
+            opponent.out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 

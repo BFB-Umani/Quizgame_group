@@ -45,6 +45,7 @@ public class QuizController {
 
     public void loadQuestions(List<QuizItem> questions) {
         this.questions = questions;
+        System.out.println(questions);
         currentQuestion = this.questions.get(questionCounter);
         showQuestion(currentQuestion);
 
@@ -108,6 +109,7 @@ public class QuizController {
     }
 
     void nextQuestion() {  //nu går vidare genom alla fyra item och sen crashar för Index 4 out of bounds(så klart!)
+        this.questionCounter++;
         quizView.getAnswerButton1().setId(".button");
         quizView.getAnswerButton2().setId(".button");
         quizView.getAnswerButton3().setId(".button");
@@ -117,7 +119,6 @@ public class QuizController {
         answeredState = 0;
 
         //Round och Question counters
-        this.questionCounter++;
         if(questionCounter >= totalQuestion) {
             this.roundCounter++;
             System.out.println("Done!");

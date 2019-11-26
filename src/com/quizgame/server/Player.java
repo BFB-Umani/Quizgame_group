@@ -70,6 +70,7 @@ public class Player extends Thread {
         chooseSubjectObject.subjects = subjectList;
         try {
             out.writeObject(chooseSubjectObject);
+            System.out.println("sending subjects");
             out.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -82,6 +83,7 @@ public class Player extends Thread {
         questionsBySubjectObject.questions = questions;
         try {
             out.writeObject(questionsBySubjectObject);
+            System.out.println("sending questions");
             out.flush();
         } catch (IOException e) {
             e.printStackTrace();

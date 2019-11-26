@@ -35,6 +35,7 @@ public class ServerConnection extends Thread {
         setNameObject.text = name;
         try{
         out.writeObject(setNameObject);
+            System.out.println("Sending name to server");
         out.flush();
         }catch (IOException e){
             e.printStackTrace();
@@ -46,6 +47,7 @@ public class ServerConnection extends Thread {
         chosenSubjectObject.subject = subject;
         try{
             out.writeObject(chosenSubjectObject);
+            System.out.println("sending subject to server");
             out.flush();
         }catch (IOException e){
             e.printStackTrace();
@@ -60,11 +62,12 @@ public class ServerConnection extends Thread {
                 Object object = in.readObject();
                 if(object instanceof ChooseSubjectObject){
                     List<String> threeSubjects = ((ChooseSubjectObject) object).subjects;
-
+                    System.out.println("Client el subjects");
                     Platform.runLater(() -> quizClient.goToChoseSubjectScene(threeSubjects)); // main thread runs this when it has time.
                 }
                 else if(object instanceof QuestionsBySubjectObject){
                     List<QuizItem> questions =((QuestionsBySubjectObject) object).questions;
+                    System.out.println("Client el questions");
                     Platform.runLater(() -> quizClient.goToQuizScene(questions)); // just in case that main thread is busy. Thank you google!
 
 

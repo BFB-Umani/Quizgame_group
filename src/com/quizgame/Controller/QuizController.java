@@ -2,6 +2,7 @@ package com.quizgame.Controller;
 
 import com.quizgame.client.QuizClient;
 import com.quizgame.QuizItem;
+import com.quizgame.properties.ServerPropertiesReader;
 import com.quizgame.view.QuizView;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
@@ -14,8 +15,9 @@ public class QuizController {
     private int questionCounter = 0;
     private int answeredState = 0;
     private int roundCounter = 0;
-    private int totalQuestion = 0;
-    private int totalRound = 0;
+    ServerPropertiesReader prop = new ServerPropertiesReader(); // tillfälligt
+    private int totalQuestion = prop.getQuestionsPerRound(); // tillfälligt
+    private int totalRound = prop.getRoundsPerGame(); // tillfälligt
     private QuizView quizView;
     private QuizClient quizClient;
     private List<QuizItem> questions;
@@ -117,8 +119,6 @@ public class QuizController {
         //Round och Question counters
         this.questionCounter++;
         if(questionCounter >= totalQuestion) {
-//            quizClient.sendPoints(totalPoints);
-//            totalPoints = 0;
             this.roundCounter++;
             System.out.println("Done!");
             this.questionCounter = 0;

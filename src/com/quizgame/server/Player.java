@@ -97,6 +97,16 @@ public class Player extends Thread {
 
     }
 
+//    public void sendBothResultScreen() {
+//        try {
+//            opponent.out.writeObject(stats);
+//            System.out.println("sending boolean: " + username);
+//            opponent.out.flush();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
     public void sendScore(int points) {
         Map<String, Integer> stats = new HashMap<>();
         stats.put(username, points);

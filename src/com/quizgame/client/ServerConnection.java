@@ -92,6 +92,7 @@ public class ServerConnection extends Thread {
                     int firstValue = stats.get(firstKey);
                     Platform.runLater(() -> quizClient.getResultScene().getPlayerTwoText().setText(firstKey) ); // Tillfällig
                     Platform.runLater(()-> quizClient.getResultScene().getRoundOneResult2().setText(firstValue + "/x")); // Tillfällig
+                    Platform.runLater(() -> quizClient.goToResultScene());
                 }
             } catch (ClassNotFoundException | IOException e) {
                 e.printStackTrace();

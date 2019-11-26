@@ -72,12 +72,15 @@ package com.quizgame.client;
 
 import com.quizgame.Controller.*;
 import com.quizgame.QuizItem;
+import com.quizgame.QuizResult;
+import com.quizgame.Round;
 import com.quizgame.view.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuizClient extends Application {
@@ -135,6 +138,8 @@ public class QuizClient extends Application {
         serverConnection.start();
 
         stage.show();
+
+        goToResultScene();
     }
 
     public void goToChoseSubjectScene(List<String> subjectsList){
@@ -154,9 +159,30 @@ public class QuizClient extends Application {
     }
 
     public void goToResultScene(){
+
+        QuizResult quizResult = new QuizResult();
+        quizResult.player1Name = "Kening";
+        quizResult.player2Name = "Andre";
+        quizResult.rounds = new ArrayList<>();
+        Round round1 = new Round();
+        round1.round = 1;
+        round1.questionsPerRound = 3;
+        round1.player1Score = 3;
+        round1.player2Score = 2;
+
+        Round round2 = new Round();
+        round2.round = 2;
+        round2.questionsPerRound = 3;
+        round2.player1Score = 1;
+        round2.player2Score = 1;
+
+        quizResult.rounds.add(round1);
+        quizResult.rounds.add(round2);
+
+        resultScene.showResult(quizResult);
+
         scene.setRoot(resultScene.getDesignLayout());
     }
-
     public ServerConnection getServerConnection(){
         return serverConnection;
     }

@@ -1,7 +1,6 @@
 package com.quizgame.view;
 
 import com.quizgame.QuizResult;
-import com.quizgame.QuizServer;
 import com.quizgame.Round;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -11,7 +10,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class ResultScene {
-    private QuizServer quizServer;
     private VBox designLayout = new VBox();
     private Label resultText = new Label("Result");
     private HBox playerLayout = new HBox();

@@ -1,6 +1,6 @@
 package com.quizgame.view;
 
-import com.quizgame.QuizClient;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 
 public class WaitingScene {
-    QuizClient quizClient = new QuizClient();
+
     private VBox designLayout = new VBox();
     private Label waitingImage = new Label();
     private Label waitingText = new Label("Waiting...");

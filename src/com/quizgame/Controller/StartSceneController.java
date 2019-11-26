@@ -10,20 +10,22 @@ public class StartSceneController {
     private StartScene startScene;
     private QuizClient quizClient;
 
-    public StartSceneController(StartScene startScene, QuizClient quizClient){
+    public StartSceneController(StartScene startScene, QuizClient quizClient) {
         this.startScene = startScene;
         this.quizClient = quizClient;
     }
 
-    public void start(){
+    public void start() {
         startScene.setUp();
         startScene.getNewGameButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 input = startScene.getTextField().getText();
-                System.out.println(input);
-                quizClient.getServerConnection().sendNameToServer(input);
-                changeToWaitingScene();
+                if (!input.equalsIgnoreCase("")) {
+                    System.out.println(input);
+                    quizClient.getServerConnection().sendNameToServer(input);
+                    changeToWaitingScene();
+                }
             }
         });
     }
@@ -31,7 +33,8 @@ public class StartSceneController {
     public String getInput() {
         return input;
     }
-    public void changeToWaitingScene(){
+
+    public void changeToWaitingScene() {
         quizClient.goToWaitingScene();
     }
 

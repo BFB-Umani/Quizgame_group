@@ -22,6 +22,7 @@ public class QuizController {
     private QuizClient quizClient;
     private List<QuizItem> questions;
     private QuizItem currentQuestion;
+    private int quizCounter;
 
     public QuizController(QuizView quizView, QuizClient quizClient) {
         this.quizView = quizView;
@@ -96,6 +97,7 @@ public class QuizController {
     }
 
     private void clickedRightAnswerButton(Button button) {
+        quizView.getScoreCounter().setText("Score: " + String.valueOf(++quizCounter));
         button.setId("right");
         answeredState = 1;
     }
@@ -150,6 +152,7 @@ public class QuizController {
     public void changeToResult() {
         quizClient.goToResultScene();
     }
+
 
 
 }

@@ -160,9 +160,9 @@ public class QuizClient extends Application {
 
     public void goToResultScene(){
 
-        QuizResult quizResult = new QuizResult();
+        QuizResult quizResult = new QuizResult();  // this object needs to come from server
         quizResult.player1Name = "Kening";
-        quizResult.player2Name = "Andre";
+        quizResult.player2Name = "Mario";
         quizResult.rounds = new ArrayList<>();
         Round round1 = new Round();
         round1.round = 1;

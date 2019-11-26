@@ -2,6 +2,7 @@ package com.quizgame.client;
 
 import com.quizgame.*;
 import com.quizgame.properties.ClientPropertiesReader;
+import javafx.application.Platform;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -59,11 +60,14 @@ public class ServerConnection extends Thread {
                 Object object = in.readObject();
                 if(object instanceof ChooseSubjectObject){
                     List<String> threeSubjects = ((ChooseSubjectObject) object).subjects;
-                    quizClient.goToChoseSubjectScene(threeSubjects);
+
+                    Platform.runLater(() -> quizClient.goToChoseSubjectScene(threeSubjects)); // main thread runs this when it has time.
                 }
                 else if(object instanceof QuestionsBySubjectObject){
                     List<QuizItem> questions =((QuestionsBySubjectObject) object).questions;
-                    quizClient.goToQuizScene(questions);
+                    Platform.runLater(() -> quizClient.goToQuizScene(questions)); // just in case that main thread is busy. Thank you google!
+
+
                 }
             } catch (ClassNotFoundException | IOException e) {
                 e.printStackTrace();

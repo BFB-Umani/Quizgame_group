@@ -141,9 +141,6 @@ public class QuizClient extends Application {
         scene.setRoot(choosingSubjectScene.getDesignLayout());
         choosingSubjectSceneController.showSubjects(subjectsList);
 
-//        choosingSubjectScene.getSubjectButton1().setText(subjectsList.get(0));
-//        choosingSubjectScene.getSubjectButton2().setText(subjectsList.get(1));
-//        choosingSubjectScene.getSubjectButton3().setText(subjectsList.get(2));
     }
 
     public void goToQuizScene(List<QuizItem> questions) {

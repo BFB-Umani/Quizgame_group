@@ -68,7 +68,7 @@ public class QuizClient {
 }
 */
 
-package com.quizgame;
+package com.quizgame.client;
 
 import com.quizgame.Controller.*;
 import com.quizgame.view.*;
@@ -76,8 +76,8 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import java.io.*;
-import java.net.Socket;
+
+import java.util.List;
 
 public class QuizClient extends Application {
 
@@ -125,8 +125,9 @@ public class QuizClient extends Application {
         resultSceneController.start();
 
 
-        serverConnection = new ServerConnection();
+        serverConnection = new ServerConnection(this);
         serverConnection.connect();
+        serverConnection.start();
 
 
         //Object fromServer = quizClient.in.readObject();
@@ -137,12 +138,23 @@ public class QuizClient extends Application {
 
     }
 
-    public void goToChoseSubjectScene(){
+    public void goToChoseSubjectScene(List<String> subjectsList){
         scene.setRoot(choosingSubjectScene.getDesignLayout());
+        choosingSubjectScene.getSubjectButton1().setText(subjectsList.get(0));
+        choosingSubjectScene.getSubjectButton2().setText(subjectsList.get(1));
+        choosingSubjectScene.getSubjectButton3().setText(subjectsList.get(2));
     }
 
     public void goToQuizScene() {
         scene.setRoot(quizView.getDesignLayout());
+    }
+
+    public void goToWaitingScene(){
+        scene.setRoot(waitingScene.getDesignLayout());
+    }
+
+    public void goToResultScene(){
+        scene.setRoot(resultScene.getDesignLayout());
     }
 
     public static void main(String[] args) {

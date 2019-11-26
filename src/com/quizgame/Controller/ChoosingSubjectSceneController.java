@@ -1,6 +1,6 @@
 package com.quizgame.Controller;
 
-import com.quizgame.QuizClient;
+import com.quizgame.client.QuizClient;
 import com.quizgame.view.ChoosingSubjectScene;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;

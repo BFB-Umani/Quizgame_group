@@ -1,4 +1,6 @@
-package com.quizgame;
+package com.quizgame.server;
+
+import com.quizgame.QuizItem;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

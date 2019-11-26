@@ -11,11 +11,11 @@
     -fx-background-color: rgba(188, 35, 37, 0.96);
 }
 #questionBackground {
-    -fx-background-image: url("../../images/question_label.png");
+    -fx-background-image: url("../../../images/question_label.png");
 
 }
 #background {
-    -fx-background-image: url("../../images/game_background.png");
+    -fx-background-image: url("../../../images/game_background.png");
     -fx-background-repeat: stretch;
     -fx-background-size: 620, 480;
 
@@ -38,7 +38,7 @@
 }
 
 #waitingImage{
-    -fx-graphic: url("../../images/waitingImage.gif");
+    -fx-graphic: url("../../../images/waitingImage.gif");
 }
 
 #waitingText{

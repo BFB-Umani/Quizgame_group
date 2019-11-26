@@ -1,45 +1,43 @@
 package com.quizgame.Controller;
 
-//import com.quizgame.Database;
+import com.quizgame.client.QuizClient;
 import com.quizgame.QuizItem;
 import com.quizgame.view.QuizView;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class QuizController {
-    private int lastQuestion = 0;
     private int questionCounter = 0;
-    private int[] storedQuestion = {5, 5, 5, 5};
     private int answeredState = 0;
+    private int roundCounter = 0;
+    private int totalQuestion = 0;
+    private int totalRound = 0;
     private QuizView quizView;
+    private QuizClient quizClient;
     private Object fromServer;
     private List<QuizItem> itemPack;
-    private QuizItem item;  //eller currentItem?
-    private int score = 0;
+    private QuizItem item ;  //eller currentItem?
 
-    public QuizController(QuizView quizView, Object fromServer) {
-        this.fromServer = fromServer;
+    public QuizController(QuizView quizView, QuizClient quizClient) {
         this.quizView = quizView;
+        this.quizClient = quizClient;
+    }
+
+    public QuizController() {
+
+    }
+
+    public void loadGameInfo(int [] roundInfo) {
+        this.totalQuestion = roundInfo[0];
+        this.totalRound = roundInfo[1];
     }
 
     public void start() {
-
         quizView.setUp();
-        loadItemPack(fromServer); //vi anropar först den nya metoden
-        item = itemPack.get(questionCounter);
-        showQuestion(item); //bara startar
-        //förmodligen ska questionCounter loopa s till vardet n
-        // n ska komma (direkt eller odirekt vet ej...)  från properties
-        // men var ska counter loopa? inte har: det är bara en start!
-        // från nextquestion? Eller?
-        // och vad händer när loop tar slut? Alltså när round tar slut?
-
-
         quizView.getAnswerButton1().setOnAction(this::handle);
         quizView.getAnswerButton2().setOnAction(this::handle);
         quizView.getAnswerButton3().setOnAction(this::handle);
@@ -48,11 +46,16 @@ public class QuizController {
         quizView.getContinueButton().setOnAction(this::clickedContinueButton);
     }
 
+    public void loadQuestion(Object fromServer) {
+        this.fromServer = fromServer;
+        loadItemPack(fromServer);
+        item = itemPack.get(questionCounter);
+        showQuestion(item);
 
-    //NEW METOD!!
+    }
+
     private void loadItemPack(Object fromServer) {
-        List<QuizItem> itemPack = (List<QuizItem>)fromServer;
-        this.itemPack = itemPack;
+        this.itemPack = (List<QuizItem>)fromServer;
     }
 
     private void clickedContinueButton(ActionEvent actionEvent){
@@ -68,9 +71,13 @@ public class QuizController {
     private void showQuestion(QuizItem item) {
 
         List<String> answerList = new ArrayList<>();
-        answerList.addAll(item.getAllAnswers());
-        Collections.shuffle(answerList);
 
+//        answerList.add(item.getRightAnswer());
+//        answerList.add(item.getWrongAnswer().get(0));
+//        answerList.add(item.getWrongAnswer().get(1));
+//        answerList.add(item.getWrongAnswer().get(2));
+
+        Collections.shuffle(answerList);
 
         quizView.getQuestionLabel().setMaxWidth(Double.MAX_VALUE);
         quizView.getQuestionLabel().setAlignment(Pos.CENTER);
@@ -98,7 +105,6 @@ public class QuizController {
     private void clickedRightAnswerButton(Button button) {
         button.setId("right");
         answeredState = 1;
-        increaseScore();
     }
 
     private void clickedWrongAnswerButton(Button button) {
@@ -115,10 +121,25 @@ public class QuizController {
         quizView.getAnswerButton2().setId(".button");
         quizView.getAnswerButton3().setId(".button");
         quizView.getAnswerButton4().setId(".button");
-        this.questionCounter++;
         item = itemPack.get(questionCounter);
         showQuestion(item);
         answeredState = 0;
+
+        //Round och Question counters
+        this.questionCounter++;
+        if(questionCounter >= totalQuestion) {
+//            quizClient.sendPoints(totalPoints);
+//            totalPoints = 0;
+            this.roundCounter++;
+            System.out.println("Done!");
+            this.questionCounter = 0;
+            this.totalQuestion = 0;
+            changeToResult();
+
+            if(roundCounter >= totalRound) {
+                System.out.println("Rounds done!");
+            }
+        }
     }
 
     private Button getRightAnswerButton() {
@@ -134,12 +155,10 @@ public class QuizController {
         } else {
             return null;
         }
-
     }
 
-    private void increaseScore(){
-        score++;
-        quizView.getScoreCounter().setText("Score: " + score);
+    public void changeToResult() {
+        quizClient.goToResultScene();
     }
 
 

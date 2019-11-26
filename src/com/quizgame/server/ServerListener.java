@@ -1,4 +1,4 @@
-package com.quizgame;
+package com.quizgame.server;
 
 import java.io.IOException;
 import java.net.ServerSocket;

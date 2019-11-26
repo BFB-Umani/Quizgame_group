@@ -1,5 +1,7 @@
 package com.quizgame;
 
+import com.quizgame.server.Player;
+
 public class QuizProtocol {
 
     private static final int GETTINGNAME = 0;

@@ -1,13 +1,9 @@
 package com.quizgame.view;
 
-import com.quizgame.DataBaseUpdated;
-import com.quizgame.QuizClient;
-import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
+import com.quizgame.server.DataBaseUpdated;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.util.Random;
@@ -41,11 +37,6 @@ public class ChoosingSubjectScene {
         subjectButton2.setPrefSize(150, 30);
         subjectButton3.setPrefSize(150, 30);
 
-
-        Random random = new Random();
-        subjectButton1.setText(dataBaseUpdated.getSubjectList().get(random.nextInt(dataBaseUpdated.getSubjectList().size())));
-        subjectButton2.setText(dataBaseUpdated.getSubjectList().get(random.nextInt(dataBaseUpdated.getSubjectList().size())));
-        subjectButton3.setText(dataBaseUpdated.getSubjectList().get(random.nextInt(dataBaseUpdated.getSubjectList().size())));
 
 
     }

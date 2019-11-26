@@ -82,6 +82,7 @@ public class QuizController {
         quizView.getContinueButton().setVisible(false);
 
 
+
     }
 
     private void clickAnswerButton(Button button) {
@@ -110,6 +111,16 @@ public class QuizController {
 
     void nextQuestion() {  //nu går vidare genom alla fyra item och sen crashar för Index 4 out of bounds(så klart!)
         this.questionCounter++;
+        if(questionCounter >= totalQuestion) {
+            this.roundCounter++;
+            System.out.println("Done!");
+            this.questionCounter = 0;
+            this.totalQuestion = 0;
+            changeToResult();
+            if(roundCounter >= totalRound) {
+                System.out.println("Rounds done!");
+            }
+        }
         quizView.getAnswerButton1().setId(".button");
         quizView.getAnswerButton2().setId(".button");
         quizView.getAnswerButton3().setId(".button");
@@ -119,17 +130,6 @@ public class QuizController {
         answeredState = 0;
 
         //Round och Question counters
-        if(questionCounter >= totalQuestion) {
-            this.roundCounter++;
-            System.out.println("Done!");
-            this.questionCounter = 0;
-            this.totalQuestion = 0;
-            changeToResult();
-
-            if(roundCounter >= totalRound) {
-                System.out.println("Rounds done!");
-            }
-        }
     }
 
     private Button getRightAnswerButton() {

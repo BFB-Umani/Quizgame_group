@@ -29,17 +29,6 @@ public class Game {
         player1.setGame(this);
         player2.setGame(this);
     }
-    public void choosingSubject(){
-
-    }
-
-    public int getRound() {
-        return round;
-    }
-
-    public void setRound(int x) {
-        this.round = x;
-    }
 
     public void playerReady() {
             List<String> threeSubjects = new ArrayList<>();

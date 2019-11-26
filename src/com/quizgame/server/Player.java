@@ -15,15 +15,8 @@ public class Player extends Thread {
     private Game game;
     private List<QuizItem> questions;
     private int round = 0;
+    int testChecKround = 0;
 
-
-    public int getRound() {
-        return round;
-    }
-
-    public void setRound(int round) {
-        this.round = round;
-    }
 
     public Player(Socket socketToClient, String username) {
 
@@ -56,11 +49,11 @@ public class Player extends Thread {
                     sendQuestionsToClient(questions);
                 }
                 else if(object instanceof Boolean) {
-                    setRound(1);
+                    setRound();
                     System.out.println(username + " " + getRound());
                     System.out.println(opponent.username + " " + opponent.getRound());
-                    if(getRound() == 1 && opponent.getRound() == 1) {
-                        System.out.println("both at round 1");
+                    if(getRound() == opponent.getRound()) {
+                        System.out.println("both at round " + ++testChecKround);
                         game.anotherSubject();
                     }
                     else {
@@ -92,7 +85,7 @@ public class Player extends Thread {
         chooseSubjectObject.subjects = subjectList;
         try {
             out.writeObject(chooseSubjectObject);
-            System.out.println("sending subjects");
+            System.out.println("sending subjects: " + username);
             out.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -105,7 +98,7 @@ public class Player extends Thread {
         questionsBySubjectObject.questions = questions;
         try {
             out.writeObject(questionsBySubjectObject);
-            System.out.println("sending questions");
+            System.out.println("sending questions " + username);
             out.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -119,7 +112,7 @@ public class Player extends Thread {
         questionsBySubjectObject.questions = questions;
         try {
             opponent.out.writeObject(questionsBySubjectObject);
-            System.out.println("sending questions");
+            System.out.println("sending questions " + username);
             opponent.out.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -127,5 +120,13 @@ public class Player extends Thread {
 
     }
 
+
+    public int getRound() {
+        return round;
+    }
+
+    public void setRound() {
+        this.round++;
+    }
 }
 

@@ -2,6 +2,7 @@ package com.quizgame.client;
 
 import com.quizgame.Controller.*;
 import com.quizgame.QuizItem;
+import com.quizgame.QuizResult;
 import com.quizgame.view.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -21,7 +22,8 @@ public class QuizClient extends Application {
     private QuizController quizController;
     private ChoosingSubjectSceneController choosingSubjectSceneController;
     private StartScene startScene;
-
+    private ResultSceneController resultSceneController;
+    private QuizResult quizResult = new QuizResult();
 
     public QuizClient() {    //NO TOUCH THIS!!!!
     }
@@ -54,7 +56,7 @@ public class QuizClient extends Application {
         quizController = new QuizController(quizView,this);
         quizController.start();
 
-        ResultSceneController resultSceneController = new ResultSceneController(resultScene, this);
+        resultSceneController = new ResultSceneController(resultScene, this);
         resultSceneController.start();
 
         serverConnection = new ServerConnection(this);
@@ -66,7 +68,7 @@ public class QuizClient extends Application {
             System.exit(0);
         });
 
-        resultSceneController.goToResultScene(7);
+
         goToResultScene();
 
         stage.show();
@@ -94,6 +96,10 @@ public class QuizClient extends Application {
 
     public void goToResultScene(){
         scene.setRoot(resultScene.getDesignLayout());
+    }
+
+    public QuizResult getQuizResult() {
+        return quizResult;
     }
 
     public ServerConnection getServerConnection(){

@@ -3,6 +3,7 @@ package com.quizgame.Controller;
 import com.quizgame.QuizResult;
 import com.quizgame.Round;
 import com.quizgame.client.QuizClient;
+import com.quizgame.properties.ServerPropertiesReader;
 import com.quizgame.view.ResultScene;
 import javafx.scene.control.ScrollPane;
 
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 public class ResultSceneController {
     private ResultScene resultScene;
     private QuizClient quizClient;
+    private ServerPropertiesReader prop = new ServerPropertiesReader();
 
     public ResultSceneController(ResultScene resultScene, QuizClient quizClient){
         this.resultScene = resultScene;
@@ -19,6 +21,7 @@ public class ResultSceneController {
     }
 
     public void start(){
+        goToResultScene(prop.getRoundsPerGame());
         resultScene.setUp();
         resultScene.getContinueB().setOnAction(l -> {
             if(resultScene.getContinueB().getText().equalsIgnoreCase("continue")) {
@@ -33,9 +36,7 @@ public class ResultSceneController {
 
     public void goToResultScene(int rounds){
 
-        QuizResult quizResult = new QuizResult();  // this object needs to come from server
-        quizResult.player1Name = "Kening";
-        quizResult.player2Name = "Mario";
+        QuizResult quizResult = quizClient.getQuizResult();
         quizResult.rounds = new ArrayList<>();
 
         if(rounds > 5) {
@@ -47,7 +48,7 @@ public class ResultSceneController {
             System.out.println("adding scrollpane");
         }
 
-        for(int i = 0; i < 8; i++) {
+        for(int i = 0; i < rounds; i++) {
 
 //            Round round1 = new Round();
 //            round1.round = 1;
@@ -59,8 +60,8 @@ public class ResultSceneController {
 
         }
 
-
-
+        quizClient.getQuizResult().player1Name = "Jessie";
+        System.out.println("showing resultScene");
         resultScene.showResult(quizResult);
     }
 }

@@ -9,6 +9,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -37,7 +38,7 @@ public class QuizController {
         this.quizClient = quizClient;
     }
 
-    public void loadGameInfo(int [] roundInfo) {
+    public void loadGameInfo(int[] roundInfo) {
         this.totalQuestion = roundInfo[0];
         this.totalRound = roundInfo[1];
     }
@@ -61,8 +62,7 @@ public class QuizController {
     }
 
 
-
-    private void clickedContinueButton(ActionEvent actionEvent){
+    private void clickedContinueButton(ActionEvent actionEvent) {
         nextQuestion();
     }
 
@@ -89,7 +89,6 @@ public class QuizController {
         quizView.getAnswerButton4().setText(answerList.get(3));
 
         quizView.getContinueButton().setVisible(false);
-
 
 
     }
@@ -121,29 +120,21 @@ public class QuizController {
 
     void nextQuestion() {
         this.questionCounter++;
-        if(questionCounter >= totalQuestion) {
+        if (questionCounter >= totalQuestion) {
             this.roundCounter++;
             System.out.println("Done!");
             this.questionCounter = 0;
-            counter++;
+            quizClient.getQuizResult().player1Name = quizClient.getStartScene().getTextField().getText();
             Platform.runLater(() -> quizClient.getServerConnection().sendRoundComplete(quizCounter));
-            if(counter == 1) {
-                totalPoints = quizCounter;
-//                quizClient.getResultScene().getPlayerOneText().setText(quizClient.getStartScene().getTextField().getText());
-//                quizClient.getResultScene().getRoundOneResult1().setText(quizCounter + "/" + prop.getQuestionsPerRound());
-            }
-            else if(counter == 2) {
-                totalPoints += quizCounter;
-//                quizClient.getResultScene().getRoundTwoResult1().setText(quizCounter + "/" + prop.getQuestionsPerRound());
-            }
-            if(counter == prop.getRoundsPerGame()) {
+            quizClient.getQuizResult().rounds.get(counter).player1Score = quizCounter;
+            System.out.println(quizClient.getQuizResult().rounds.size());
+            counter++;
+            if (counter == prop.getRoundsPerGame()) {
                 quizClient.getResultScene().getContinueB().setText("quit");
-//                quizClient.getResultScene().getTotalResult1().setText(String.valueOf(totalPoints));
             }
-            changeToWaiting();
-            if(roundCounter >= totalRound*2) {
-                System.out.println("Rounds done!");
-            }
+            System.out.println("changing to waiting");
+            Platform.runLater(this::changeToWaiting);
+
         }
         quizView.getAnswerButton1().setId(".button");
         quizView.getAnswerButton2().setId(".button");

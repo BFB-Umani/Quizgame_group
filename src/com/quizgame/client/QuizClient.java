@@ -69,6 +69,11 @@ public class QuizClient extends Application {
         serverConnection.connect();
         serverConnection.start();
 
+        stage.setOnCloseRequest(t -> {
+            stage.close();
+            System.exit(0);
+        });
+
         stage.show();
     }
 

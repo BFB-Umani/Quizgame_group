@@ -22,7 +22,7 @@ public class ServerListener {
             }
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("client down");
         }
     }
 }

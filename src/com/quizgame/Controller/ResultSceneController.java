@@ -16,8 +16,13 @@ public class ResultSceneController {
     public void start(){
         resultScene.setUp();
         resultScene.getContinueB().setOnAction(l -> {
-            quizClient.getServerConnection().sendResultComplete(true);
-            quizClient.getQuizController().setQuizCounter();
+            if(resultScene.getContinueB().getText().equalsIgnoreCase("continue")) {
+                quizClient.getServerConnection().sendResultComplete(true);
+                quizClient.getQuizController().setQuizCounter();
+            }
+            else if(resultScene.getContinueB().getText().equalsIgnoreCase("Quit")) {
+                System.exit(0);
+            }
         });
     }
 

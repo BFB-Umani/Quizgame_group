@@ -76,7 +76,9 @@ public class Player extends Thread {
                     }
                 }
             } catch (ClassNotFoundException | IOException e) {
-                e.printStackTrace();
+//                e.printStackTrace();
+                System.out.println("player " + username + " disconnected");
+                break;
             }
         }
     }

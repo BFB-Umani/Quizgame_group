@@ -27,6 +27,7 @@ public class ResultScene {
     private Button totalResult2 = new Button("");
     private Button continueB = new Button("Continue");
 
+
     public Label getPlayerOneText() {
         return playerOneText;
     }
@@ -76,7 +77,7 @@ public class ResultScene {
         playerTwo.getChildren().add(roundOneResult2);
         playerTwo.getChildren().add(roundTwoResult2);
         playerTwo.getChildren().add(totalResult2);
-        playerOne.getChildren().add(getContinueB());
+        playerOne.getChildren().add(continueB);
 
         designLayout.setId("background");
         resultText.setId("resultText");
@@ -121,7 +122,6 @@ public class ResultScene {
         totalResult2.setMinSize(60,30);
         continueB.setMinSize(120,60);
         continueB.setMaxSize(120,60);
-        continueB.setPadding(new Insets(0 ,0,0,0));
 
 
 

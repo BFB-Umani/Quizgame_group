@@ -20,8 +20,11 @@ public class ServerConnection extends Thread {
     private QuizClient quizClient;
     private List<QuizItem> questions;
     private SetNameObject setNameObject = new SetNameObject();
+    private List<String> threeSubjects;
 
-
+    public List<String> getThreeSubjects() {
+        return threeSubjects;
+    }
 
     public ServerConnection(QuizClient quizClient){
         this.quizClient = quizClient;
@@ -76,8 +79,9 @@ public class ServerConnection extends Thread {
             try {
                 Object object = in.readObject();
                 if(object instanceof ChooseSubjectObject){
-                    List<String> threeSubjects = ((ChooseSubjectObject) object).subjects;
+                    threeSubjects = ((ChooseSubjectObject) object).subjects;
                     System.out.println("Client el subjects");
+//                    Platform.runLater(() -> quizClient.goToResultScene());
                     Platform.runLater(() -> quizClient.goToChoseSubjectScene(threeSubjects)); // main thread runs this when it has time.
                 }
                 else if(object instanceof QuestionsBySubjectObject){
@@ -85,13 +89,16 @@ public class ServerConnection extends Thread {
                     System.out.println("Client el questions");
                     Platform.runLater(() -> quizClient.goToQuizScene(questions)); // just in case that main thread is busy. Thank you google!
                 }
-                if(object instanceof Map) {
+                else if(object instanceof Map) {
                     System.out.println("Client el Map");
                     Map<String, Integer> stats = (Map<String, Integer>) object;
                     String firstKey = stats.keySet().stream().findFirst().get();
                     int firstValue = stats.get(firstKey);
-                    Platform.runLater(() -> quizClient.getResultScene().getPlayerTwoText().setText(firstKey) ); // Tillfällig
-                    Platform.runLater(()-> quizClient.getResultScene().getRoundOneResult2().setText(firstValue + "/x")); // Tillfällig
+                    quizClient.getResultScene().getPlayerTwoText().setText(firstKey);// Tillfällig
+                    quizClient.getResultScene().getRoundOneResult2().setText(firstValue + "/x"); // Tillfällig
+                    Platform.runLater(() -> quizClient.goToResultScene());
+                }
+                else if(object instanceof String) {
                     Platform.runLater(() -> quizClient.goToResultScene());
                 }
             } catch (ClassNotFoundException | IOException e) {

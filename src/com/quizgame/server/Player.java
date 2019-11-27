@@ -18,7 +18,10 @@ public class Player extends Thread {
     private Game game;
     private List<QuizItem> questions;
     private int round = 0;
-    int testChecKround = 0;
+    int testCheckRound = 0;
+    int testScoreOut = 0;
+    private         Map<String, Integer> stats = new HashMap<>();
+
 
 
     public Player(Socket socketToClient, String username) {
@@ -57,13 +60,12 @@ public class Player extends Thread {
                     System.out.println(username + " " + getRound());
                     System.out.println(opponent.username + " " + opponent.getRound());
                     if(getRound() == opponent.getRound()) {
-                        System.out.println("both at round " + ++testChecKround);
+                        System.out.println("both at round " + ++testCheckRound);
                         game.anotherSubject();
                     }
                     else {
                         sendOpponentQuestion(questions);
                     }
-
                 }
             } catch (ClassNotFoundException | IOException e) {
                 e.printStackTrace();
@@ -108,13 +110,18 @@ public class Player extends Thread {
 //    }
 
     public void sendScore(int points) {
-        Map<String, Integer> stats = new HashMap<>();
         stats.put(username, points);
         stats.forEach((k, v) -> System.out.println("Namn: " + k + " Poäng:" + v));
+        testScoreOut++;
+        System.out.println(testScoreOut);
         try {
-            opponent.out.writeObject(stats);
-            System.out.println("sending map: " + username);
-            opponent.out.flush();
+            if(testScoreOut == 1 && opponent.testScoreOut == 1) {
+                out.writeObject(opponent.stats);
+                opponent.out.writeObject(stats);
+                System.out.println("sending map: " + username);
+                opponent.out.flush();
+                out.flush();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -139,7 +146,7 @@ public class Player extends Thread {
         questionsBySubjectObject.questions = questions;
         try {
             opponent.out.writeObject(questionsBySubjectObject);
-            System.out.println("sending questions " + username);
+            System.out.println("sending questions " + opponent.username);
             opponent.out.flush();
         } catch (IOException e) {
             e.printStackTrace();

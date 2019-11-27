@@ -48,7 +48,9 @@ public class Game {
         threeSubjects.add(database.getSubjectList().get(0));
         threeSubjects.add(database.getSubjectList().get(1));
         threeSubjects.add(database.getSubjectList().get(2));
-        player2.sendSubjectsToClient(threeSubjects);
+//        if(player1.testScoreOut == 1 && player2.testScoreOut == 1) {
+//            player2.sendSubjectsToClient(threeSubjects);
+//        }
     }
     public List<QuizItem> getQuestionsBySubjects(String subject){
         return database.getItemsBySubject(subject);

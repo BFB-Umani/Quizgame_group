@@ -24,6 +24,7 @@ public class ServerConnection extends Thread {
     private SetNameObject setNameObject = new SetNameObject();
     private List<String> threeSubjects;
     private int counter = 0;
+    private int totalPoints = 0;
 
     public List<String> getThreeSubjects() {
         return threeSubjects;
@@ -110,14 +111,19 @@ public class ServerConnection extends Thread {
                     int firstValue = stats.get(firstKey);
                     counter++;
                     if(counter == 1) {
+                        totalPoints = firstValue;
                         quizClient.getResultScene().getPlayerTwoText().setText(firstKey);// Tillfällig
                         quizClient.getResultScene().getRoundOneResult2().setText(firstValue + "/" + serverPropertiesReader.getQuestionsPerRound()); // Tillfällig
                         Platform.runLater(() -> quizClient.goToResultScene());
                     }
                     else if(counter == 2) {
+                        totalPoints += firstValue;
                         quizClient.getResultScene().getPlayerTwoText().setText(firstKey);// Tillfällig
                         quizClient.getResultScene().getRoundTwoResult2().setText(firstValue + "/" + serverPropertiesReader.getQuestionsPerRound()); // Tillfällig
                         Platform.runLater(() -> quizClient.goToResultScene());
+                    }
+                    if(counter == serverPropertiesReader.getRoundsPerGame()) {
+                        quizClient.getResultScene().getTotalResult2().setText(String.valueOf(totalPoints));
                     }
                 }
                 else if(object instanceof String) {

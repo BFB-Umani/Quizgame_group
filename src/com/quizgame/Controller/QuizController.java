@@ -26,6 +26,7 @@ public class QuizController {
     private QuizItem currentQuestion;
     private int quizCounter = 0;
     private int counter = 0;
+    private int totalPoints = 0;
 
     public void setQuizCounter() {
         this.quizCounter = 0;
@@ -127,11 +128,17 @@ public class QuizController {
             counter++;
             Platform.runLater(() -> quizClient.getServerConnection().sendRoundComplete(quizCounter));
             if(counter == 1) {
+                totalPoints = quizCounter;
                 quizClient.getResultScene().getPlayerOneText().setText(quizClient.getStartScene().getTextField().getText());
                 quizClient.getResultScene().getRoundOneResult1().setText(quizCounter + "/" + prop.getQuestionsPerRound());
             }
             else if(counter == 2) {
+                totalPoints += quizCounter;
                 quizClient.getResultScene().getRoundTwoResult1().setText(quizCounter + "/" + prop.getQuestionsPerRound());
+            }
+            if(counter == prop.getRoundsPerGame()) {
+                quizClient.getResultScene().getContinueB().setVisible(false);
+                quizClient.getResultScene().getTotalResult1().setText(String.valueOf(totalPoints));
             }
             changeToWaiting();
             if(roundCounter >= totalRound*2) {

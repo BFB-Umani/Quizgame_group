@@ -25,6 +25,7 @@ public class QuizController {
     private List<QuizItem> questions;
     private QuizItem currentQuestion;
     private int quizCounter;
+    private int counter = 0;
 
     public QuizController(QuizView quizView, QuizClient quizClient) {
         this.quizView = quizView;
@@ -99,7 +100,7 @@ public class QuizController {
     }
 
     private void clickedRightAnswerButton(Button button) {
-        quizView.getScoreCounter().setText("Score: " + String.valueOf(++quizCounter));
+        quizView.getScoreCounter().setText("Score: " + ++quizCounter);
         button.setId("right");
         answeredState = 1;
     }
@@ -119,9 +120,16 @@ public class QuizController {
             this.roundCounter++;
             System.out.println("Done!");
             this.questionCounter = 0;
+            counter++;
             Platform.runLater(() -> quizClient.getServerConnection().sendRoundComplete(quizCounter));
-            quizClient.getResultScene().getPlayerOneText().setText(quizClient.getStartScene().getTextField().getText());
-            quizClient.getResultScene().getRoundOneResult1().setText(quizCounter+"/x");
+            if(counter == 1) {
+                quizClient.getResultScene().getPlayerOneText().setText(quizClient.getStartScene().getTextField().getText());
+                quizClient.getResultScene().getRoundOneResult1().setText(quizCounter + "/x");
+//                quizCounter = 0;
+            }
+            else if(counter == 2) {
+                quizClient.getResultScene().getRoundTwoResult1().setText(quizCounter + "/x");
+            }
             changeToWaiting();
             if(roundCounter >= totalRound*2) {
                 System.out.println("Rounds done!");
@@ -151,10 +159,6 @@ public class QuizController {
         } else {
             return null;
         }
-    }
-
-    public void changeToResult() {
-        quizClient.goToResultScene();
     }
 
     public void changeToWaiting() {

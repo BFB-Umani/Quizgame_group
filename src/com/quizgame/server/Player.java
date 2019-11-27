@@ -22,7 +22,7 @@ public class Player extends Thread {
     int testScoreOut = 0;
     private         Map<String, Integer> stats = new HashMap<>();
     private boolean roundComplete = false;
-
+    private int stupidCounter = 0;
 
 
     public Player(Socket socketToClient, String username) {
@@ -124,16 +124,31 @@ public class Player extends Thread {
         System.out.println(testScoreOut);
         try {
             if(testScoreOut == 1 && opponent.testScoreOut == 1) {
-                out.writeObject(opponent.stats);
-                opponent.out.writeObject(stats);
-                System.out.println("sending map: " + username);
-                opponent.out.flush();
-                out.flush();
-                testScoreOut = 0; opponent.testScoreOut = 0;
+                stupidCounter++;
+                System.out.println("Stats storlek: " + stats.size());
+                if(stupidCounter == 1) {
+                    out.writeObject(opponent.stats);
+                    opponent.out.writeObject(stats);
+                    System.out.println("sending map: " + username);
+                    opponent.out.flush();
+                    out.flush();
+                    testScoreOut = 0;
+                    opponent.testScoreOut = 0;
+                }
+                else if(stupidCounter == 2) {
+                    out.writeObject(opponent.stats);
+                    opponent.out.writeObject(stats);
+                    System.out.println("sending map: " + username);
+                    opponent.out.flush();
+                    out.flush();
+                    testScoreOut = 0;
+                    opponent.testScoreOut = 0;
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     public void sendQuestionsToClient(List<QuizItem> questions){

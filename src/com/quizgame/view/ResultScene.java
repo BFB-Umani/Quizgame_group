@@ -19,7 +19,7 @@ public class ResultScene {
     private Button roundOne = new Button("Round 1");
     private Button roundTwo = new Button("Round 2");
     private Button total = new Button("Total");
-    private Button roundOneResult1 = new Button("");
+    private Button roundOneResult1 = new Button("skit");
     private Button roundTwoResult1 = new Button("");
     private Button roundOneResult2 = new Button("");
     private Button roundTwoResult2 = new Button("");
@@ -69,7 +69,6 @@ public class ResultScene {
         resultLayout.getChildren().add(roundOne);
         resultLayout.getChildren().add(roundTwo);
         resultLayout.getChildren().add(total);
-        designLayout.getChildren().add(continueB);
         playerOne.getChildren().add(roundOneResult1);
         playerOne.getChildren().add(roundTwoResult1);
         playerOne.getChildren().add(totalResult1);
@@ -77,6 +76,7 @@ public class ResultScene {
         playerTwo.getChildren().add(roundOneResult2);
         playerTwo.getChildren().add(roundTwoResult2);
         playerTwo.getChildren().add(totalResult2);
+        playerOne.getChildren().add(getContinueB());
 
         designLayout.setId("background");
         resultText.setId("resultText");
@@ -86,6 +86,7 @@ public class ResultScene {
         playerOne.setId("playerOne");
         playerTwo.setId("playerTwo");
         continueB.setId("button");
+
         resultText.setPrefSize(480,100);
         resultText.setPadding(new Insets(40));
         resultText.setAlignment(Pos.CENTER);
@@ -119,9 +120,9 @@ public class ResultScene {
         roundTwoResult1.setMinSize(60,30);
         roundTwoResult2.setMinSize(60,30);
         totalResult2.setMinSize(60,30);
-        continueB.setMinSize(120,60);
-        continueB.setMaxSize(120,60);
-        continueB.setPadding(new Insets(200 ,300,200,400));
+        getContinueB().setMinSize(120,60);
+        getContinueB().setMaxSize(120,60);
+        getContinueB().setPadding(new Insets(0 ,0,0,0));
 
 
 
@@ -130,5 +131,13 @@ public class ResultScene {
 
     public VBox getDesignLayout() {
         return designLayout;
+    }
+
+    public Button getContinueB() {
+        return continueB;
+    }
+
+    public void setContinueB(Button continueB) {
+        this.continueB = continueB;
     }
 }

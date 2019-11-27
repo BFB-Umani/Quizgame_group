@@ -19,7 +19,7 @@ public class ResultScene {
     private Button roundOne = new Button("Round 1");
     private Button roundTwo = new Button("Round 2");
     private Button total = new Button("Total");
-    private Button roundOneResult1 = new Button("skit");
+    private Button roundOneResult1 = new Button("");
     private Button roundTwoResult1 = new Button("");
     private Button roundOneResult2 = new Button("");
     private Button roundTwoResult2 = new Button("");
@@ -86,7 +86,6 @@ public class ResultScene {
         playerOne.setId("playerOne");
         playerTwo.setId("playerTwo");
         continueB.setId("button");
-
         resultText.setPrefSize(480,100);
         resultText.setPadding(new Insets(40));
         resultText.setAlignment(Pos.CENTER);
@@ -139,5 +138,9 @@ public class ResultScene {
 
     public void setContinueB(Button continueB) {
         this.continueB = continueB;
+    }
+
+    public Button getContinueB() {
+        return continueB;
     }
 }

@@ -21,6 +21,7 @@ public class Player extends Thread {
     int testCheckRound = 0;
     int testScoreOut = 0;
     private         Map<String, Integer> stats = new HashMap<>();
+    private boolean roundComplete = false;
 
 
 
@@ -61,10 +62,17 @@ public class Player extends Thread {
                     System.out.println(opponent.username + " " + opponent.getRound());
                     if(getRound() == opponent.getRound()) {
                         System.out.println("both at round " + ++testCheckRound);
-                        game.anotherSubject();
+//                        game.anotherSubject();
                     }
                     else {
                         sendOpponentQuestion(questions);
+                    }
+                }
+                else if(object instanceof Boolean) {
+                    this.roundComplete = (boolean) object;
+                    if(roundComplete && opponent.roundComplete) {
+                        game.anotherSubject();
+                        roundComplete = false; opponent.roundComplete = false;
                     }
                 }
             } catch (ClassNotFoundException | IOException e) {
@@ -121,6 +129,7 @@ public class Player extends Thread {
                 System.out.println("sending map: " + username);
                 opponent.out.flush();
                 out.flush();
+                testScoreOut = 0; opponent.testScoreOut = 0;
             }
         } catch (IOException e) {
             e.printStackTrace();

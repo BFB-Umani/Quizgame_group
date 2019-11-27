@@ -15,6 +15,9 @@ public class ResultSceneController {
 
     public void start(){
         resultScene.setUp();
+        resultScene.getContinueB().setOnAction(l -> {
+            quizClient.getServerConnection().sendResultComplete(true);
+        });
     }
 
 //    public void setResult(String namn, int points) {

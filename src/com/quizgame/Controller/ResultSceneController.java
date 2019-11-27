@@ -17,6 +17,7 @@ public class ResultSceneController {
         resultScene.setUp();
         resultScene.getContinueB().setOnAction(l -> {
             quizClient.getServerConnection().sendResultComplete(true);
+            quizClient.getQuizController().setQuizCounter();
         });
     }
 

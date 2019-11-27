@@ -81,6 +81,10 @@ public class QuizClient extends Application {
 
     }
 
+    public QuizController getQuizController() {
+        return quizController;
+    }
+
     public void goToQuizScene(List<QuizItem> questions) {
         scene.setRoot(quizView.getDesignLayout());
         quizController.loadQuestions(questions);

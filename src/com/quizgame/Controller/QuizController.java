@@ -24,8 +24,12 @@ public class QuizController {
     private QuizClient quizClient;
     private List<QuizItem> questions;
     private QuizItem currentQuestion;
-    private int quizCounter;
+    private int quizCounter = 0;
     private int counter = 0;
+
+    public void setQuizCounter() {
+        this.quizCounter = 0;
+    }
 
     public QuizController(QuizView quizView, QuizClient quizClient) {
         this.quizView = quizView;
@@ -114,7 +118,7 @@ public class QuizController {
         answeredState = 1;
     }
 
-    void nextQuestion() {  //nu går vidare genom alla fyra item och sen crashar för Index 4 out of bounds(så klart!)
+    void nextQuestion() {
         this.questionCounter++;
         if(questionCounter >= totalQuestion) {
             this.roundCounter++;
@@ -124,11 +128,10 @@ public class QuizController {
             Platform.runLater(() -> quizClient.getServerConnection().sendRoundComplete(quizCounter));
             if(counter == 1) {
                 quizClient.getResultScene().getPlayerOneText().setText(quizClient.getStartScene().getTextField().getText());
-                quizClient.getResultScene().getRoundOneResult1().setText(quizCounter + "/x");
-//                quizCounter = 0;
+                quizClient.getResultScene().getRoundOneResult1().setText(quizCounter + "/" + prop.getQuestionsPerRound());
             }
             else if(counter == 2) {
-                quizClient.getResultScene().getRoundTwoResult1().setText(quizCounter + "/x");
+                quizClient.getResultScene().getRoundTwoResult1().setText(quizCounter + "/" + prop.getQuestionsPerRound());
             }
             changeToWaiting();
             if(roundCounter >= totalRound*2) {

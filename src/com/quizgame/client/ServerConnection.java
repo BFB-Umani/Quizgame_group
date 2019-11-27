@@ -2,6 +2,7 @@ package com.quizgame.client;
 
 import com.quizgame.*;
 import com.quizgame.properties.ClientPropertiesReader;
+import com.quizgame.properties.ServerPropertiesReader;
 import javafx.application.Platform;
 import org.w3c.dom.ls.LSOutput;
 
@@ -17,6 +18,7 @@ public class ServerConnection extends Thread {
     private ObjectInputStream in;
     private ObjectOutputStream out;
     private ClientPropertiesReader clientPropertiesReader = new ClientPropertiesReader();
+    private ServerPropertiesReader serverPropertiesReader = new ServerPropertiesReader();
     private QuizClient quizClient;
     private List<QuizItem> questions;
     private SetNameObject setNameObject = new SetNameObject();
@@ -109,12 +111,12 @@ public class ServerConnection extends Thread {
                     counter++;
                     if(counter == 1) {
                         quizClient.getResultScene().getPlayerTwoText().setText(firstKey);// Tillfällig
-                        quizClient.getResultScene().getRoundOneResult2().setText(firstValue + "/x"); // Tillfällig
+                        quizClient.getResultScene().getRoundOneResult2().setText(firstValue + "/" + serverPropertiesReader.getQuestionsPerRound()); // Tillfällig
                         Platform.runLater(() -> quizClient.goToResultScene());
                     }
                     else if(counter == 2) {
                         quizClient.getResultScene().getPlayerTwoText().setText(firstKey);// Tillfällig
-                        quizClient.getResultScene().getRoundTwoResult2().setText(firstValue + "/x"); // Tillfällig
+                        quizClient.getResultScene().getRoundTwoResult2().setText(firstValue + "/" + serverPropertiesReader.getQuestionsPerRound()); // Tillfällig
                         Platform.runLater(() -> quizClient.goToResultScene());
                     }
                 }

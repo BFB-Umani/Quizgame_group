@@ -119,9 +119,9 @@ public class ResultScene {
         roundTwoResult1.setMinSize(60,30);
         roundTwoResult2.setMinSize(60,30);
         totalResult2.setMinSize(60,30);
-        getContinueB().setMinSize(120,60);
-        getContinueB().setMaxSize(120,60);
-        getContinueB().setPadding(new Insets(0 ,0,0,0));
+        continueB.setMinSize(120,60);
+        continueB.setMaxSize(120,60);
+        continueB.setPadding(new Insets(0 ,0,0,0));
 
 
 
@@ -130,14 +130,6 @@ public class ResultScene {
 
     public VBox getDesignLayout() {
         return designLayout;
-    }
-
-    public Button getContinueB() {
-        return continueB;
-    }
-
-    public void setContinueB(Button continueB) {
-        this.continueB = continueB;
     }
 
     public Button getContinueB() {

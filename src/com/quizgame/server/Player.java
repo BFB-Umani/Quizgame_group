@@ -127,7 +127,9 @@ public class Player extends Thread {
                 stupidCounter++;
                 System.out.println("Stats storlek: " + stats.size());
                 if(stupidCounter == 1) {
+                    out.reset();
                     out.writeObject(opponent.stats);
+                    opponent.out.reset();
                     opponent.out.writeObject(stats);
                     System.out.println("sending map: " + username);
                     opponent.out.flush();
@@ -136,7 +138,9 @@ public class Player extends Thread {
                     opponent.testScoreOut = 0;
                 }
                 else if(stupidCounter == 2) {
+                    out.reset();
                     out.writeObject(opponent.stats);
+                    opponent.out.reset();
                     opponent.out.writeObject(stats);
                     System.out.println("sending map: " + username);
                     opponent.out.flush();

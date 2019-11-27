@@ -6,7 +6,7 @@ GEOGRAFI | Vad heter Perus huvudstad? | Lima*Santa Cruz*Bogota*Sao Paulo | Lima
 GEOGRAFI | I vilket land är Ulan Bator huvudstad? | Mongoliet*Uzbekistan*Kazakhstan*Pakistan | Mongoliet
 GEOGRAFI | På vilken ö ligger vulkanen Teide? | Teneriffa*Mallorca*Kreta*Santorini | Teneriffa
 GEOGRAFI | Vilken stad går under smeknamnet \"Mellanöstern Paris\"? | Beirut*Bagdad*Jerusalem*Damaskus | Beirut
-GEOGRAFI | Vad heter världen högsta byggnad (2018)? | Burj Khalifa*Shanghai Tower*One World Trade Center*Tokyo Skytree | "Burj Khalifa
+GEOGRAFI | Vad heter världen högsta byggnad (2018)? | Burj Khalifa*Shanghai Tower*One World Trade Center*Tokyo Skytree | Burj Khalifa
 GEOGRAFI | I vilken italiensk stad sägs pizzan var född? | Neapel*Rom*Pisa*Genoa | Neapel
 FOTBOLL | Vilket nummer hade David Beckham i Manchester United? | 7*9*10*23 | 7
 FOTBOLL | Vem var det som efterträdde Sven Göran Eriksson (Svennis) som Englands förbundskapten? | Steve McClaren*Kevin Keegan*Fabio Capello*Roy Hodgson | Steve McClaren

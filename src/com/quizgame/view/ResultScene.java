@@ -128,7 +128,6 @@ public class ResultScene {
         Button total = new Button("Total");
         int playerOneTotalScore = 0;
         int playerTwoTotalScore = 0;
-        int totalNumberOfQuestions = 0;
 
         for (int i = 0; i <resultButton.size() ; i++) {
             try {
@@ -140,11 +139,9 @@ public class ResultScene {
             catch(NumberFormatException e) {
                 System.out.println("number format error");
             }
-
-            totalNumberOfQuestions +=resultButton.get(i).questionsPerRound;
         }
-        Button totalResult1 = new Button(playerOneTotalScore + "/" + totalNumberOfQuestions );
-        Button totalResult2 = new Button(playerTwoTotalScore + "/" + totalNumberOfQuestions);
+        Button totalResult1 = new Button(String.valueOf(playerOneTotalScore));
+        Button totalResult2 = new Button(String.valueOf(playerTwoTotalScore));
 
         resultLayout.getChildren().add(total);
         playerOne.getChildren().add(totalResult1);

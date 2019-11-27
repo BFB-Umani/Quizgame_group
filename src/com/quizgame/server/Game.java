@@ -48,9 +48,15 @@ public class Game {
         threeSubjects.add(database.getSubjectList().get(0));
         threeSubjects.add(database.getSubjectList().get(1));
         threeSubjects.add(database.getSubjectList().get(2));
-        if(player1.testScoreOut == 1 && player2.testScoreOut == 1) {
+        if((player1.testCheckRound + player2.testCheckRound) % 2 != 0) {
+            System.out.println("im in player1");
             player2.sendSubjectsToClient(threeSubjects);
         }
+        else if((player1.testCheckRound + player2.testCheckRound) % 2 == 0) {
+            System.out.println("im in player2");
+            player1.sendSubjectsToClient(threeSubjects);
+        }
+
     }
     public List<QuizItem> getQuestionsBySubjects(String subject){
         return database.getItemsBySubject(subject);

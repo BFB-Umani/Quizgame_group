@@ -69,7 +69,7 @@ public class Player extends Thread {
                     }
                 }
                 else if(object instanceof Boolean) {
-                    this.roundComplete = true;
+                    this.roundComplete = (boolean) object;
                     if(roundComplete && opponent.roundComplete) {
                         game.anotherSubject();
                         roundComplete = false; opponent.roundComplete = false;
@@ -129,6 +129,7 @@ public class Player extends Thread {
                 System.out.println("sending map: " + username);
                 opponent.out.flush();
                 out.flush();
+                testScoreOut = 0; opponent.testScoreOut = 0;
             }
         } catch (IOException e) {
             e.printStackTrace();

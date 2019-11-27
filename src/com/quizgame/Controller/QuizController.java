@@ -129,16 +129,16 @@ public class QuizController {
             Platform.runLater(() -> quizClient.getServerConnection().sendRoundComplete(quizCounter));
             if(counter == 1) {
                 totalPoints = quizCounter;
-                quizClient.getResultScene().getPlayerOneText().setText(quizClient.getStartScene().getTextField().getText());
-                quizClient.getResultScene().getRoundOneResult1().setText(quizCounter + "/" + prop.getQuestionsPerRound());
+//                quizClient.getResultScene().getPlayerOneText().setText(quizClient.getStartScene().getTextField().getText());
+//                quizClient.getResultScene().getRoundOneResult1().setText(quizCounter + "/" + prop.getQuestionsPerRound());
             }
             else if(counter == 2) {
                 totalPoints += quizCounter;
-                quizClient.getResultScene().getRoundTwoResult1().setText(quizCounter + "/" + prop.getQuestionsPerRound());
+//                quizClient.getResultScene().getRoundTwoResult1().setText(quizCounter + "/" + prop.getQuestionsPerRound());
             }
             if(counter == prop.getRoundsPerGame()) {
                 quizClient.getResultScene().getContinueB().setText("quit");
-                quizClient.getResultScene().getTotalResult1().setText(String.valueOf(totalPoints));
+//                quizClient.getResultScene().getTotalResult1().setText(String.valueOf(totalPoints));
             }
             changeToWaiting();
             if(roundCounter >= totalRound*2) {

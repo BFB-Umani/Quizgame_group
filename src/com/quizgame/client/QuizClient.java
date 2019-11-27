@@ -26,14 +26,6 @@ public class QuizClient extends Application {
     public QuizClient() {    //NO TOUCH THIS!!!!
     }
 
-    public StartScene getStartScene() {
-        return startScene;
-    }
-
-    public ResultScene getResultScene() {
-        return resultScene;
-    }
-
     @Override
     public void start(Stage stage) throws Exception {
         stage.setTitle("Quizgame");
@@ -74,6 +66,9 @@ public class QuizClient extends Application {
             System.exit(0);
         });
 
+        resultSceneController.goToResultScene(7);
+        goToResultScene();
+
         stage.show();
     }
 
@@ -104,10 +99,18 @@ public class QuizClient extends Application {
     public ServerConnection getServerConnection(){
         return serverConnection;
     }
+
+    public StartScene getStartScene() {
+        return startScene;
+    }
+
+    public ResultScene getResultScene() {
+        return resultScene;
+    }
+
     public static void main(String[] args) {
         launch(args);
     }
-
 
 
 }

@@ -14,7 +14,7 @@
     -fx-background-image: url("../../../images/question_label.png");
 
 }
-#background {
+#background{
     -fx-background-image: url("../../../images/game_background.png");
     -fx-background-repeat: stretch;
     -fx-background-size: 620, 480;
@@ -82,4 +82,12 @@
     -fx-background-color: #242dff;
     -fx-text-fill: #f8ffe8;
 }
+
+#scrollpane > .viewport {
+    -fx-background-color: transparent;
+}
+#scrollpane {
+    -fx-background-color: transparent;
+}
+
 

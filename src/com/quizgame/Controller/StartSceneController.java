@@ -17,15 +17,12 @@ public class StartSceneController {
 
     public void start() {
         startScene.setUp();
-        startScene.getNewGameButton().setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                input = startScene.getTextField().getText();
-                if (!input.equalsIgnoreCase("")) {
-                    System.out.println(input);
-                    quizClient.getServerConnection().sendNameToServer(input);
-                    changeToWaitingScene();
-                }
+        startScene.getNewGameButton().setOnAction(actionEvent -> {
+            input = startScene.getTextField().getText();
+            if (!input.equalsIgnoreCase("")) {
+                System.out.println(input);
+                quizClient.getServerConnection().sendNameToServer(input);
+                changeToWaitingScene();
             }
         });
     }

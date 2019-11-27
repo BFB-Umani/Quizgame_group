@@ -41,7 +41,6 @@ public class ServerConnection extends Thread {
         setNameObject.text = name;
         try {
             out.writeObject(setNameObject);
-            System.out.println("Sending name to server");
             out.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -53,7 +52,6 @@ public class ServerConnection extends Thread {
         chosenSubjectObject.subject = subject;
         try {
             out.writeObject(chosenSubjectObject);
-            System.out.println("sending subject to server");
             out.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -63,7 +61,6 @@ public class ServerConnection extends Thread {
     public void sendResultComplete(boolean done) {
         try {
             out.writeObject(done);
-            System.out.println("sending result done to server");
             out.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -87,16 +84,12 @@ public class ServerConnection extends Thread {
                 Object object = in.readObject();
                 if (object instanceof ChooseSubjectObject) {
                     threeSubjects = ((ChooseSubjectObject) object).subjects;
-                    System.out.println("Client el subjects");
                     Platform.runLater(() -> quizClient.goToChoseSubjectScene(threeSubjects));
                 } else if (object instanceof QuestionsBySubjectObject) {
                     questions = ((QuestionsBySubjectObject) object).questions;
-                    System.out.println("Client el questions");
                     Platform.runLater(() -> quizClient.goToQuizScene(questions));
                 } else if (object instanceof Map) {
-                    System.out.println("Client el Map");
                     Map<String, Integer> stats = (Map<String, Integer>) object;
-                    stats.forEach((k, v) -> System.out.println("From server: " + k + " " + v));
                     String firstKey = stats.keySet().stream().findFirst().get();
                     int firstValue = stats.get(firstKey);
 

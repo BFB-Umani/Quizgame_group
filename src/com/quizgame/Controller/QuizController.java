@@ -17,17 +17,13 @@ import java.util.List;
 public class QuizController {
     private int questionCounter = 0;
     private int answeredState = 0;
-    private int roundCounter = 0;
-    ServerPropertiesReader prop = new ServerPropertiesReader(); // tillfälligt
-    private int totalQuestion = prop.getQuestionsPerRound(); // tillfälligt
-    private int totalRound = prop.getRoundsPerGame(); // tillfälligt
     private QuizView quizView;
     private QuizClient quizClient;
     private List<QuizItem> questions;
     private QuizItem currentQuestion;
     private int quizCounter = 0;
     private int counter = 0;
-    private int totalPoints = 0;
+    private ServerPropertiesReader prop = new ServerPropertiesReader();
 
     public void setQuizCounter() {
         this.quizCounter = 0;
@@ -109,11 +105,8 @@ public class QuizController {
 
     void nextQuestion() {
         this.questionCounter++;
-        if (questionCounter >= totalQuestion) {
-            this.roundCounter++;
-            System.out.println("Done!");
+        if (questionCounter >= prop.getQuestionsPerRound()) {
             this.questionCounter = 0;
-            System.out.println("Storlekn på listan: " + quizClient.getResultScene().getResultButton().size() + " och countern är på: " + counter);
             Platform.runLater(() -> quizClient.getServerConnection().sendRoundComplete(quizCounter));
             quizClient.getResultScene().getPlayerOneText().setText(quizClient.getStartScene().getTextField().getText());
             quizClient.getResultScene().getResultButton().get(counter).getPlayer1Score().setText(String.valueOf(quizCounter));

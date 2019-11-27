@@ -73,6 +73,7 @@ public class QuizClient extends Application {
         serverConnection.start();
 
         stage.show();
+        goToResultScene();
     }
 
     public void goToChoseSubjectScene(List<String> subjectsList){

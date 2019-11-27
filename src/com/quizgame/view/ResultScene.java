@@ -25,6 +25,7 @@ public class ResultScene {
     private Button roundTwoResult2 = new Button("");
     private Button totalResult1 = new Button("");
     private Button totalResult2 = new Button("");
+    private Button continueB = new Button("Continue");
 
     public Label getPlayerOneText() {
         return playerOneText;
@@ -68,6 +69,7 @@ public class ResultScene {
         resultLayout.getChildren().add(roundOne);
         resultLayout.getChildren().add(roundTwo);
         resultLayout.getChildren().add(total);
+        designLayout.getChildren().add(continueB);
         playerOne.getChildren().add(roundOneResult1);
         playerOne.getChildren().add(roundTwoResult1);
         playerOne.getChildren().add(totalResult1);
@@ -83,6 +85,7 @@ public class ResultScene {
         total.setId("total");
         playerOne.setId("playerOne");
         playerTwo.setId("playerTwo");
+        continueB.setId("button");
         resultText.setPrefSize(480,100);
         resultText.setPadding(new Insets(40));
         resultText.setAlignment(Pos.CENTER);
@@ -116,7 +119,9 @@ public class ResultScene {
         roundTwoResult1.setMinSize(60,30);
         roundTwoResult2.setMinSize(60,30);
         totalResult2.setMinSize(60,30);
-
+        continueB.setMinSize(120,60);
+        continueB.setMaxSize(120,60);
+        continueB.setPadding(new Insets(200 ,300,200,400));
 
 
 

@@ -20,6 +20,8 @@ public class Player extends Thread {
     private int round = 0;
     int testCheckRound = 0;
     int testScoreOut = 0;
+    private         Map<String, Integer> stats = new HashMap<>();
+
 
 
     public Player(Socket socketToClient, String username) {
@@ -108,14 +110,13 @@ public class Player extends Thread {
 //    }
 
     public void sendScore(int points) {
-        Map<String, Integer> stats = new HashMap<>();
         stats.put(username, points);
         stats.forEach((k, v) -> System.out.println("Namn: " + k + " Poäng:" + v));
         testScoreOut++;
         System.out.println(testScoreOut);
         try {
             if(testScoreOut == 1 && opponent.testScoreOut == 1) {
-                out.writeObject(stats);
+                out.writeObject(opponent.stats);
                 opponent.out.writeObject(stats);
                 System.out.println("sending map: " + username);
                 opponent.out.flush();

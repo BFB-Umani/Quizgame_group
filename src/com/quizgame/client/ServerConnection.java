@@ -89,13 +89,16 @@ public class ServerConnection extends Thread {
                     System.out.println("Client el questions");
                     Platform.runLater(() -> quizClient.goToQuizScene(questions)); // just in case that main thread is busy. Thank you google!
                 }
-                if(object instanceof Map) {
+                else if(object instanceof Map) {
                     System.out.println("Client el Map");
                     Map<String, Integer> stats = (Map<String, Integer>) object;
                     String firstKey = stats.keySet().stream().findFirst().get();
                     int firstValue = stats.get(firstKey);
                     quizClient.getResultScene().getPlayerTwoText().setText(firstKey);// Tillfällig
                     quizClient.getResultScene().getRoundOneResult2().setText(firstValue + "/x"); // Tillfällig
+                    Platform.runLater(() -> quizClient.goToResultScene());
+                }
+                else if(object instanceof String) {
                     Platform.runLater(() -> quizClient.goToResultScene());
                 }
             } catch (ClassNotFoundException | IOException e) {

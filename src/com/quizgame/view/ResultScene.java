@@ -131,4 +131,8 @@ public class ResultScene {
     public VBox getDesignLayout() {
         return designLayout;
     }
+
+    public Button getContinueB() {
+        return continueB;
+    }
 }

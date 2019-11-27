@@ -62,6 +62,16 @@ public class ServerConnection extends Thread {
         }
     }
 
+    public void sendResultComplete(boolean done) {
+        try{
+            out.writeObject(done);
+            System.out.println("sending result done to server");
+            out.flush();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
     public void sendRoundComplete(int score) {
         try {
             out.writeObject(score);

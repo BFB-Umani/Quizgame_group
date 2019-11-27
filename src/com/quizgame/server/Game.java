@@ -35,10 +35,9 @@ public class Game {
         numberOfPlayerReady++;
 
         if(numberOfPlayerReady == 2){
-            Collections.shuffle(database.getSubjectList());
-            threeSubjects.add(database.getSubjectList().get(0));
-            threeSubjects.add(database.getSubjectList().get(1));
-            threeSubjects.add(database.getSubjectList().get(2));
+            threeSubjects = database.getSubjectList();
+            Collections.shuffle(threeSubjects);
+            threeSubjects.remove(3);
             player1.sendSubjectsToClient(threeSubjects);
         }
     }

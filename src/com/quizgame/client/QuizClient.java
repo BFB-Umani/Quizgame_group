@@ -2,21 +2,16 @@ package com.quizgame.client;
 
 import com.quizgame.Controller.*;
 import com.quizgame.QuizItem;
-import com.quizgame.QuizResult;
-import com.quizgame.Round;
 import com.quizgame.properties.ServerPropertiesReader;
 import com.quizgame.view.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class QuizClient extends Application {
-
     private Scene scene;
     private ChoosingSubjectScene choosingSubjectScene;
     private WaitingScene waitingScene;
@@ -27,7 +22,6 @@ public class QuizClient extends Application {
     private ChoosingSubjectSceneController choosingSubjectSceneController;
     private StartScene startScene;
     private ResultSceneController resultSceneController;
-    private QuizResult quizResult = new QuizResult();
 
     public QuizClient() {    //NO TOUCH THIS!!!!
     }
@@ -37,7 +31,7 @@ public class QuizClient extends Application {
         stage.setTitle("Quizgame");
         stage.setResizable(false);
         stage.getIcons().add(new Image("/images/quizIcon.png"));
-
+        ServerPropertiesReader serverPropertiesReader = new ServerPropertiesReader();
         quizView = new QuizView();
         startScene = new StartScene();
         choosingSubjectScene = new ChoosingSubjectScene();
@@ -60,8 +54,9 @@ public class QuizClient extends Application {
         quizController = new QuizController(quizView,this);
         quizController.start();
 
-        resultSceneController = new ResultSceneController(resultScene, this, quizResult);
+        resultSceneController = new ResultSceneController(resultScene, this);
         resultSceneController.start();
+        resultScene.createDynamic(serverPropertiesReader.getRoundsPerGame());
 
         serverConnection = new ServerConnection(this);
         serverConnection.connect();
@@ -85,10 +80,6 @@ public class QuizClient extends Application {
         return quizController;
     }
 
-    public ResultSceneController getResultSceneController() {
-        return resultSceneController;
-    }
-
     public void goToQuizScene(List<QuizItem> questions) {
         scene.setRoot(quizView.getDesignLayout());
         quizController.loadQuestions(questions);
@@ -100,12 +91,7 @@ public class QuizClient extends Application {
     }
 
     public void goToResultScene(){
-        resultScene.showResult(quizResult);
         scene.setRoot(resultScene.getDesignLayout());
-    }
-
-    public QuizResult getQuizResult() {
-        return quizResult;
     }
 
     public ServerConnection getServerConnection(){

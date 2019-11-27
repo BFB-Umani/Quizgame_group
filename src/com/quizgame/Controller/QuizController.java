@@ -38,11 +38,6 @@ public class QuizController {
         this.quizClient = quizClient;
     }
 
-    public void loadGameInfo(int[] roundInfo) {
-        this.totalQuestion = roundInfo[0];
-        this.totalRound = roundInfo[1];
-    }
-
     public void start() {
         quizView.setUp();
         quizView.getAnswerButton1().setOnAction(this::handle);
@@ -61,7 +56,6 @@ public class QuizController {
 
     }
 
-
     private void clickedContinueButton(ActionEvent actionEvent) {
         nextQuestion();
     }
@@ -76,8 +70,6 @@ public class QuizController {
 
         List<String> answerList;
         answerList = item.getAllAnswers();
-
-
         Collections.shuffle(answerList);
 
         quizView.getQuestionLabel().setMaxWidth(Double.MAX_VALUE);
@@ -87,10 +79,7 @@ public class QuizController {
         quizView.getAnswerButton2().setText(answerList.get(1));
         quizView.getAnswerButton3().setText(answerList.get(2));
         quizView.getAnswerButton4().setText(answerList.get(3));
-
         quizView.getContinueButton().setVisible(false);
-
-
     }
 
     private void clickAnswerButton(Button button) {
@@ -124,15 +113,11 @@ public class QuizController {
             this.roundCounter++;
             System.out.println("Done!");
             this.questionCounter = 0;
-            System.out.println("Storlekn på listan: " + quizClient.getQuizResult().rounds.size() + " och countern är på: " + counter);
+            System.out.println("Storlekn på listan: " + quizClient.getResultScene().getResultButton().size() + " och countern är på: " + counter);
             Platform.runLater(() -> quizClient.getServerConnection().sendRoundComplete(quizCounter));
-            quizClient.getQuizResult().player1Name = quizClient.getStartScene().getTextField().getText();
-            quizClient.getQuizResult().rounds.get(counter).player1Score = quizCounter;
+            quizClient.getResultScene().getPlayerOneText().setText(quizClient.getStartScene().getTextField().getText());
+            quizClient.getResultScene().getResultButton().get(counter).getPlayer1Score().setText(String.valueOf(quizCounter));
             counter++;
-            if (counter == prop.getRoundsPerGame()) {
-                quizClient.getResultScene().getContinueB().setText("quit");
-            }
-            System.out.println("changing to waiting");
             Platform.runLater(this::changeToWaiting);
 
         }
@@ -144,7 +129,6 @@ public class QuizController {
         showQuestion(currentQuestion);
         answeredState = 0;
 
-        //Round och Question counters
     }
 
     private Button getRightAnswerButton() {

@@ -1,11 +1,11 @@
 package com.quizgame.view;
 
-import com.quizgame.QuizResult;
 import com.quizgame.Round;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -34,6 +34,11 @@ public class ResultScene {
     private Label playerTwoText = new Label();
 
     private Button continueB = new Button("Continue");
+    private List<Round> resultButton;
+
+    public List<Round> getResultButton() {
+        return resultButton;
+    }
 
     public void setUp(){
         designLayout.getChildren().add(resultText);
@@ -77,18 +82,32 @@ public class ResultScene {
         playerTwo.setSpacing(40);
     }
 
-    public void createDynamic(int antal) {
-        List<Round> resultButton = new ArrayList<>();
-        for(int i = 0; i < antal; i++) {
-            resultButton.add(new Round());
-            Button roundButton = new Button("Round "+ i+1);
-            resultLayout.getChildren().add(roundButton);
+    public Label getPlayerOneText() {
+        return playerOneText;
+    }
 
+    public Label getPlayerTwoText() {
+        return playerTwoText;
+    }
+
+    public void createDynamic(int antal) {
+        resultButton = new ArrayList<>();
+        if(antal > 5) {
+            ScrollPane s1 = new ScrollPane(playerLayout);
+            designLayout.getChildren().add(s1);
+            s1.setFitToHeight(true);
+            s1.setFitToWidth(true);
+            s1.setId("scrollpane");
+            System.out.println("adding scrollpane");
+        }
+        for(int i = 0; i < antal; i++) {
             Button player1Result = new Button();
             playerOne.getChildren().add(player1Result);
-
             Button player2Result = new Button();
             playerTwo.getChildren().add(player2Result);
+            resultButton.add(new Round(player1Result, player2Result));
+            Button roundButton = new Button("Round " + String.valueOf(i + 1));
+            resultLayout.getChildren().add(roundButton);
             player1Result.setMinSize(60,30);
             player2Result.setMinSize(60,30);
             roundButton.setMinSize(60,30);
@@ -98,7 +117,6 @@ public class ResultScene {
             player2Result.setPrefWidth(80);
         }
 
-        createTotalResultButton(quiz );
 
     }
 
@@ -106,16 +124,24 @@ public class ResultScene {
         return continueB;
     }
 
-    private void createTotalResultButton(QuizResult quizResult){
+    public void createTotalResultButton(){
         Button total = new Button("Total");
         int playerOneTotalScore = 0;
         int playerTwoTotalScore = 0;
         int totalNumberOfQuestions = 0;
-        for (int i = 0; i <quizResult.rounds.size() ; i++) {
-            playerOneTotalScore +=quizResult.rounds.get(i).player1Score; // player1Score got from server - actual score every round.
-            playerTwoTotalScore +=quizResult.rounds.get(i).player2Score;
 
-            totalNumberOfQuestions +=quizResult.rounds.get(i).questionsPerRound;
+        for (int i = 0; i <resultButton.size() ; i++) {
+            try {
+                String point1 = resultButton.get(i).getPlayer1Score().getText();
+                String point2 = resultButton.get(i).getPlayer2Score().getText();
+                playerOneTotalScore += Integer.parseInt(point1);
+                playerTwoTotalScore += Integer.parseInt(point2);
+            }
+            catch(NumberFormatException e) {
+                System.out.println("number format error");
+            }
+
+            totalNumberOfQuestions +=resultButton.get(i).questionsPerRound;
         }
         Button totalResult1 = new Button(playerOneTotalScore + "/" + totalNumberOfQuestions );
         Button totalResult2 = new Button(playerTwoTotalScore + "/" + totalNumberOfQuestions);
@@ -131,26 +157,6 @@ public class ResultScene {
         totalResult1.setPrefWidth(80);
         totalResult2.setPrefWidth(80);
         total.setPrefWidth(80);
-    }
-
-    private void createRound(Round round){
-        Button roundButton = new Button("Round "+round.round);
-        resultLayout.getChildren().add(roundButton);
-
-        Button player1Result = new Button(round.player1Score + "/" + round.questionsPerRound);
-        playerOne.getChildren().add(player1Result);
-
-        Button player2Result = new Button(round.player2Score + "/" + round.questionsPerRound);
-        playerTwo.getChildren().add(player2Result);
-
-        player1Result.setMinSize(60,30);
-        player2Result.setMinSize(60,30);
-        roundButton.setMinSize(60,30);
-
-        roundButton.setPrefWidth(80);
-        player1Result.setPrefWidth(80);
-        player2Result.setPrefWidth(80);
-
     }
 
     public VBox getDesignLayout() {

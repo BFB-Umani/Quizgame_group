@@ -21,6 +21,7 @@ public class ServerConnection extends Thread {
     private List<QuizItem> questions;
     private SetNameObject setNameObject = new SetNameObject();
     private List<String> threeSubjects;
+    private int counter = 0;
 
     public List<String> getThreeSubjects() {
         return threeSubjects;
@@ -102,11 +103,20 @@ public class ServerConnection extends Thread {
                 else if(object instanceof Map) {
                     System.out.println("Client el Map");
                     Map<String, Integer> stats = (Map<String, Integer>) object;
+                    stats.forEach((k, v) -> System.out.println("From server: " + k + " " + v));
                     String firstKey = stats.keySet().stream().findFirst().get();
                     int firstValue = stats.get(firstKey);
-                    quizClient.getResultScene().getPlayerTwoText().setText(firstKey);// Tillfällig
-                    quizClient.getResultScene().getRoundOneResult2().setText(firstValue + "/x"); // Tillfällig
-                    Platform.runLater(() -> quizClient.goToResultScene());
+                    counter++;
+                    if(counter == 1) {
+                        quizClient.getResultScene().getPlayerTwoText().setText(firstKey);// Tillfällig
+                        quizClient.getResultScene().getRoundOneResult2().setText(firstValue + "/x"); // Tillfällig
+                        Platform.runLater(() -> quizClient.goToResultScene());
+                    }
+                    else if(counter == 2) {
+                        quizClient.getResultScene().getPlayerTwoText().setText(firstKey);// Tillfällig
+                        quizClient.getResultScene().getRoundTwoResult2().setText(firstValue + "/x"); // Tillfällig
+                        Platform.runLater(() -> quizClient.goToResultScene());
+                    }
                 }
                 else if(object instanceof String) {
                     Platform.runLater(() -> quizClient.goToResultScene());

@@ -1,7 +1,6 @@
 package com.quizgame.server;
 
 import com.quizgame.*;
-import com.quizgame.properties.ServerPropertiesReader;
 
 import java.io.*;
 import java.net.Socket;
@@ -22,7 +21,7 @@ public class Player extends Thread {
     int testScoreOut = 0;
     private         Map<String, Integer> stats = new HashMap<>();
     private boolean roundComplete = false;
-    private int stupidCounter = 0;
+    private int checkRoundCounter = 0;
 
 
     public Player(Socket socketToClient, String username) {
@@ -126,9 +125,9 @@ public class Player extends Thread {
         System.out.println(testScoreOut);
         try {
             if(testScoreOut == 1 && opponent.testScoreOut == 1) {
-                stupidCounter++;
+                checkRoundCounter++;
                 System.out.println("Stats storlek: " + stats.size());
-                if(stupidCounter == 1) {
+                if(checkRoundCounter == 1) {
                     out.reset();
                     out.writeObject(opponent.stats);
                     opponent.out.reset();
@@ -139,7 +138,7 @@ public class Player extends Thread {
                     testScoreOut = 0;
                     opponent.testScoreOut = 0;
                 }
-                else if(stupidCounter == 2) {
+                else if(checkRoundCounter == 2) {
                     out.reset();
                     out.writeObject(opponent.stats);
                     opponent.out.reset();

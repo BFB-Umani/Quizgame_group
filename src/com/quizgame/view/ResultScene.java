@@ -69,7 +69,6 @@ public class ResultScene {
         resultLayout.getChildren().add(roundOne);
         resultLayout.getChildren().add(roundTwo);
         resultLayout.getChildren().add(total);
-        designLayout.getChildren().add(continueB);
         playerOne.getChildren().add(roundOneResult1);
         playerOne.getChildren().add(roundTwoResult1);
         playerOne.getChildren().add(totalResult1);
@@ -77,6 +76,7 @@ public class ResultScene {
         playerTwo.getChildren().add(roundOneResult2);
         playerTwo.getChildren().add(roundTwoResult2);
         playerTwo.getChildren().add(totalResult2);
+        playerOne.getChildren().add(getContinueB());
 
         designLayout.setId("background");
         resultText.setId("resultText");
@@ -121,7 +121,7 @@ public class ResultScene {
         totalResult2.setMinSize(60,30);
         continueB.setMinSize(120,60);
         continueB.setMaxSize(120,60);
-        continueB.setPadding(new Insets(200 ,300,200,400));
+        continueB.setPadding(new Insets(0 ,0,0,0));
 
 
 

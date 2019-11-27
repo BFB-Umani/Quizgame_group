@@ -3,7 +3,6 @@ package com.quizgame;
 import javafx.scene.control.Button;
 
 public class Round {
-    public int questionsPerRound;
     private Button player1Score;
     private Button player2Score;
 

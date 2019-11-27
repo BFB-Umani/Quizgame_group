@@ -92,7 +92,7 @@ public class ResultScene {
 
     public void createDynamic(int antal) {
         resultButton = new ArrayList<>();
-        if(antal > 5) {
+        if(antal > 3) {
             ScrollPane s1 = new ScrollPane(playerLayout);
             designLayout.getChildren().add(s1);
             s1.setFitToHeight(true);

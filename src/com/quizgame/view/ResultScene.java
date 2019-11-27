@@ -9,6 +9,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ResultScene {
     private VBox designLayout = new VBox();
     private Label resultText = new Label("Result");
@@ -74,14 +77,29 @@ public class ResultScene {
         playerTwo.setSpacing(40);
     }
 
-    public void showResult(QuizResult quizResult){
-        playerOneText.setText(quizResult.player1Name);
-        playerTwoText.setText(quizResult.player2Name);
+    public void createDynamic(int antal) {
+        List<Round> resultButton = new ArrayList<>();
+        for(int i = 0; i < antal; i++) {
+            resultButton.add(new Round());
+            Button roundButton = new Button("Round "+ i+1);
+            resultLayout.getChildren().add(roundButton);
 
-        for (Round round : quizResult.rounds) {
-            createRound(round);
+            Button player1Result = new Button();
+            playerOne.getChildren().add(player1Result);
+
+            Button player2Result = new Button();
+            playerTwo.getChildren().add(player2Result);
+            player1Result.setMinSize(60,30);
+            player2Result.setMinSize(60,30);
+            roundButton.setMinSize(60,30);
+
+            roundButton.setPrefWidth(80);
+            player1Result.setPrefWidth(80);
+            player2Result.setPrefWidth(80);
         }
-        createTotalResultButton(quizResult);
+
+        createTotalResultButton(quiz );
+
     }
 
     public Button getContinueB() {

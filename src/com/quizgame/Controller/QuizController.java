@@ -124,10 +124,10 @@ public class QuizController {
             this.roundCounter++;
             System.out.println("Done!");
             this.questionCounter = 0;
-            quizClient.getQuizResult().player1Name = quizClient.getStartScene().getTextField().getText();
+            System.out.println("Storlekn på listan: " + quizClient.getQuizResult().rounds.size() + " och countern är på: " + counter);
             Platform.runLater(() -> quizClient.getServerConnection().sendRoundComplete(quizCounter));
+            quizClient.getQuizResult().player1Name = quizClient.getStartScene().getTextField().getText();
             quizClient.getQuizResult().rounds.get(counter).player1Score = quizCounter;
-            System.out.println(quizClient.getQuizResult().rounds.size());
             counter++;
             if (counter == prop.getRoundsPerGame()) {
                 quizClient.getResultScene().getContinueB().setText("quit");

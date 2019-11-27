@@ -3,12 +3,16 @@ package com.quizgame.client;
 import com.quizgame.Controller.*;
 import com.quizgame.QuizItem;
 import com.quizgame.QuizResult;
+import com.quizgame.Round;
+import com.quizgame.properties.ServerPropertiesReader;
 import com.quizgame.view.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuizClient extends Application {
@@ -56,7 +60,7 @@ public class QuizClient extends Application {
         quizController = new QuizController(quizView,this);
         quizController.start();
 
-        resultSceneController = new ResultSceneController(resultScene, this);
+        resultSceneController = new ResultSceneController(resultScene, this, quizResult);
         resultSceneController.start();
 
         serverConnection = new ServerConnection(this);
@@ -67,9 +71,6 @@ public class QuizClient extends Application {
             stage.close();
             System.exit(0);
         });
-
-
-        goToResultScene();
 
         stage.show();
     }
@@ -84,6 +85,10 @@ public class QuizClient extends Application {
         return quizController;
     }
 
+    public ResultSceneController getResultSceneController() {
+        return resultSceneController;
+    }
+
     public void goToQuizScene(List<QuizItem> questions) {
         scene.setRoot(quizView.getDesignLayout());
         quizController.loadQuestions(questions);
@@ -95,6 +100,7 @@ public class QuizClient extends Application {
     }
 
     public void goToResultScene(){
+        resultScene.showResult(quizResult);
         scene.setRoot(resultScene.getDesignLayout());
     }
 

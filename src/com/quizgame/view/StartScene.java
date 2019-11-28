@@ -1,5 +1,6 @@
 package com.quizgame.view;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,9 +17,12 @@ public class StartScene {
     private TextField textField = new TextField();
     private Button newGameButton = new Button("New Game");
 
+
+
     public void setUp() {
         designLayout.getChildren().add(quizkampen);
         designLayout.getChildren().add(nameArea);
+
         nameArea.getChildren().add(name);
         nameArea.getChildren().add(textField);
 
@@ -39,6 +43,7 @@ public class StartScene {
         newGameButton.setPrefSize(88,30);
         buttonLayout.setId("buttonLayout");
         newGameButton.setMaxWidth(Double.MAX_VALUE);
+
 
     }
 

@@ -11,7 +11,6 @@ import java.util.List;
 public class ChoosingSubjectSceneController {
     private ChoosingSubjectScene choosingSubjectScene;
     private QuizClient quizClient;
-    private String chosenCategory;
 
     public void showSubjects(List<String> subjectsList){
         choosingSubjectScene.getSubjectButton1().setText(subjectsList.get(0));
@@ -40,13 +39,10 @@ public class ChoosingSubjectSceneController {
 
         quizClient.goToWaitingScene();
     }
-
-
-    public String getCategory(){
-        return chosenCategory;
-    }
-
     public void start() {
         choosingSubjectScene.setUp();
+        choosingSubjectScene.getChat().setOnAction(l -> {
+            quizClient.getChatScene().getSecondStage().show();
+        });
     }
 }

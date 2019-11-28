@@ -13,6 +13,9 @@ public class WaitingSceneController {
 
     public void start(){
         waitingScene.setUp();
+        waitingScene.getChat().setOnAction(l -> {
+            quizClient.getChatScene().getSecondStage().show();
+        });
     }
 
 }

@@ -8,7 +8,7 @@ public class QuizItem implements Serializable{
     String subject;
     String question;
     String rightAnswer;
-    List<String> allAnswers = new ArrayList<>();
+    List<String> allAnswers;
 
     public QuizItem(String subject, String question, List<String> allAnswers,String rightAnswer) {
         this.subject = subject;

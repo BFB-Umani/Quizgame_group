@@ -16,6 +16,8 @@ public class QuizView {
     private Button answerButton3 = new Button();
     private Button answerButton4 = new Button();
     private Button continueButton = new Button("Continue");
+    private Button chat = new Button("chat");
+
 
 
     public void setUp(){
@@ -85,6 +87,8 @@ public class QuizView {
         continueButton.setMinSize(100,50);
         continueLayout.setPadding(new Insets(20));
 
+        designLayout.getChildren().add(chat);
+
 //        questionLabel.setVisible(false);
 //        answerButton1.setVisible(false);
 //        answerButton2.setVisible(false);
@@ -94,6 +98,9 @@ public class QuizView {
 
     public VBox getDesignLayout() {
         return designLayout;
+    }
+    public Button getChat() {
+        return chat;
     }
 
     public Label getQuestionLabel() {

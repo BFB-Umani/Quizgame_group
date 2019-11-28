@@ -17,6 +17,12 @@ public class ChoosingSubjectScene {
     private Button subjectButton2 = new Button();
     private Button subjectButton3 = new Button();
     private DataBaseUpdated dataBaseUpdated = new DataBaseUpdated();
+    private Button chat = new Button("chat");
+
+
+    public Button getChat() {
+        return chat;
+    }
 
     public void setUp() {
         designLayout.getChildren().add(chooseSubject);
@@ -36,6 +42,8 @@ public class ChoosingSubjectScene {
         subjectButton1.setPrefSize(150, 30);
         subjectButton2.setPrefSize(150, 30);
         subjectButton3.setPrefSize(150, 30);
+
+        designLayout.getChildren().add(chat);
 
 
 

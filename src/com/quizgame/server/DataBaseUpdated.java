@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 
 public class DataBaseUpdated {
     private List<QuizItem> quizItems = new ArrayList<>();
-    private QuizItem quizItem;
 
     public DataBaseUpdated() {
         loadQuestionsFromFile();
@@ -50,29 +49,6 @@ public class DataBaseUpdated {
         return subjectList;
     }
 
-    public List getQuestionsList() {
-        List<String> questionsList = new ArrayList<>();
-        for (int i = 0; i < quizItems.size(); i++) {
-            questionsList.add(quizItems.get(i).getQuestion());
-        }
-        return questionsList;
-    }
-
-    public List getAllAnswerList() {
-        List<String> allAnswerList = new ArrayList<>();
-        for (int i = 0; i < quizItems.size(); i++) {
-            allAnswerList.add(quizItems.get(i).getAllAnswers().toString());
-        }
-        return allAnswerList;
-    }
-
-    public List getRightAnswerList() {
-        List<String> rightAnswersList = new ArrayList<>();
-        for (int i = 0; i < quizItems.size(); i++) {
-            rightAnswersList.add(quizItems.get(i).getRightAnswer());
-        }
-        return rightAnswersList;
-    }
 
     public List<QuizItem> getItemsBySubject(String subjectInput) {
         List <QuizItem> questions = quizItems.stream().filter(q -> q.getSubject().equals(subjectInput)).collect(Collectors.toList());
@@ -80,9 +56,5 @@ public class DataBaseUpdated {
         return questions;
     }
 
-    public QuizItem getARandomQuizItemBySubject(String subject){
-        List<QuizItem> itemsBySubject = getItemsBySubject(subject);
-         Collections.shuffle(itemsBySubject);
-         return itemsBySubject.get(0);
-    }
+
 }

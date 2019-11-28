@@ -1,7 +1,6 @@
 package com.quizgame.server;
 
 import com.quizgame.*;
-import com.quizgame.properties.ServerPropertiesReader;
 
 import java.io.*;
 import java.net.Socket;
@@ -20,16 +19,13 @@ public class Player extends Thread {
     private int round = 0;
     int testCheckRound = 0;
     int testScoreOut = 0;
-    private         Map<String, Integer> stats = new HashMap<>();
+    private Map<String, Integer> stats = new HashMap<>();
     private boolean roundComplete = false;
-    private int stupidCounter = 0;
-
 
     public Player(Socket socketToClient, String username) {
 
         this.socketToClient = socketToClient;
         this.username = username;
-
         try {
             out = new ObjectOutputStream(socketToClient.getOutputStream());
             in = new ObjectInputStream(socketToClient.getInputStream());
@@ -49,34 +45,33 @@ public class Player extends Thread {
                     SetNameObject setNameObject = (SetNameObject) object;
                     setPlayerName(setNameObject.text);
                     game.playerReady();
-                }
-                else if(object instanceof ChosenSubjectObject){
+                } else if (object instanceof ChosenSubjectObject) {
                     ChosenSubjectObject chosenSubjectObject = (ChosenSubjectObject) object;
                     questions = game.getQuestionsBySubjects(chosenSubjectObject.subject);
                     sendQuestionsToClient(questions);
-                }
-                else if(object instanceof Integer) {
+                } else if (object instanceof Integer) {
                     setRound();
                     sendScore((Integer) object);
-                    System.out.println(username + " " + getRound());
-                    System.out.println(opponent.username + " " + opponent.getRound());
-                    if(getRound() == opponent.getRound()) {
-                        System.out.println("both at round " + ++testCheckRound);
-//                        game.anotherSubject();
-                    }
-                    else {
+                    if (getRound() == opponent.getRound()) {
+                    } else {
                         sendOpponentQuestion(questions);
                     }
-                }
-                else if(object instanceof Boolean) {
+                } else if (object instanceof Boolean) {
                     this.roundComplete = (boolean) object;
-                    if(roundComplete && opponent.roundComplete) {
+                    if (roundComplete && opponent.roundComplete) {
                         game.anotherSubject();
-                        roundComplete = false; opponent.roundComplete = false;
+                        roundComplete = false;
+                        opponent.roundComplete = false;
                     }
                 }
+                else if(object instanceof String) {
+                    String msg = username + ": " + object;
+                    opponent.out.writeObject(msg);
+                    opponent.out.flush();
+                }
             } catch (ClassNotFoundException | IOException e) {
-                e.printStackTrace();
+                System.out.println("player " + username + " disconnected");
+                break;
             }
         }
     }
@@ -99,7 +94,6 @@ public class Player extends Thread {
         chooseSubjectObject.subjects = subjectList;
         try {
             out.writeObject(chooseSubjectObject);
-            System.out.println("sending subjects: " + username);
             out.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -107,47 +101,20 @@ public class Player extends Thread {
 
     }
 
-//    public void sendBothResultScreen() {
-//        try {
-//            opponent.out.writeObject(stats);
-//            System.out.println("sending boolean: " + username);
-//            opponent.out.flush();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
     public void sendScore(int points) {
         stats.put(username, points);
-        stats.forEach((k, v) -> System.out.println("Namn: " + k + " Poäng:" + v));
         testScoreOut++;
         System.out.println(testScoreOut);
         try {
-            if(testScoreOut == 1 && opponent.testScoreOut == 1) {
-                stupidCounter++;
-                System.out.println("Stats storlek: " + stats.size());
-                if(stupidCounter == 1) {
-                    out.reset();
-                    out.writeObject(opponent.stats);
-                    opponent.out.reset();
-                    opponent.out.writeObject(stats);
-                    System.out.println("sending map: " + username);
-                    opponent.out.flush();
-                    out.flush();
-                    testScoreOut = 0;
-                    opponent.testScoreOut = 0;
-                }
-                else if(stupidCounter == 2) {
-                    out.reset();
-                    out.writeObject(opponent.stats);
-                    opponent.out.reset();
-                    opponent.out.writeObject(stats);
-                    System.out.println("sending map: " + username);
-                    opponent.out.flush();
-                    out.flush();
-                    testScoreOut = 0;
-                    opponent.testScoreOut = 0;
-                }
+            if (testScoreOut == 1 && opponent.testScoreOut == 1) {
+                out.reset();
+                out.writeObject(opponent.stats);
+                opponent.out.reset();
+                opponent.out.writeObject(stats);
+                opponent.out.flush();
+                out.flush();
+                testScoreOut = 0;
+                opponent.testScoreOut = 0;
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -155,12 +122,11 @@ public class Player extends Thread {
 
     }
 
-    public void sendQuestionsToClient(List<QuizItem> questions){
+    public void sendQuestionsToClient(List<QuizItem> questions) {
         QuestionsBySubjectObject questionsBySubjectObject = new QuestionsBySubjectObject();
         questionsBySubjectObject.questions = questions;
         try {
             out.writeObject(questionsBySubjectObject);
-            System.out.println("sending questions " + username);
             out.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -174,14 +140,12 @@ public class Player extends Thread {
         questionsBySubjectObject.questions = questions;
         try {
             opponent.out.writeObject(questionsBySubjectObject);
-            System.out.println("sending questions " + opponent.username);
             opponent.out.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
-
 
     public int getRound() {
         return round;

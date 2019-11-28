@@ -9,6 +9,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,17 +17,13 @@ import java.util.List;
 public class QuizController {
     private int questionCounter = 0;
     private int answeredState = 0;
-    private int roundCounter = 0;
-    ServerPropertiesReader prop = new ServerPropertiesReader(); // tillfälligt
-    private int totalQuestion = prop.getQuestionsPerRound(); // tillfälligt
-    private int totalRound = prop.getRoundsPerGame(); // tillfälligt
     private QuizView quizView;
     private QuizClient quizClient;
     private List<QuizItem> questions;
     private QuizItem currentQuestion;
     private int quizCounter = 0;
     private int counter = 0;
-    private int totalPoints = 0;
+    private ServerPropertiesReader prop = new ServerPropertiesReader();
 
     public void setQuizCounter() {
         this.quizCounter = 0;
@@ -37,11 +34,6 @@ public class QuizController {
         this.quizClient = quizClient;
     }
 
-    public void loadGameInfo(int [] roundInfo) {
-        this.totalQuestion = roundInfo[0];
-        this.totalRound = roundInfo[1];
-    }
-
     public void start() {
         quizView.setUp();
         quizView.getAnswerButton1().setOnAction(this::handle);
@@ -50,6 +42,9 @@ public class QuizController {
         quizView.getAnswerButton4().setOnAction(this::handle);
 
         quizView.getContinueButton().setOnAction(this::clickedContinueButton);
+        quizView.getChat().setOnAction(l -> {
+            quizClient.getChatScene().getSecondStage().show();
+        });
     }
 
     public void loadQuestions(List<QuizItem> questions) {
@@ -60,9 +55,7 @@ public class QuizController {
 
     }
 
-
-
-    private void clickedContinueButton(ActionEvent actionEvent){
+    private void clickedContinueButton(ActionEvent actionEvent) {
         nextQuestion();
     }
 
@@ -76,8 +69,6 @@ public class QuizController {
 
         List<String> answerList;
         answerList = item.getAllAnswers();
-
-
         Collections.shuffle(answerList);
 
         quizView.getQuestionLabel().setMaxWidth(Double.MAX_VALUE);
@@ -87,11 +78,7 @@ public class QuizController {
         quizView.getAnswerButton2().setText(answerList.get(1));
         quizView.getAnswerButton3().setText(answerList.get(2));
         quizView.getAnswerButton4().setText(answerList.get(3));
-
         quizView.getContinueButton().setVisible(false);
-
-
-
     }
 
     private void clickAnswerButton(Button button) {
@@ -121,29 +108,14 @@ public class QuizController {
 
     void nextQuestion() {
         this.questionCounter++;
-        if(questionCounter >= totalQuestion) {
-            this.roundCounter++;
-            System.out.println("Done!");
+        if (questionCounter >= prop.getQuestionsPerRound()) {
             this.questionCounter = 0;
-            counter++;
             Platform.runLater(() -> quizClient.getServerConnection().sendRoundComplete(quizCounter));
-            if(counter == 1) {
-                totalPoints = quizCounter;
-                quizClient.getResultScene().getPlayerOneText().setText(quizClient.getStartScene().getTextField().getText());
-                quizClient.getResultScene().getRoundOneResult1().setText(quizCounter + "/" + prop.getQuestionsPerRound());
-            }
-            else if(counter == 2) {
-                totalPoints += quizCounter;
-                quizClient.getResultScene().getRoundTwoResult1().setText(quizCounter + "/" + prop.getQuestionsPerRound());
-            }
-            if(counter == prop.getRoundsPerGame()) {
-                quizClient.getResultScene().getContinueB().setVisible(false);
-                quizClient.getResultScene().getTotalResult1().setText(String.valueOf(totalPoints));
-            }
-            changeToWaiting();
-            if(roundCounter >= totalRound*2) {
-                System.out.println("Rounds done!");
-            }
+            quizClient.getResultScene().getPlayerOneText().setText(quizClient.getStartScene().getTextField().getText());
+            quizClient.getResultScene().getResultButton().get(counter).getPlayer1Score().setText(String.valueOf(quizCounter));
+            counter++;
+            Platform.runLater(this::changeToWaiting);
+
         }
         quizView.getAnswerButton1().setId(".button");
         quizView.getAnswerButton2().setId(".button");
@@ -153,7 +125,6 @@ public class QuizController {
         showQuestion(currentQuestion);
         answeredState = 0;
 
-        //Round och Question counters
     }
 
     private Button getRightAnswerButton() {
@@ -174,6 +145,7 @@ public class QuizController {
     public void changeToWaiting() {
         quizClient.goToWaitingScene();
     }
+
 
 
 }

@@ -35,10 +35,9 @@ public class Game {
         numberOfPlayerReady++;
 
         if(numberOfPlayerReady == 2){
-            Collections.shuffle(database.getSubjectList());
-            threeSubjects.add(database.getSubjectList().get(0));
-            threeSubjects.add(database.getSubjectList().get(1));
-            threeSubjects.add(database.getSubjectList().get(2));
+            threeSubjects = database.getSubjectList();
+            Collections.shuffle(threeSubjects);
+            threeSubjects.remove(3);
             player1.sendSubjectsToClient(threeSubjects);
         }
     }
@@ -49,7 +48,15 @@ public class Game {
         threeSubjects.add(database.getSubjectList().get(0));
         threeSubjects.add(database.getSubjectList().get(1));
         threeSubjects.add(database.getSubjectList().get(2));
-        player2.sendSubjectsToClient(threeSubjects);
+        if((player1.testCheckRound + player2.testCheckRound) % 2 != 0) {
+            System.out.println("im in player1");
+            player2.sendSubjectsToClient(threeSubjects);
+        }
+        else if((player1.testCheckRound + player2.testCheckRound) % 2 == 0) {
+            System.out.println("im in player2");
+            player1.sendSubjectsToClient(threeSubjects);
+        }
+
     }
     public List<QuizItem> getQuestionsBySubjects(String subject){
         return database.getItemsBySubject(subject);

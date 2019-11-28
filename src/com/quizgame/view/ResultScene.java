@@ -25,6 +25,7 @@ public class ResultScene {
     private Button roundTwoResult2 = new Button("");
     private Button totalResult1 = new Button("");
     private Button totalResult2 = new Button("");
+    private Button continueB = new Button("Continue");
 
     public Label getPlayerOneText() {
         return playerOneText;
@@ -75,6 +76,7 @@ public class ResultScene {
         playerTwo.getChildren().add(roundOneResult2);
         playerTwo.getChildren().add(roundTwoResult2);
         playerTwo.getChildren().add(totalResult2);
+        playerOne.getChildren().add(getContinueB());
 
         designLayout.setId("background");
         resultText.setId("resultText");
@@ -83,6 +85,7 @@ public class ResultScene {
         total.setId("total");
         playerOne.setId("playerOne");
         playerTwo.setId("playerTwo");
+        continueB.setId("button");
         resultText.setPrefSize(480,100);
         resultText.setPadding(new Insets(40));
         resultText.setAlignment(Pos.CENTER);
@@ -116,7 +119,9 @@ public class ResultScene {
         roundTwoResult1.setMinSize(60,30);
         roundTwoResult2.setMinSize(60,30);
         totalResult2.setMinSize(60,30);
-
+        continueB.setMinSize(120,60);
+        continueB.setMaxSize(120,60);
+        continueB.setPadding(new Insets(0 ,0,0,0));
 
 
 
@@ -125,5 +130,9 @@ public class ResultScene {
 
     public VBox getDesignLayout() {
         return designLayout;
+    }
+
+    public Button getContinueB() {
+        return continueB;
     }
 }

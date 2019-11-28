@@ -75,8 +75,9 @@ public class DataBaseUpdated {
     }
 
     public List<QuizItem> getItemsBySubject(String subjectInput) {
-        return quizItems.stream().filter(q -> q.getSubject().equals(subjectInput)).collect(Collectors.toList());
-
+        List <QuizItem> questions = quizItems.stream().filter(q -> q.getSubject().equals(subjectInput)).collect(Collectors.toList());
+        Collections.shuffle(questions);
+        return questions;
     }
 
     public QuizItem getARandomQuizItemBySubject(String subject){

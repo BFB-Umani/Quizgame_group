@@ -24,7 +24,13 @@ public class QuizController {
     private QuizClient quizClient;
     private List<QuizItem> questions;
     private QuizItem currentQuestion;
-    private int quizCounter;
+    private int quizCounter = 0;
+    private int counter = 0;
+    private int totalPoints = 0;
+
+    public void setQuizCounter() {
+        this.quizCounter = 0;
+    }
 
     public QuizController(QuizView quizView, QuizClient quizClient) {
         this.quizView = quizView;
@@ -99,7 +105,7 @@ public class QuizController {
     }
 
     private void clickedRightAnswerButton(Button button) {
-        quizView.getScoreCounter().setText("Score: " + String.valueOf(++quizCounter));
+        quizView.getScoreCounter().setText("Score: " + ++quizCounter);
         button.setId("right");
         answeredState = 1;
     }
@@ -113,15 +119,27 @@ public class QuizController {
         answeredState = 1;
     }
 
-    void nextQuestion() {  //nu går vidare genom alla fyra item och sen crashar för Index 4 out of bounds(så klart!)
+    void nextQuestion() {
         this.questionCounter++;
         if(questionCounter >= totalQuestion) {
             this.roundCounter++;
             System.out.println("Done!");
             this.questionCounter = 0;
+            counter++;
             Platform.runLater(() -> quizClient.getServerConnection().sendRoundComplete(quizCounter));
-            quizClient.getResultScene().getPlayerOneText().setText(quizClient.getStartScene().getTextField().getText());
-            quizClient.getResultScene().getRoundOneResult1().setText(quizCounter+"/x");
+            if(counter == 1) {
+                totalPoints = quizCounter;
+                quizClient.getResultScene().getPlayerOneText().setText(quizClient.getStartScene().getTextField().getText());
+                quizClient.getResultScene().getRoundOneResult1().setText(quizCounter + "/" + prop.getQuestionsPerRound());
+            }
+            else if(counter == 2) {
+                totalPoints += quizCounter;
+                quizClient.getResultScene().getRoundTwoResult1().setText(quizCounter + "/" + prop.getQuestionsPerRound());
+            }
+            if(counter == prop.getRoundsPerGame()) {
+                quizClient.getResultScene().getContinueB().setVisible(false);
+                quizClient.getResultScene().getTotalResult1().setText(String.valueOf(totalPoints));
+            }
             changeToWaiting();
             if(roundCounter >= totalRound*2) {
                 System.out.println("Rounds done!");
@@ -151,10 +169,6 @@ public class QuizController {
         } else {
             return null;
         }
-    }
-
-    public void changeToResult() {
-        quizClient.goToResultScene();
     }
 
     public void changeToWaiting() {

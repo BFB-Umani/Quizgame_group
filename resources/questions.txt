@@ -1,12 +1,40 @@
-Sport | Where will Olympic Game 2020 be held? | Tokyo*Beijing*New York*Stockholm | Tokyo
-Sport | How many players has a hockey team got on the ice? | 8*9*6*7 | 6
-Sport | Is Jessie the best? | no*no*no*yes | yes
-Animal | Which animal does not belong in this group? | Fish*Dog*Cat*Pig | Fish
-Animal | A snail can sleep for how many years? | 1*2*3*4 | 3
-Animal | What animal is Jessieboi | cat*dog*fish*human | dog
-Color | Which color does not belong in this group? | Black*Yellow*Red*Orange | Black
-Color | What color is the M in McDonald's? | Red*Orange*Green*Yellow | Yellow
-Color | What color is Jessie | Red*Dark-brown*Light-brown*Brown | Light-brown
-Food | Which vitamin is the only one that you will not find in an egg? | Vitamin A*Vitamin B*Vitamin C*Vitamin D | Vitamin C
-Food | Which food contains the least sugar? | Apple*Chocolate*Condensed milk*Juice | Apple
-Food | Which human contains the most sugar? | Linus*Jessie*Mario*Kening | Jessie
+GEOGRAFI | Var ligger Taj Mahal? | Indien*Kina*Iran*Turkiet | Indien
+GEOGRAFI | Hur lång är ekvatorn? | 4 000 mil*40 000 mil*400 000 mil*400 mil | 4 000 mil
+GEOGRAFI | I vilket land ligger Kilimanjaro? | Tanzania*Uganda*Kenya*Ghana | Tanzania
+GEOGRAFI | Till vilken stad var Titanic på väg när hon gick på ett isberg och sjönk? | New York*Liverpool*Boston*Philadelphia | New York
+GEOGRAFI | Vad heter Perus huvudstad? | Lima*Santa Cruz*Bogota*Sao Paulo | Lima
+GEOGRAFI | I vilket land är Ulan Bator huvudstad? | Mongoliet*Uzbekistan*Kazakhstan*Pakistan | Mongoliet
+GEOGRAFI | På vilken ö ligger vulkanen Teide? | Teneriffa*Mallorca*Kreta*Santorini | Teneriffa
+GEOGRAFI | Vilken stad går under smeknamnet \"Mellanöstern Paris\"? | Beirut*Bagdad*Jerusalem*Damaskus | Beirut
+GEOGRAFI | Vad heter världen högsta byggnad (2018)? | Burj Khalifa*Shanghai Tower*One World Trade Center*Tokyo Skytree | Burj Khalifa
+GEOGRAFI | I vilken italiensk stad sägs pizzan var född? | Neapel*Rom*Pisa*Genoa | Neapel
+FOTBOLL | Vilket nummer hade David Beckham i Manchester United? | 7*9*10*23 | 7
+FOTBOLL | Vem var det som efterträdde Sven Göran Eriksson (Svennis) som Englands förbundskapten? | Steve McClaren*Kevin Keegan*Fabio Capello*Roy Hodgson | Steve McClaren
+FOTBOLL | Vem vann skytteligan i VM 2002? | Ronaldo*Rivaldo*Miroslav Klose*Christian Vieri | Ronaldo
+FOTBOLL | Vilken italiensk fotbollsklubb har forne storspelaren Teddy Lucic spelat för? | Bologona*Sampdoria*Torino*Parma | Bologona
+FOTBOLL | Från vilken engelsk stad kommer Tottenham? | London*Liverpool*Birmingham*Manchester | London
+FOTBOLL | Från vilken stad kommer Elfsborg? | Borås*Jönköping*Halmstad*Karlskrona | Borås
+FOTBOLL | Vad heter Chelseas hemmaarena? | Stamford Bridge*Emirates Stadium*St James' Park*White Hart Lane | Stamford Bridge
+FOTBOLL | Vilken klubb spelade Zinedine Zidane för innan han gick till Juventus? | Bordeaux*Real Madrid*Lyon*Marseille | Bordeaux
+FOTBOLL | Vilken nation tog hem VM-guldet 2002? | Brasilien*Tyskland*Italien*Spanien | Brasilien
+FOTBOLL | Vem spottade på Rudi Völler i matchen Holland mot Tyskland i VM 1990? | Frank Rijkaard*Ruud Gullit*Marco Van Basten*Ronald Koeman | Frank Rijkaard
+HISTORIA | Gustav Vasa väljs till kung? | 1523*1533*1543*1556 | 1523
+HISTORIA | Statsminister Olof Palme mördas? | 1986*1982*1984*1988 | 1986
+HISTORIA | Stockholms blodbad där Kristian Tyrann avrättar hundra människor på Stortorget? | 1520*1510*1459*1420 | 1520
+HISTORIA | Kung Gustav III mördas på en operamaskerad i Stockholm? | 1792*1654*1667*1772 | 1792
+HISTORIA | I Ådalen skjuts, under våldsamma kravaller, 5 personer ihjäl av militär? | 1931*1929*1933*1939 | 1931
+HISTORIA | Karl XII dör under en misslyckad belägring av Fredrikshald i Norge? | 1718*1728*1732*1734 | 1718
+HISTORIA | Sverige folkomröstar om inträde i Eu? | 1994*1993*1995*1996 | 1994
+HISTORIA | Kvinnor i Sverige får allmän rösträtt? | 1919*1909*1939*1912 | 1919
+HISTORIA | Heliga Birgitta helgon­förklaras av påven? | 1391*1423*1549*1756 | 1391
+HISTORIA | Sovjetiska ubåten U 137 går på grund i Karlskronas skärgård? | 1981*1977*1969*1983 | 1981
+FILM | Vad hette Leonardo DiCaprios rollkaraktär i filmen Titanic? | Jack Dawson*Jay Gatsby*Rick Dawson*Caledon Hockley | Jack Dawson
+FILM | Vilken skådespelare spelade James Bond i filmen Tomorrow Never Dies? | Pierce Brosnan*Daniel Craig*Timothy Dalton*Roger Moore | Pierce Brosnan
+FILM | Vad var den engelska titeln på första filmen i Tolkiens Sagan om ringen-trilogin? | The Fellowship of The Ring*The Lords Of The Ring*The War Of The Ring*The Journey To Mordor | The Fellowship of The Ring
+FILM | Geena Davis spelade Thelma i filmen Thelma & Louise från 1991. Vilken skådis spelade Louise? | Susan Sarandon*Meryl Streep*Julia Robert*Meg Ryan | Susan Sarandon
+FILM | Meryl Streep spelar hemmafrun Francesca Johnson och förälskar sig i en fotograf i denna film? | Broarna i madison County*Mamma Mia!*The Deer Hunter*Djävulen Bär Prada | Broarna i madison County
+FILM | Vilket år vann filmen Slumdog Millionaire Oscar för bästa film? | 2008*2010*2009*2012 | 2008
+FILM | Vad heter skådespelerskan i La la land som vann Oscar för bästa kvinnliga huvudroll? | Emma Stone*Natalie Portman*Julianne Moore*Brie Larson | Emma Stone
+FILM | Från vilken film är följande klassiska citat? \"Why so serious?\"? | The Dark Knight*De misstänkta*Gudfadern*Titanic | The Dark Knight
+FILM | Vilken bilmodell körde Simon Templar i filmen Helgonet från 1962? | Volvo P1800*Pontiacs TRANS AM*Lotus Espirit S1*Ford Mustang GT | Volvo P1800
+FILM | Vem skrev boken Hundraåringen som klev ut genom fönstret och försvann som sedan blev film 2013? | Jonas Jonasson*Jonas Johansson*Johan Jonasson*Johan Johansson | Jonas Jonasson

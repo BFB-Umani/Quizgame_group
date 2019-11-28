@@ -76,6 +76,19 @@ public class ServerConnection extends Thread {
         }
     }
 
+    public void sendChat(String msg) {
+        try {
+            out.writeObject(msg);
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public SetNameObject getSetNameObject() {
+        return setNameObject;
+    }
+
     @Override
     public void run() {
         while (true) {
@@ -84,6 +97,7 @@ public class ServerConnection extends Thread {
                 Object object = in.readObject();
                 if (object instanceof ChooseSubjectObject) {
                     threeSubjects = ((ChooseSubjectObject) object).subjects;
+                    System.out.println("im here");
                     Platform.runLater(() -> quizClient.goToChoseSubjectScene(threeSubjects));
                 } else if (object instanceof QuestionsBySubjectObject) {
                     questions = ((QuestionsBySubjectObject) object).questions;
@@ -104,7 +118,7 @@ public class ServerConnection extends Thread {
                     Platform.runLater(() -> quizClient.goToResultScene());
 
                 } else if (object instanceof String) {
-                    Platform.runLater(() -> quizClient.goToResultScene());
+                    Platform.runLater(() -> quizClient.getChatScene().getDisplayAllMessages().appendText( (String) object + "\n"));
                 }
             } catch (ClassNotFoundException | IOException e) {
                 e.printStackTrace();

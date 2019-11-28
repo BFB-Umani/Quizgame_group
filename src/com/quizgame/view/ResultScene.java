@@ -22,19 +22,13 @@ public class ResultScene {
     private VBox playerTwo = new VBox();
     private VBox cButton = new VBox();
 
-    public HBox getPlayerLayout() {
-        return playerLayout;
-    }
-
-    public VBox getResultLayout() {
-        return resultLayout;
-    }
-
     private Label playerOneText = new Label();
     private Label playerTwoText = new Label();
 
     private Button continueB = new Button("Continue");
     private List<Round> resultButton;
+    private Button chat = new Button("chat");
+
 
     public List<Round> getResultButton() {
         return resultButton;
@@ -77,9 +71,10 @@ public class ResultScene {
         continueB.setMaxSize(120,60);
         continueB.setId("button");
 
-
         playerOne.setSpacing(40);
         playerTwo.setSpacing(40);
+
+        designLayout.getChildren().add(chat);
     }
 
     public Label getPlayerOneText() {
@@ -158,5 +153,8 @@ public class ResultScene {
 
     public VBox getDesignLayout() {
         return designLayout;
+    }
+    public Button getChat() {
+        return chat;
     }
 }

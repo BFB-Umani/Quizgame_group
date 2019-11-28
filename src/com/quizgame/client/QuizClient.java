@@ -22,6 +22,8 @@ public class QuizClient extends Application {
     private ChoosingSubjectSceneController choosingSubjectSceneController;
     private StartScene startScene;
     private ResultSceneController resultSceneController;
+    private ChatController chatController;
+    private ChatScene chatScene;
 
     public QuizClient() {    //NO TOUCH THIS!!!!
     }
@@ -37,6 +39,7 @@ public class QuizClient extends Application {
         choosingSubjectScene = new ChoosingSubjectScene();
         waitingScene = new WaitingScene();
         resultScene = new ResultScene();
+        chatScene = new ChatScene();
 
         scene = new Scene(startScene.getDesignLayout(),480,620);
         scene.getStylesheets().add(QuizClient.class.getResource("Style.css").toExternalForm());
@@ -62,6 +65,9 @@ public class QuizClient extends Application {
         serverConnection.connect();
         serverConnection.start();
 
+        chatController = new ChatController(chatScene, this);
+        chatController.start();
+
         stage.setOnCloseRequest(t -> {
             stage.close();
             System.exit(0);
@@ -73,7 +79,6 @@ public class QuizClient extends Application {
     public void goToChoseSubjectScene(List<String> subjectsList){
         scene.setRoot(choosingSubjectScene.getDesignLayout());
         choosingSubjectSceneController.showSubjects(subjectsList);
-
     }
 
     public QuizController getQuizController() {
@@ -104,6 +109,14 @@ public class QuizClient extends Application {
 
     public ResultScene getResultScene() {
         return resultScene;
+    }
+
+    public ChatController getChatController() {
+        return chatController;
+    }
+
+    public ChatScene getChatScene() {
+        return chatScene;
     }
 
     public static void main(String[] args) {

@@ -25,6 +25,7 @@ public class StartSceneController {
                 changeToWaitingScene();
             }
         });
+
     }
 
     public String getInput() {

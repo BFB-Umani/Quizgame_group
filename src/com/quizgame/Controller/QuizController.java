@@ -42,6 +42,9 @@ public class QuizController {
         quizView.getAnswerButton4().setOnAction(this::handle);
 
         quizView.getContinueButton().setOnAction(this::clickedContinueButton);
+        quizView.getChat().setOnAction(l -> {
+            quizClient.getChatScene().getSecondStage().show();
+        });
     }
 
     public void loadQuestions(List<QuizItem> questions) {
@@ -142,6 +145,7 @@ public class QuizController {
     public void changeToWaiting() {
         quizClient.goToWaitingScene();
     }
+
 
 
 }

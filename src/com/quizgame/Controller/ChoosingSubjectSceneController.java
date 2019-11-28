@@ -41,5 +41,8 @@ public class ChoosingSubjectSceneController {
     }
     public void start() {
         choosingSubjectScene.setUp();
+        choosingSubjectScene.getChat().setOnAction(l -> {
+            quizClient.getChatScene().getSecondStage().show();
+        });
     }
 }

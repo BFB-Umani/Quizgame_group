@@ -25,6 +25,9 @@ public class ResultSceneController {
                 System.exit(0);
             }
         });
+        resultScene.getChat().setOnAction(l -> {
+            quizClient.getChatScene().getSecondStage().show();
+        });
     }
 
 

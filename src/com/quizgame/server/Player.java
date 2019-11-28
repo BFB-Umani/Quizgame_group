@@ -64,6 +64,11 @@ public class Player extends Thread {
                         opponent.roundComplete = false;
                     }
                 }
+                else if(object instanceof String) {
+                    String msg = username + ": " + object;
+                    opponent.out.writeObject(msg);
+                    opponent.out.flush();
+                }
             } catch (ClassNotFoundException | IOException e) {
                 System.out.println("player " + username + " disconnected");
                 break;
